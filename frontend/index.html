@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dog Gear Recommender</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- 🌐 NAVBAR -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-xl font-bold text-blue-600">DogGearAI</a>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="how-it-works.html" class="hover:text-blue-600">How it works</a>
+          <a href="demo.html" class="hover:text-blue-600">Demo</a>
+          <a href="features.html" class="hover:text-blue-600">Features</a>
+          <a href="why-us.html" class="hover:text-blue-600">Why our company matters</a>
+          <a href="about.html" class="hover:text-blue-600">About us</a>
+          <a href="team.html" class="hover:text-blue-600">Team</a>
+        </div>
+        <div class="hidden md:flex">
+          <a href="#launch" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Launch App</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🐶 Hero Section -->
+  <section class="py-20 px-6 text-center bg-gradient-to-r from-blue-50 to-white">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Find the Perfect Collar, Harness, or Leash</h1>
+    <p class="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">Upload a photo of your dog, enter its behavior details, and get a personalized recommendation in seconds.</p>
+
+    <!-- Form -->
+    <form id="gearForm" class="bg-white rounded-lg shadow-lg max-w-xl mx-auto p-8 space-y-4">
+      <div>
+        <label class="block text-left font-semibold mb-1">Upload a Picture:</label>
+        <input type="file" accept="image/*" class="w-full border px-4 py-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block text-left font-semibold mb-1">Breed:</label>
+        <input type="text" name="breed" class="w-full border px-4 py-2 rounded" placeholder="e.g., Golden Retriever" />
+      </div>
+
+      <div>
+        <label class="block text-left font-semibold mb-1">Size:</label>
+        <select name="size" class="w-full border px-4 py-2 rounded">
+          <option>Small</option>
+          <option>Medium</option>
+          <option>Large</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-left font-semibold mb-1">Activity Level:</label>
+        <select name="activity_level" class="w-full border px-4 py-2 rounded">
+          <option>Low</option>
+          <option>Moderate</option>
+          <option>High</option>
+        </select>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Get Recommendation</button>
+    </form>
+  </section>
+
+  <!-- 💡 Feature Sections -->
+  <section id="how" class="py-16 px-8 bg-gray-50">
+    <h2 class="text-2xl font-bold mb-4">How it works</h2>
+    <p class="text-gray-600 max-w-xl">You upload a picture of your dog and fill out a quick form. Our AI analyzes breed, size, and behavior data to recommend the best gear.</p>
+  </section>
+
+  <section id="demo" class="py-16 px-8">
+    <h2 class="text-2xl font-bold mb-4">Demo</h2>
+    <p class="text-gray-600 max-w-xl">Try a live demo with sample dog photos. See our tech in action!</p>
+  </section>
+
+  <section id="features" class="py-16 px-8 bg-gray-50">
+    <h2 class="text-2xl font-bold mb-4">Features</h2>
+    <ul class="list-disc list-inside text-gray-600 space-y-2">
+      <li>Breed & size recognition</li>
+      <li>Budget-aware recommendations</li>
+      <li>Behavior-based matching</li>
+    </ul>
+  </section>
+
+  <section id="why" class="py-16 px-8">
+    <h2 class="text-2xl font-bold mb-4">Why our company matters</h2>
+    <p class="text-gray-600 max-w-xl">We believe every dog deserves comfort and control. Our platform solves gear mismatch, reduces injuries, and makes dog ownership easier. Our aim is for every dog and its owner to have the best experience. </p>
+  </section>
+
+  <section id="about" class="py-16 px-8 bg-gray-50">
+    <h2 class="text-2xl font-bold mb-4">About us</h2>
+    <p class="text-gray-600 max-w-xl">We’re a small team of engineers and dog lovers creating smarter tools to make pet gear shopping data-driven and effortless.</p>
+  </section>
+
+  <section id="team" class="py-16 px-8">
+    <h2 class="text-2xl font-bold mb-4">Meet the Team</h2>
+    <p class="text-gray-600 max-w-xl">Our founders include AI experts, trainers, and animal welfare advocates who want to improve the lives of dogs everywhere.</p>
+  </section>
+
+</body>
+</html>
