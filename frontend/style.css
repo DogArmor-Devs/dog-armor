@@ -3,8 +3,8 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    color: #1f2937;
-    background-color: #ffffff;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
     line-height: 1.6;
   }
   
@@ -130,4 +130,11 @@ body {
   
   nav a:hover {
     border-color: #3b82f6; /* Tailwind blue-500 */
+  }
+
+  :root {
+    --bg-light: #ffffff;
+    --bg-alt: #f9fafb;
+    --text-dark: #1e293b;
+    --accent: #0ea5e9;
   }
