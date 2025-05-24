@@ -123,3 +123,11 @@ body {
     color: #6b7280;
   }
   
+  nav a {
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+  
+  nav a:hover {
+    border-color: #3b82f6; /* Tailwind blue-500 */
+  }
