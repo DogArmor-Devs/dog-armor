@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend', static_url_path='')
 
 @app.route('/recommend', methods=['POST'])
 def recommend_gear():
@@ -24,8 +24,8 @@ def recommend_gear():
     })
 
 @app.route('/')
-def serve_frontend():
-    return send_from_directory('../frontend', 'index.html')
+def serve_index():
+    return app.send_static_file('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
