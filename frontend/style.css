@@ -138,3 +138,58 @@ body {
     --text-dark: #1e293b;
     --accent: #0ea5e9;
   }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--txt-main);
+    line-height: 1.6;
+  }
+
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section-light {
+    background-color: var(--bg-light);
+  }
+
+  .section-alt {
+    background-color: var(--bg-light);
+  }
+
+  .primary-heading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+
+  .secondary-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem 1.25 rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease; 
+  }
+
+  .button:hover {
+    background-color: #4338ca;   /* this is darker indigo */
+  }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+
