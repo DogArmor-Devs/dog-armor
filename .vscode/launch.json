@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+      {
+        "name": "Run Flask App",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/backend/app.py",
+        "console": "integratedTerminal",
+        "env": {
+          "FLASK_APP": "app.py",
+          "FLASK_ENV": "development"
+        }
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Open Chrome to localhost",
+        "url": "http://localhost:5000",
+        "webRoot": "${workspaceFolder}/frontend"
+      }
+    ]
+  }
+  
