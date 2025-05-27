@@ -5,6 +5,18 @@
   --accent: #0ea5e9;
   --primary: #2563eb;   /* Added for .button background */
   --text-main: #1e293b;  /* Added to replace undefined --txt-main */
+
+  /* Primary and secondary brand colors */
+  --color-primary-blue: #5A8EEB;
+  --color-secondary-red: #EB6f67;
+
+  /* Neutral backgrounds/accents */
+  --color-background: #F7F9FC;
+  --color-accent: #FFB47E;
+
+  /* Text and borders */
+  --color-text: #4A4A4A;
+  --color-border: #D1D5DB;
 }
 
 
@@ -13,8 +25,8 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  color: var(--text-dark);
-  background-color: var(--bg-light);
+  color: var(--color-text);
+  background-color: var(--color-background);
   line-height: 1.6;
 }
 
@@ -25,8 +37,9 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--bg-light);
+  background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -51,7 +64,8 @@ nav a:hover {
 /* 3. Hero Section */
 .hero {
   padding: 4rem 2rem;
-  background-color: var(--bg-alt);
+  background-color: var(--color-primary-blue);
+  color: white;
   text-align: center;
 }
 
@@ -67,17 +81,17 @@ nav a:hover {
 }
 
 .cta-button {
-  background-color: var(--primary);
+  background-color: var(--color-accent);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #1d4ed8;
+  background-color: #ffa768;
 }
 
 
@@ -86,6 +100,7 @@ section {
   padding: 4rem 2rem;
   max-width: 900px;
   margin: auto;
+  background-color: white;
 }
 
 section:nth-child(even) {
@@ -128,9 +143,10 @@ p {
 }
 
 .team-member {
-  background-color: var(--bg-light);
-  border: 1px solid #e5e7eb;
+  background-color: white;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
+  color: var(--color-text);
   padding: 1.5rem;
   max-width: 250px;
   text-align: center;
@@ -173,7 +189,7 @@ p {
 
 /* Button */
 .button {
-  background-color: car(--primary);
+  background-color: var(--color-primary-blue);
   color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 0.5rem;
@@ -184,7 +200,7 @@ p {
 }
 
 .button:hover {
-  background-color: #4338ca;
+  background-color: #436fd6;
 }
 
 
