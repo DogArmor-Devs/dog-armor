@@ -1,199 +1,196 @@
-    /* 1. Base Styles */
+:root {
+  --bg-light: #ffffff;
+  --bg-alt: #f9fafb;
+  --text-dark: #1e293b;
+  --accent: #0ea5e9;
+  --primary: #2563eb;   /* Added for .button background */
+  --text-main: #1e293b;  /* Added to replace undefined --txt-main */
+}
+
+
+/* 1. Base Styles */
 body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: var(--text-dark);
-    background-color: var(--bg-light);
-    line-height: 1.6;
-  }
-  
-  /* 2. Navigation Bar */
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  nav a {
-    color: #1f2937;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-  
-  nav a:hover {
-    color: #2563eb;
-  }
-  
-  /* 3. Hero Section */
-  .hero {
-    padding: 4rem 2rem;
-    background-color: #f9fafb;
-    text-align: center;
-  }
-  
-  .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-    color: #4b5563;
-    margin-bottom: 2rem;
-  }
-  
-  .cta-button {
-    background-color: #2563eb;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .cta-button:hover {
-    background-color: #1d4ed8;
-  }
-  
-  /* 4. Section Styling */
-  section {
-    padding: 4rem 2rem;
-    max-width: 900px;
-    margin: auto;
-  }
-  
-  section:nth-child(even) {
-    background-color: #f9fafb;
-  }
-  
-  /* 5. Headings */
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #111827;
-  }
-  
-  p {
-    font-size: 1rem;
-    color: #374151;
-    margin-bottom: 1rem;
-  }
-  
-  /* 6. Team Cards (for later use) */
-  .team-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-  }
-  
-  .team-member {
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 1.5rem;
-    max-width: 250px;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
-  
-  .team-member img {
-    width: 100%;
-    border-radius: 9999px;
-    margin-bottom: 1rem;
-  }
-  
-  .team-member h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .team-member p {
-    font-size: 0.95rem;
-    color: #6b7280;
-  }
-  
-  nav a {
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-  }
-  
-  nav a:hover {
-    border-color: #3b82f6; /* Tailwind blue-500 */
-  }
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.6;
+}
 
-  :root {
-    --bg-light: #ffffff;
-    --bg-alt: #f9fafb;
-    --text-dark: #1e293b;
-    --accent: #0ea5e9;
-  }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-light);
-    color: var(--txt-main);
-    line-height: 1.6;
-  }
+/* 2. Navigation Bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--bg-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-  .section {
-    padding: 4rem 1.5rem;
-  }
+nav a {
+  color: #1f2937;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
 
-  .section-light {
-    background-color: var(--bg-light);
-  }
+nav a:hover {
+  color: #2563eb;   /* Tailwind blue-600 */
+  border-color: #3b82f6;  /* Tailwind blue-500 */
+}
 
-  .section-alt {
-    background-color: var(--bg-light);
-  }
 
-  .primary-heading {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--text-main);
-    margin-bottom: 1rem;
-  }
+/* 3. Hero Section */
+.hero {
+  padding: 4rem 2rem;
+  background-color: var(--bg-alt);
+  text-align: center;
+}
 
-  .secondary-heading {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 1rem;
-  }
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
 
-  .button {
-    background-color: var(--primary);
-    color: white;
-    padding: 0.75rem 1.25 rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease; 
-  }
+.hero p {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
 
-  .button:hover {
-    background-color: #4338ca;   /* this is darker indigo */
-  }
+.cta-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
 
-  .highlight {
-    color: var(--accent);
-    font-weight: 600;
-  }
+.cta-button:hover {
+  background-color: #1d4ed8;
+}
 
-  body {
-    background-color: pink;
-  }
 
+/* 4. Section Styling */
+section {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+section:nth-child(even) {
+  background-color: var(--bg-alt);  
+}
+
+.section {
+  padding: 4rem 1.5rem;
+}
+
+.section-light {
+  background-color: var(--bg-light);
+}
+
+.section-alt {
+  background-color: var(--bg-alt);
+}
+
+
+/* 5. Headings */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+p {
+  font-size: 1rem;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+
+/* 6. Team Cards */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.team-member {
+  background-color: var(--bg-light);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 250px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.team-member img {
+  width: 100%;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.team-member h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.team-member p {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+
+/* Primary and secondary headings */
+.primary-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.secondary-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+
+/* Button */
+.button {
+  background-color: car(--primary);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;  
+}
+
+.button:hover {
+  background-color: #4338ca;
+}
+
+
+/* Highlight text */
+.highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
 
