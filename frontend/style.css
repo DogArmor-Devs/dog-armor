@@ -210,3 +210,19 @@ p {
   font-weight: 600;
 }
 
+/* Classes that use the colors*/
+.text-primary {
+  color: var(--color-primary-blue);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-light {
+  background-color: var(--color-bg);
+}
+
+.text-dark {
+  color: var(--color-text-dark);
+}

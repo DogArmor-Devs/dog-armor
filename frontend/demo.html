@@ -6,28 +6,35 @@
   <title>Demo | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="text-gray-800 font-sans">
+<body class="text-gray-800 font-sans bg-green-50">
+
   <!-- Navigation Bar -->
-  <nav class="bg-gray-100 p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-xl font-bold text-blue-600">DogArmor</a>
+  <nav class="bg-white p-4 shadow-md flex justify-between items-center">
+    <a href="index.html" class="text-xl font-bold text-green-600 flex items-center gap-2">
+      <i data-lucide="shield-dog" class="w-6 h-6 text-green-600"></i> DogArmor
+    </a>
     <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Team</a>
+      <a href="index.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Home</a>
+      <a href="how-it-works.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">How it Works</a>
+      <a href="demo.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Demo</a>
+      <a href="features.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Features</a>
+      <a href="why-us.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Why Our Company Matters</a>
+      <a href="about.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">About Us</a>
+      <a href="team.html" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Team</a>
     </div>
   </nav>
 
   <!-- Demo Section -->
-  <section class="section section-light py-16 px-6 max-w-3xl mx-auto" data-aos="zoom-in">
-    <h1 class="text-4xl font-bold text-center mb-10">Try the Recommendation Demo</h1>
+  <section class="py-16 px-6 max-w-3xl mx-auto" data-aos="zoom-in">
+    <h1 class="text-4xl font-bold text-green-700 text-center mb-10 flex items-center justify-center gap-3">
+      <i data-lucide="activity" class="w-8 h-8 text-green-700"></i>
+      Try the Recommendation Demo
+    </h1>
     
     <!-- Form -->
-    <form id="demo-form" class="space-y-6 bg-gray-50 p-6 rounded shadow-md">
+    <form id="demo-form" class="space-y-6 bg-white p-6 rounded-xl border border-gray-200 shadow">
       <div>
         <label class="block text-sm font-medium text-gray-700">Dog Breed</label>
         <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
@@ -51,19 +58,30 @@
         </select>
       </div>
 
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow transition">
         Get Recommendation
       </button>
     </form>
 
     <!-- Result Box -->
-    <div id="result" class="mt-10 hidden p-6 bg-green-50 border border-green-200 rounded shadow-md">
-      <h2 class="text-2xl font-bold mb-2">Recommended Gear</h2>
+    <div id="result" class="mt-10 hidden p-6 bg-emerald-50 border border-emerald-200 rounded shadow-md">
+      <h2 class="text-2xl text-green-700 font-bold mb-2 flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-700"></i>
+        Recommended Gear
+      </h2>
       <ul id="recommendation-list" class="list-disc list-inside text-gray-700"></ul>
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer class="bg-white py-6 text-center mt-16 border-t">
+    <p class="text-sm text-gray-600">&copy; 2025 DogArmor. All rights reserved.</p>
+  </footer>
+
+  <!-- Icon & JS Init -->
   <script>
+    lucide.createIcons();
+
     const form = document.getElementById('demo-form');
     const resultBox = document.getElementById('result');
     const recommendationList = document.getElementById('recommendation-list');

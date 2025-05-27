@@ -6,67 +6,108 @@
   <title>Features | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="text-gray-800 font-sans">
+<body class="text-gray-800 font-sans bg-orange-50">
 
   <!-- Navbar -->
-  <nav class="bg-gray-100 p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">DogArmor</a>
+  <nav class="bg-white p-4 shadow-md flex justify-between items-center">
+    <a href="index.html" class="text-xl font-bold text-orange-600 flex items-center gap-2">
+      <i data-lucide="shield-check" class="w-6 h-6 text-orange-600"></i>
+      DogArmor
+    </a>
     <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Team</a>
+      <a href="index.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>
+      <a href="how-it-works.html" class="text-gray-700 hover:text-orange-600 font-medium transition">How it Works</a>
+      <a href="demo.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Demo</a>
+      <a href="features.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Features</a>
+      <a href="why-us.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Why Our Company Matters</a>
+      <a href="about.html" class="text-gray-700 hover:text-orange-600 font-medium transition">About Us</a>
+      <a href="team.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Team</a>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="section section-light py-16 bg-blue-50 text-center" data-aos="fade-right">
-    <h1 class="text-4xl font-bold mb-4">Key Features of DogArmor</h1>
-    <p class="text-lg text-gray-600">Smart, personalized, and built for your dog’s unique needs. </p>
+  <section class="py-16 px-4 text-center" data-aos="fade-right">
+    <h1 class="text-4xl font-bold text-orange-700 mb-4 flex items-center justify-center gap-2">
+      <i data-lucide="stars" class="w-7 h-7 text-orange-700"></i>
+      Key Features of DogArmor
+    </h1>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Smart, personalized, and built for your dog’s unique needs.</p>
   </section>
 
   <!-- Features Grid -->
-  <section class="py-16 px-6 max-w-6xl mx-auto grid gap-12 md:grid-cols-2">
-    <!-- Feature 1 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">📸 Image-Based Recognition</h3>
-      <p class="text-gray-700">Upload a photo of your dog to help us better understand their body type and age — it boosts accuracy so we can recommend the most comfortable gear. A dog's anatomy is crucial when choosing and fitting a harness. A well-fitting harness should be designed to support and distribute weight evenly, minimizing pressure points and allowing for natural movement. Our image recognition ai technology will examine your dog’s anatomy and provide a harness that best fits every skeletal structure. </p>
+  <section class="py-16 px-6 max-w-6xl mx-auto grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Feature Card Template -->
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="camera" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Image-Based Recognition</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        Upload a photo of your dog to help us understand their body type and age for more accurate gear fitting.
+      </p>
     </div>
 
-    <!-- Feature 2 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">🐾 Behavioral Matching</h3>
-      <p class="text-gray-700">Takes into account your dog’s activity level, age, and behavior to recommend gear that suits their personality and habits.</p>
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="paw-print" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Behavioral Matching</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        Takes into account activity, age, and temperament to suggest the most comfortable gear.
+      </p>
     </div>
 
-    <!-- Feature 3 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">📊 Data-Driven Suggestions</h3>
-      <p class="text-gray-700">Our system uses curated data to match breed, size, and budget with the best collar, harness, and leash options for them.</p>
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Data-Driven Suggestions</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        Uses breed, size, and budget data to match your dog with optimal collar, harness, and leash options.
+      </p>
     </div>
 
-    <!-- Feature 4 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">💰 Budget Flexibility</h3>
-      <p class="text-gray-700">Whether you need something budget-friendly or top-quality, we’ll recommend the right gear for your dog.</p>
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="wallet" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Budget Flexibility</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        Whether you want premium or affordable gear, DogArmor adjusts to your price range.
+      </p>
     </div>
 
-    <!-- Feature 5 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">📱 Mobile-Ready Future</h3>
-      <p class="text-gray-700">We’ll be offering a mobile experience next, so you'll be able to scan, search, and shop on the go.</p>
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="smartphone" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Mobile-Ready Future</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        Our upcoming mobile app lets you scan, search, and shop conveniently on the go.
+      </p>
     </div>
 
-    <!-- Feature 6 -->
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-2">🔐 Privacy First</h3>
-      <p class="text-gray-700">No tracking. No selling your data. Just private, personalized recommendations — and you're always in charge.</p>
+    <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+      <div class="flex items-center gap-2 text-orange-600">
+        <i data-lucide="lock" class="w-5 h-5"></i>
+        <h3 class="text-lg font-semibold">Privacy First</h3>
+      </div>
+      <p class="text-gray-700 text-sm">
+        We never sell your data. Everything is private, secure, and in your control.
+      </p>
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer class="bg-white py-6 text-center border-t">
+    <p class="text-sm text-gray-600">&copy; 2025 DogArmor. All rights reserved.</p>
+  </footer>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>

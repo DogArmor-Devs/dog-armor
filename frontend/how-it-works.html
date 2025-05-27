@@ -7,50 +7,64 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="text-gray-800 font-sans">
-  <!-- Navigation Bar -->
-  <nav class="bg-gray-100 p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">DogArmor</a>
+<body class="bg-[#f9f4ff] text-text font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-white border-b border-muted p-4 shadow-sm flex justify-between items-center">
+    <a href="index.html" class="text-primary font-semibold text-lg">DogArmor</a>
     <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Team</a>
+      <a href="index.html" class="text-gray-700 hover:text-accent transition duration-300">Home</a>
+      <a href="how-it-works.html" class="text-gray-700 hover:text-accent transition duration-300">How it Works</a>
+      <a href="demo.html" class="text-gray-700 hover:text-accent transition duration-300">Demo</a>
+      <a href="features.html" class="text-gray-700 hover:text-accent transition duration-300">Features</a>
+      <a href="why-us.html" class="text-gray-700 hover:text-accent transition duration-300">Why Our Company Matters</a>
+      <a href="about.html" class="text-gray-700 hover:text-accent transition duration-300">About Us</a>
+      <a href="team.html" class="text-gray-700 hover:text-accent transition duration-300">Team</a>
     </div>
   </nav>
 
   <!-- How It Works Section -->
-  <section class="section section-light py-16 px-6 max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-    <h1 class="text-4xl font-bold text-center mb-10">How It Works</h1>
-    
+  <section class="py-20 px-6 max-w-5xl mx-auto">
+    <h1 class="text-4xl font-bold text-primary text-center mb-14">How It Works</h1>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       <!-- Step 1 -->
-      <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">1. Upload a Picture of Your Dog</h2>
-        <p class="text-gray-600">Start by uploading a clear photo of your dog. This helps us understand breed and body structure for accurate recommendations for the best harness.</p>
+      <div class="bg-surface p-6 rounded-xl shadow-md border border-muted">
+        <h2 class="text-2xl font-semibold text-primary mb-2 flex items-center">
+          <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 11c0 2.21-1.79 4-4 4S4 13.21 4 11s1.79-4 4-4 4 1.79 4 4Z"/><path d="M20 21v-2a4 4 0 0 0-4-4h-5"/></svg>
+          1. Upload a Picture of Your Dog
+        </h2>
+        <p class="text-gray-600 leading-relaxed">Start by uploading a clear photo of your dog. This helps us understand breed and body structure for accurate recommendations for the best harness.</p>
       </div>
 
       <!-- Step 2 -->
-      <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">2. Tell Us About Their Behavior</h2>
-        <p class="text-gray-600">Share your dog’s breed, size, activity level, and temperament — and let us find the perfect gear that keeps them comfy, secure, and ready for every adventure!</p>
+      <div class="bg-surface p-6 rounded-xl shadow-md border border-muted">
+        <h2 class="text-2xl font-semibold text-primary mb-2 flex items-center">
+          <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10v6a2 2 0 0 0 2 2h5l1 2 1-2h5a2 2 0 0 0 2-2v-6a10 10 0 0 0-10-10Z"/></svg>
+          2. Tell Us About Their Behavior
+        </h2>
+        <p class="text-gray-600 leading-relaxed">Share your dog’s breed, size, activity level, and temperament — and let us find the perfect gear that keeps them comfy, secure, and ready for every adventure!</p>
       </div>
 
       <!-- Step 3 -->
-      <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">3. Get Smart Recommendations</h2>
-        <p class="text-gray-600">Our AI picks the perfect collar, harness, and leash combo that’s safe, comfy, and fits your budget — made just for your dog!</p>
+      <div class="bg-surface p-6 rounded-xl shadow-md border border-muted">
+        <h2 class="text-2xl font-semibold text-primary mb-2 flex items-center">
+          <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2h-4"/><path d="M3 15v4a2 2 0 0 0 2 2h4"/><path d="M3 10V6a2 2 0 0 1 2-2h4"/><path d="M21 10V6a2 2 0 0 0-2-2h-4"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+          3. Get Smart Recommendations
+        </h2>
+        <p class="text-gray-600 leading-relaxed">Our AI picks the perfect collar, harness, and leash combo that’s safe, comfy, and fits your budget — made just for your dog!</p>
       </div>
 
       <!-- Step 4 -->
-      <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">4. Explore or Shop</h2>
-        <p class="text-gray-600">(Coming soon) Save your favorites or shop the gear we recommend — all carefully chosen for quality and the perfect fit just for you.</p>
+      <div class="bg-surface p-6 rounded-xl shadow-md border border-muted">
+        <h2 class="text-2xl font-semibold text-primary mb-2 flex items-center">
+          <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 1 0 20"/></svg>
+          4. Explore or Shop
+        </h2>
+        <p class="text-gray-600 leading-relaxed">(Coming soon) Save your favorites or shop the gear we recommend — all carefully chosen for quality and the perfect fit just for you.</p>
       </div>
     </div>
   </section>
+
 </body>
 </html>

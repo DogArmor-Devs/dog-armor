@@ -5,50 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Team | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="text-gray-800 font-sans">
+<body class="bg-rose-50 text-gray-800 font-sans">
 
   <!-- Navbar -->
-  <nav class="bg-gray-100 p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">DogArmor</a>
-    <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Team</a>
+  <nav class="bg-white shadow sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-blue-700 font-bold text-xl hover:text-rose-500 transition">DogArmor</a>
+      <div class="hidden md:flex space-x-6 text-gray-700 font-medium text-sm">
+        <a href="index.html" class="hover:text-rose-500 transition">Home</a>
+        <a href="how-it-works.html" class="hover:text-rose-500 transition">How it Works</a>
+        <a href="demo.html" class="hover:text-rose-500 transition">Demo</a>
+        <a href="features.html" class="hover:text-rose-500 transition">Features</a>
+        <a href="why-us.html" class="hover:text-rose-500 transition">Why Our Company Matters</a>
+        <a href="about.html" class="hover:text-rose-500 transition">About Us</a>
+        <a href="team.html" class="text-rose-500 font-semibold">Team</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="section section-light py-16 max-w-5xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="100">
-    <h1 class="text-4xl font-bold mb-10">Meet Our Team</h1>
+  <!-- Hero Section -->
+  <section class="max-w-5xl mx-auto px-6 py-16 text-center" data-aos="fade-up" data-aos-delay="100">
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Meet Our Team</h1>
 
-    <div class="grid md:grid-cols-2 gap-10">
+    <div class="grid md:grid-cols-2 gap-12">
+      
       <!-- Team Member 1 -->
-      <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center">
-        <img src="images/member1.jpg" alt="Name1" class="rounded-full w-48 h-48 object-cover mb-6" />
-        <h2 class="text-2xl font-semibold mb-1">Vihaan Kesharwani</h2>
-        <p class="text-blue-600 font-medium mb-2">Co-Founder</p>
+      <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
+        <img src="images/member1.jpg" alt="Vihaan Kesharwani" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" />
+        <h2 class="text-3xl font-semibold text-blue-700 mb-1">Vihaan Kesharwani</h2>
+        <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
+          <i data-lucide="user-check" class="w-5 h-5"></i>
+          <span>Co-Founder</span>
+        </p>
         <p class="text-gray-700 max-w-md">
           Vihaan leads visual development and frontend as well as crafting models, with a deep interest in creating technology to improve lives.
         </p>
+        <div class="mt-6 flex space-x-6 justify-center text-gray-500">
+          <a href="mailto:vihaan@example.com" class="hover:text-rose-500 transition" aria-label="Email Vihaan">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+          </a>
+          <a href="https://linkedin.com/in/vihaan-kesharwani" target="_blank" rel="noopener" class="hover:text-rose-500 transition" aria-label="LinkedIn Vihaan">
+            <i data-lucide="linkedin" class="w-6 h-6"></i>
+          </a>
+        </div>
       </div>
 
       <!-- Team Member 2 -->
-      <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center">
-        <img src="images/member2.jpg" alt="Name2" class="rounded-full w-48 h-48 object-cover mb-6" />
-        <h2 class="text-2xl font-semibold mb-1">Anto Francis</h2>
-        <p class="text-blue-600 font-medium mb-2">Co-Founder</p>
+      <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
+        <img src="images/member2.jpg" alt="Anto Francis" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" />
+        <h2 class="text-3xl font-semibold text-blue-700 mb-1">Anto Francis</h2>
+        <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
+          <i data-lucide="user-check" class="w-5 h-5"></i>
+          <span>Co-Founder</span>
+        </p>
         <p class="text-gray-700 max-w-md">
           Anto works on creating the best models for user experience, ensuring the app provides a delightful experience for others.
         </p>
+        <div class="mt-6 flex space-x-6 justify-center text-gray-500">
+          <a href="mailto:anto@example.com" class="hover:text-rose-500 transition" aria-label="Email Anto">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+          </a>
+          <a href="https://linkedin.com/in/anto-francis" target="_blank" rel="noopener" class="hover:text-rose-500 transition" aria-label="LinkedIn Anto">
+            <i data-lucide="linkedin" class="w-6 h-6"></i>
+          </a>
+        </div>
       </div>
+
     </div>
   </section>
 
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>

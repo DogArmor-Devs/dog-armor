@@ -7,55 +7,87 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="text-gray-800 font-sans">
+<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-200 font-sans min-h-screen flex flex-col">
 
   <!-- Navbar -->
-  <nav class="bg-gray-100 p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">DogArmor</a>
-    <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Team</a>
+  <nav class="bg-gray-900 bg-opacity-90 backdrop-blur-md p-4 shadow-lg flex justify-between items-center sticky top-0 z-50">
+    <a href="index.html" class="text-amber-400 hover:text-amber-300 font-extrabold text-xl transition duration-300">DogArmor</a>
+    <div class="space-x-6 text-sm font-semibold">
+      <a href="index.html" class="hover:text-amber-400 transition">Home</a>
+      <a href="how-it-works.html" class="hover:text-amber-400 transition">How it Works</a>
+      <a href="demo.html" class="hover:text-amber-400 transition">Demo</a>
+      <a href="features.html" class="hover:text-amber-400 transition">Features</a>
+      <a href="why-us.html" class="text-amber-400 underline decoration-amber-600 underline-offset-4 transition">Why Our Company Matters</a>
+      <a href="about.html" class="hover:text-amber-400 transition">About Us</a>
+      <a href="team.html" class="hover:text-amber-400 transition">Team</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="section section-light py-16 max-w-4xl mx-auto px-6 text-center" data-aos="fade-up">
-    <h1 class="text-4xl font-bold mb-6">Why Our Company Matters</h1>
-    <p class="text-lg text-gray-700 mb-12">
-      At DogArmor, we believe every dog deserves gear that fits perfectly — because a happy dog means a happy owner. 
-      Our mission is to combine technology and care to make choosing dog gear simple, smart, and stress-free.
-    </p>
+  <!-- Content Section -->
+  <main class="flex-grow max-w-4xl mx-auto px-6 py-20 space-y-12 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-800 rounded-lg">
 
-    <!-- Story Blocks -->
-    <div class="space-y-12 text-left">
-      <div>
-        <h2 class="text-2xl font-semibold mb-2">Solving Real Problems</h2>
-        <p class="text-gray-700">
-          Finding the right collar, harness, or leash can be overwhelming with so many options. We're here to make dog gear personal rather than common found. Every dog deserves comfort, and every owner deserves happiness.
-        </p>
-      </div>
+    <header class="text-center">
+      <h1 class="text-5xl font-extrabold text-amber-400 mb-6 drop-shadow-lg">Why Our Company Matters</h1>
+      <p class="max-w-3xl mx-auto text-lg text-amber-100/90 leading-relaxed">
+        At DogArmor, we believe every dog deserves gear that fits perfectly — because a happy dog means a happy owner. 
+        Our mission is to combine technology and care to make choosing dog gear simple, smart, and stress-free.
+      </p>
+    </header>
 
-      <div>
-        <h2 class="text-2xl font-semibold mb-2">What Makes us Special</h2>
-        <p class="text-gray-700">
-          Whether you're new to dog harnesses or are upgrading, we've created this just for you, simplifying the process. Instead of only gear size and confusing variety, we're the first of our kind to account for your dog's needs on a personal level. 
-        </p>
-      </div>
+    <!-- Cards -->
+    <section class="space-y-10">
 
-      <div>
-        <h2 class="text-2xl font-semibold mb-2">Ethics & Privacy</h2>
-        <p class="text-gray-700">
-          Your data belongs to you. We don't sell it or share it. Every feature we build puts your privacy first.
-        </p>
-      </div>
-    </div>
-  </section>
+      <!-- Card 1 -->
+      <article class="bg-gray-800 bg-opacity-80 rounded-2xl shadow-xl p-8 flex items-start gap-6 hover:bg-gray-700 transition">
+        <div class="flex-shrink-0 text-amber-400">
+          <!-- Lucide Shield Check Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 stroke-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold text-amber-300 mb-2">Solving Real Problems</h2>
+          <p class="text-amber-100 leading-relaxed">
+            Finding the right collar, harness, or leash can be overwhelming with so many options. We're here to make dog gear personal rather than common found. Every dog deserves comfort, and every owner deserves happiness.
+          </p>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bg-gray-800 bg-opacity-80 rounded-2xl shadow-xl p-8 flex items-start gap-6 hover:bg-gray-700 transition">
+        <div class="flex-shrink-0 text-amber-400">
+          <!-- Lucide Star Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 stroke-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold text-amber-300 mb-2">What Makes Us Special</h2>
+          <p class="text-amber-100 leading-relaxed">
+            Whether you're new to dog harnesses or are upgrading, we've created this just for you, simplifying the process. Instead of only gear size and confusing variety, we're the first of our kind to account for your dog's needs on a personal level.
+          </p>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-gray-800 bg-opacity-80 rounded-2xl shadow-xl p-8 flex items-start gap-6 hover:bg-gray-700 transition">
+        <div class="flex-shrink-0 text-amber-400">
+          <!-- Lucide Shield Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 stroke-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold text-amber-300 mb-2">Ethics & Privacy</h2>
+          <p class="text-amber-100 leading-relaxed">
+            Your data belongs to you. We don't sell it or share it. Every feature we build puts your privacy first.
+          </p>
+        </div>
+      </article>
+
+    </section>
+  </main>
 
 </body>
 </html>
-  
