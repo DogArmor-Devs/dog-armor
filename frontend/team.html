@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Team | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="bg-rose-50 text-gray-800 font-sans">
+<body class="bg-rose-50 text-gray-800 font-sans h-full flex flex-col">
 
   <!-- Navbar -->
   <nav class="bg-white shadow sticky top-0 z-40">
@@ -32,7 +31,6 @@
     <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Meet Our Team</h1>
 
     <div class="grid md:grid-cols-2 gap-12">
-      
       <!-- Team Member 1 -->
       <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
         <img src="images/member1.jpg" alt="Vihaan Kesharwani" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" />
@@ -74,10 +72,15 @@
           </a>
         </div>
       </div>
-
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer class="bg-white border-t text-center py-4 text-sm text-gray-500 mt-auto">
+    &copy; 2025 DogArmor. All rights reserved.
+  </footer>
+
+  <!-- Lucide Init -->
   <script>
     lucide.createIcons();
   </script>
