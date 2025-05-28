@@ -42,7 +42,7 @@
       <div>
         <label class="block text-sm font-medium text-green-700">Information derived from photo of dog:</label>
         <label class="block text-sm font-medium text-gray-700">Weight [Can estimate from photo if user doesn't know dog's weight]</label>
-        <select name="weight" id="weight" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="weight" id="weight" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="Small">Strawweight: &lt;10lbs</option>
           <option value="Medium">Middleweight &lt;40lbs</option>
@@ -52,7 +52,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Length of Chest Bridge</label>
-        <select name="chest_bridge_length" id="chest_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="chest_bridge_length" id="chest_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="Small">Small: &lt;9"</option>
           <option value="Medium">Medium: &lt;28"</option>
@@ -62,7 +62,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Neck Circumference</label>
-        <select name="neck_circumfernce" id="neck_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="neck_circumference" id="neck_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="Small">Small: &lt;10"</option>
           <option value="Medium">Medium: &lt;18"</option>
@@ -72,21 +72,21 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Length of Back Bridge</label>
-        <select name="back_bridge_length" id="back_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="back_bridge_length" id="back_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;9"</option>
-          <option value="Medium">Medium: &lt;28"</option>
-          <option value="Large">Large: &gt;28"</option>
+          <option value="Small">Small: &lt;6"</option>
+          <option value="Medium">Medium: &lt;8.6"</option>
+          <option value="Large">Large: &gt;8.6"</option>
         </select>
       </div>
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Belly Circumference</label>
-        <select name="belly_circumference" id="belly_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="belly_circumference" id="belly_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;10"</option>
-          <option value="Medium">Medium: &lt;18"</option>
-          <option value="Large">Large: &gt;18"</option>
+          <option value="Small">Small: &lt;20"</option>
+          <option value="Medium">Medium: &lt;28"</option>
+          <option value="Large">Large: &gt;28"</option>
         </select>
       </div>
 
@@ -99,7 +99,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Dog Age</label>
-        <select name="pull" id="pull" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="age" id="age" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="small">Young &lt;6 months</option>
           <option value="medium">Average &lt;2 years</option>
@@ -109,7 +109,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Does dog pull on leash during walks?</label>
-        <select name="pull" id="pull" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="pull" id="pull" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
@@ -118,7 +118,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">Is this dog being trained or used for guarding/protection purposes?</label>
-        <select name="guard_dog" id="guard_dog" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="guard_dog" id="guard_dog" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
@@ -127,7 +127,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">How many dogs do you take care of in total?</label>
-        <select name="total_dogs" id="total_dogs" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="total_dogs" id="total_dogs" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="small">1 dog</option>
           <option value="medium">&lt;5 dogs</option>
@@ -137,7 +137,7 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700">What is your budget for all equipment combined? (leash, collar, and harness)</label>
-        <select name="budget" id="budget" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <select name="budget" id="budget" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Select</option>
           <option value="small">&lt;$30</option>
           <option value="medium">&lt;$60</option>
@@ -168,35 +168,45 @@
   <!-- Icon & JS Init -->
   <script>
     lucide.createIcons();
-
+  
     const form = document.getElementById('demo-form');
     const resultBox = document.getElementById('result');
     const recommendationList = document.getElementById('recommendation-list');
-
+  
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const breed = document.getElementById('breed').value;
-      const size = document.getElementById('size').value;
-      const activity = document.getElementById('activity').value;
-
+  
+      const data = {
+        weight: document.getElementById('weight').value,
+        chest_bridge_length: document.getElementById('chest_bridge_length').value,
+        neck_circumference: document.getElementById('neck_circumference').value,
+        back_bridge_length: document.getElementById('back_bridge_length').value,
+        belly_circumference: document.getElementById('belly_circumference').value,
+        breed: document.getElementById('breed').value,
+        age: document.getElementById('age').value,
+        pull: document.getElementById('pull').value,
+        guard_dog: document.getElementById('guard_dog').value,
+        total_dogs: document.getElementById('total_dogs').value,
+        budget: document.getElementById('budget').value
+      };
+  
       const response = await fetch('http://127.0.0.1:5000/recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ breed, size, activity_level: activity })
+        body: JSON.stringify(data)
       });
-
-      const data = await response.json();
-      const rec = data.recommendation;
-
+  
+      const result = await response.json();
+      const rec = result.recommendation;
+  
       recommendationList.innerHTML = `
         <li><strong>Collar:</strong> ${rec.collar}</li>
         <li><strong>Harness:</strong> ${rec.harness}</li>
         <li><strong>Leash:</strong> ${rec.leash}</li>
       `;
-
+  
       resultBox.classList.remove('hidden');
     });
-  </script>
+  </script>  
 </body>
 </html>

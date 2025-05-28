@@ -20,8 +20,9 @@ def recommend_gear():
 
     # user input data
     breed = data.get("breed")
-    activity = data.get("pull")
-    guard_dog = data.get("gaurd_dog")
+    age = data.get("age")
+    pull = data.get("pull")
+    guard_dog = data.get("guard_dog")
     total_dogs = data.get("total_dogs")
     budget = data.get("budget")
 
