@@ -8,11 +8,24 @@ app = Flask(__name__, static_folder='../frontend', static_url_path='')
 @app.route('/recommend', methods=['POST'])
 def recommend_gear():
     data = request.get_json()
-    
-    # This is placeholder logic; replace with real recommendation logic later
+
+    # photo derived data or user input data (depends)
+    weight = data.get("weight")
+
+    #photo derived data
+    chest_bridge_length = data.get("chest_bridge_length")
+    neck_circumference = data.get("neck_circumference")
+    back_bridge_length = data.get("back_bridge_length")
+    belly_circumference = data.get("belly_circumference")
+
+    # user input data
     breed = data.get("breed")
-    size = data.get("size")
-    activity = data.get("activity_level")
+    activity = data.get("pull")
+    guard_dog = data.get("gaurd_dog")
+    total_dogs = data.get("total_dogs")
+    budget = data.get("budget")
+
+
 
     recommendation = {
         "collar": "Reflective Nylon Collar",
