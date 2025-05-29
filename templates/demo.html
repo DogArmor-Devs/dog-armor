@@ -9,7 +9,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="text-gray-800 font-sans bg-green-50">
-
   <!-- Navigation Bar -->
   <nav class="bg-white p-4 shadow-md flex justify-between items-center">
     <a href="{{ url_for('index') }}" class="text-xl font-bold text-green-600 flex items-center gap-2">
@@ -183,7 +182,7 @@
       });
 
       const result = await response.json();
-      const rec = result.recommendation;
+      const rec = result.recommendations[0];
 
       document.getElementById('recommendation-message').innerHTML = `<strong>${rec.message}</strong>`;
       recommendationList.innerHTML = `

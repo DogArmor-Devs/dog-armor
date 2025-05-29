@@ -1,176 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DogArmor | Smart Gear Recommender</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --accent: #f43f5e;
-      --bg-light: #fdfdfd;
-      --bg-alt: #f3f4f6;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .button {
-      background-color: var(--accent);
-      color: white;
-      font-weight: 600;
-      padding: 0.75rem 1.25rem;
-      border-radius: 0.5rem;
-      transition: background 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #e11d48;
-    }
-
-    .section-title {
-      @apply text-3xl font-bold mb-6 text-center;
-    }
-
-    .section {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-    }
-
-    nav a svg {
-      vertical-align: middle;
-      margin-right: 6px;
-      stroke-width: 1.5;
-      width: 18px;
-      height: 18px;
-    }
-  </style>
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
 </head>
-
 <body class="text-gray-900 bg-white font-sans">
 
-  <!-- 🌐 NAVBAR -->
-  <nav class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <div class="text-xl font-bold text-blue-700">
-          <a href="{{ url_for('index') }}" class="hover:text-accent transition">DogArmor</a>
-        </div>
-        <div class="hidden md:flex space-x-8">
-          <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="help-circle"></i> How it works
-          </a>
-          <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="play-circle"></i> Demo
-          </a>
-          <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="list-check"></i> Features
-          </a>
-          <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="star"></i> Why our company matters
-          </a>
-          <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="info"></i> About us
-          </a>
-          <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center">
-            <i data-lucide="users"></i> Team
-          </a>
-        </div>
-        <div class="hidden md:flex">
-          <a href="#launch" class="button">Launch App</a>
-        </div>
+<!-- 🌐 NAVBAR -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="text-xl font-bold text-blue-700">
+        <a href="{{ url_for('index') }}" class="hover:text-accent transition">DogArmor</a>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="help-circle"></i> How it works</a>
+        <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="play-circle"></i> Demo</a>
+        <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="list-check"></i> Features</a>
+        <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="star"></i> Why our company matters</a>
+        <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="info"></i> About us</a>
+        <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="users"></i> Team</a>
+      </div>
+      <div class="hidden md:flex">
+        <a class="button" href="#launch">Launch App</a>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- 🐶 HERO SECTION -->
-  <section class="section text-center bg-[var(--bg-light)]">
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-[var(--primary)]">Find the Perfect Collar, Harness, or Leash</h1>
-    <p class="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">Upload your dog’s photo and behavior details — get personalized gear suggestions in seconds.</p>
-
-    <form id="gearForm" class="bg-white rounded-lg shadow-lg max-w-xl mx-auto p-8 space-y-5">
-      <div>
-        <label class="block text-left font-semibold mb-1">Upload a Picture:</label>
-        <input type="file" accept="image/*" class="w-full border px-4 py-2 rounded" />
-      </div>
-
-      <div>
-        <label class="block text-left font-semibold mb-1">Breed:</label>
-        <input type="text" name="breed" class="w-full border px-4 py-2 rounded" placeholder="e.g., Golden Retriever" />
-      </div>
-
-      <div>
-        <label class="block text-left font-semibold mb-1">Size:</label>
-        <select name="size" class="w-full border px-4 py-2 rounded">
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-left font-semibold mb-1">Activity Level:</label>
-        <select name="activity_level" class="w-full border px-4 py-2 rounded">
-          <option>Low</option>
-          <option>Moderate</option>
-          <option>High</option>
-        </select>
-      </div>
-
-      <button type="submit" class="w-full button">Get Recommendation</button>
-    </form>
-  </section>
-
-  <!-- 🔍 HOW IT WORKS -->
-  <section id="how" class="section bg-[var(--bg-alt)]" data-aos="fade-up">
-    <h2 class="section-title text-[var(--primary)]">How It Works</h2>
-    <p class="text-gray-600 max-w-xl mx-auto text-center">Upload a photo and tell us about your dog. Our AI suggests smart, budget-aware gear that fits your pet’s body and behavior.</p>
-  </section>
-
-  <!-- 🎥 DEMO -->
-  <section id="demo" class="section bg-[var(--bg-light)]" data-aos="fade-up" data-aos-delay="100">
-    <h2 class="section-title text-[var(--primary)]">Demo</h2>
-    <p class="text-gray-600 max-w-xl mx-auto text-center">Try a live demo using sample dog photos to see our intelligent recommendation system in action.</p>
-  </section>
-
-  <!-- ⚙️ FEATURES -->
-  <section id="features" class="section bg-[var(--bg-alt)]" data-aos="fade-up" data-aos-delay="200">
-    <h2 class="section-title text-[var(--primary)]">Features</h2>
-    <ul class="list-disc list-inside text-gray-600 max-w-xl mx-auto space-y-2">
-      <li>Breed & size recognition</li>
-      <li>Budget-aware recommendations</li>
-      <li>Behavior-based matching</li>
-      <li>Modern and mobile-friendly interface</li>
-    </ul>
-  </section>
-
-  <!-- 🌍 WHY US -->
-  <section id="why" class="section bg-[var(--bg-light)]" data-aos="fade-up" data-aos-delay="300">
-    <h2 class="section-title text-[var(--primary)]">Why Our Company Matters</h2>
-    <p class="text-gray-600 max-w-xl mx-auto text-center">DogArmor ensures every dog gets the right gear — preventing discomfort and injury. Our system improves quality of life for both pets and their humans.</p>
-  </section>
-
-  <!-- 👨‍💻 ABOUT US -->
-  <section id="about" class="section bg-[var(--bg-alt)]" data-aos="fade-up" data-aos-delay="400">
-    <h2 class="section-title text-[var(--primary)]">About Us</h2>
-    <p class="text-gray-600 max-w-xl mx-auto text-center">We’re engineers, dog lovers, and gear nerds. Our mission is to simplify pet care through tech and empathy.</p>
-  </section>
-
-  <!-- 👥 TEAM -->
-  <section id="team" class="section bg-[var(--bg-light)]" data-aos="fade-up" data-aos-delay="500">
-    <h2 class="section-title text-[var(--primary)]">Meet the Team</h2>
-    <p class="text-gray-600 max-w-xl mx-auto text-center">We’re a passionate crew of AI experts, animal behaviorists, and designers — all working to make pet ownership smarter and safer.</p>
-  </section>
-
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
-    lucide.createIcons();
-  </script>
-</body>
-</html>
+<!-- 🐶 HERO SECTION -->
+<section class="section text-center bg-[var(--bg-light)]">
+  <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-[var(--primary)]">Find the Perfect Collar, Harness, or Leash</h1>
+  <p class="text-gr
