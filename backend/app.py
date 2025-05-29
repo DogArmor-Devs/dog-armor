@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os, random
 
-app = Flask(__name__, static_folder='../frontend', static_url_path='')
+app = Flask(__name__, static_folder='frontend', static_url_path='')
 
 # testing the new branch. New change
 
