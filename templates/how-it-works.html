@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How It Works | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="bg-[#f9f4ff] text-text font-sans">
 
@@ -13,15 +13,15 @@
 
     <!-- Navbar -->
     <nav class="bg-white border-b border-muted p-4 shadow-sm flex justify-between items-center">
-      <a href="index.html" class="text-primary font-semibold text-lg">DogArmor</a>
+      <a href="{{ url_for('index') }}" class="text-primary font-semibold text-lg">DogArmor</a>
       <div class="space-x-4 text-sm">
-        <a href="index.html" class="text-gray-700 hover:text-accent transition duration-300">Home</a>
-        <a href="how-it-works.html" class="text-gray-700 hover:text-accent transition duration-300">How it Works</a>
-        <a href="demo.html" class="text-gray-700 hover:text-accent transition duration-300">Demo</a>
-        <a href="features.html" class="text-gray-700 hover:text-accent transition duration-300">Features</a>
-        <a href="why-us.html" class="text-gray-700 hover:text-accent transition duration-300">Why Our Company Matters</a>
-        <a href="about.html" class="text-gray-700 hover:text-accent transition duration-300">About Us</a>
-        <a href="team.html" class="text-gray-700 hover:text-accent transition duration-300">Team</a>
+        <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-accent transition duration-300">Home</a>
+        <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-accent transition duration-300">How it Works</a>
+        <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-accent transition duration-300">Demo</a>
+        <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-accent transition duration-300">Features</a>
+        <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-accent transition duration-300">Why Our Company Matters</a>
+        <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-accent transition duration-300">About Us</a>
+        <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-accent transition duration-300">Team</a>
       </div>
     </nav>
 

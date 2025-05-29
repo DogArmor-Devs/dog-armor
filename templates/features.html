@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Features | DogArmor</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="text-gray-800 font-sans bg-orange-50 min-h-screen flex flex-col">
 
   <!-- Navbar -->
   <nav class="bg-white p-4 shadow-md flex justify-between items-center">
-    <a href="index.html" class="text-xl font-bold text-orange-600 flex items-center gap-2">
+    <a href="{{ url_for('index') }}" class="text-xl font-bold text-orange-600 flex items-center gap-2">
       <i data-lucide="shield-check" class="w-6 h-6 text-orange-600"></i>
       DogArmor
     </a>
     <div class="space-x-4 text-sm">
-      <a href="index.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>
-      <a href="how-it-works.html" class="text-gray-700 hover:text-orange-600 font-medium transition">How it Works</a>
-      <a href="demo.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Demo</a>
-      <a href="features.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Features</a>
-      <a href="why-us.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Why Our Company Matters</a>
-      <a href="about.html" class="text-gray-700 hover:text-orange-600 font-medium transition">About Us</a>
-      <a href="team.html" class="text-gray-700 hover:text-orange-600 font-medium transition">Team</a>
+      <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>
+      <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">How it Works</a>
+      <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Demo</a>
+      <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Features</a>
+      <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Why Our Company Matters</a>
+      <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">About Us</a>
+      <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Team</a>
     </div>
   </nav>
 
@@ -41,7 +41,7 @@
 
     <!-- Features Grid -->
     <section class="py-16 px-6 max-w-6xl mx-auto grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Feature Card Template -->
+      <!-- Feature Cards -->
       <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
         <div class="flex items-center gap-2 text-orange-600">
           <i data-lucide="camera" class="w-5 h-5"></i>

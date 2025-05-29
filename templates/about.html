@@ -11,18 +11,18 @@
 
   <!-- Navbar -->
   <nav class="bg-white p-4 shadow flex justify-between items-center">
-    <a href="index.html" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
+    <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
       <i data-lucide="dog" class="w-6 h-6"></i>
       DogArmor
     </a>
     <div class="space-x-6 text-sm">
-      <a href="index.html" class="hover:text-blue-600 font-medium">Home</a>
-      <a href="how-it-works.html" class="hover:text-blue-600 font-medium">How it Works</a>
-      <a href="demo.html" class="hover:text-blue-600 font-medium">Demo</a>
-      <a href="features.html" class="hover:text-blue-600 font-medium">Features</a>
-      <a href="why-us.html" class="hover:text-blue-600 font-medium">Why Us</a>
-      <a href="about.html" class="hover:text-blue-600 font-medium">About</a>
-      <a href="team.html" class="hover:text-blue-600 font-medium">Team</a>
+      <a href="{{ url_for('index') }}" class="hover:text-blue-600 font-medium">Home</a>
+      <a href="{{ url_for('how_it_works') }}" class="hover:text-blue-600 font-medium">How it Works</a>
+      <a href="{{ url_for('demo') }}" class="hover:text-blue-600 font-medium">Demo</a>
+      <a href="{{ url_for('features') }}" class="hover:text-blue-600 font-medium">Features</a>
+      <a href="{{ url_for('why_us') }}" class="hover:text-blue-600 font-medium">Why Us</a>
+      <a href="{{ url_for('about') }}" class="hover:text-blue-600 font-medium">About</a>
+      <a href="{{ url_for('team') }}" class="hover:text-blue-600 font-medium">Team</a>
     </div>
   </nav>
 
