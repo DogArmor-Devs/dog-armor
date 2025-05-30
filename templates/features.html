@@ -12,8 +12,7 @@
   <!-- Navbar -->
   <nav class="bg-white p-4 shadow-md flex justify-between items-center">
     <a class="text-xl font-bold text-orange-600 flex items-center gap-2" href="{{ url_for('index') }}">
-      <i class="w-6 h-6 text-orange-600" data-lucide="shield-check"></i>
-      DogArmor
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-6 h-6"> DogArmor
     </a>
     <div class="space-x-4 text-sm">
       <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>

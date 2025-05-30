@@ -12,7 +12,8 @@
   <nav class="bg-white p-4 flex justify-between items-center shadow-lg border-b border-gray-300">
     <!-- Logo -->
     <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
-      <i data-lucide="dog" class="w-6 h-6"></i> DogArmor
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-6 h-6 object-contain">
+      DogArmor
     </a>
   
     <!-- Nav Links -->
