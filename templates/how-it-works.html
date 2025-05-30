@@ -10,22 +10,22 @@
 <body class="bg-[#f9f4ff] text-text font-sans">
 <div class="flex flex-col min-h-screen">
 
-  <nav class="bg-[#fdf6f0] shadow-md px-6 py-4 flex justify-between items-center rounded-b-2xl">
-    <a href="{{ url_for('index') }}" class="text-2xl font-bold text-[#ff585d] flex items-center gap-2">
-      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-7 h-7">
+  <!-- Navbar -->
+  <nav class="bg-white p-4 shadow-md flex justify-between items-center">
+    <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-blue-700 font-bold text-xl">
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-6 h-6 object-contain">
       DogArmor
     </a>
-    <div class="space-x-6 text-base font-medium">
-      <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-[#ff585d] transition">Home</a>
-      <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-[#ff585d] transition">How it Works</a>
-      <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-[#ff585d] transition">Demo</a>
-      <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-[#ff585d] transition">Features</a>
-      <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-[#ff585d] transition">Why Our Company Matters</a>
-      <a href="{{ url_for('about') }}" class="text-[#ff585d] font-semibold border-b-2 border-[#ff585d]">About Us</a>
-      <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-[#ff585d] transition">Team</a>
+    <div class="space-x-4 text-sm">
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('index') }}">Home</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('how_it_works') }}">How it Works</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('demo') }}">Demo</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('features') }}">Features</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('why_us') }}">Why Our Company Matters</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('about') }}">About Us</a>
+      <a class="text-gray-700 hover:text-accent transition duration-300" href="{{ url_for('team') }}">Team</a>
     </div>
   </nav>
-  
 
   <!-- How It Works Section -->
   <section class="py-20 px-6 max-w-5xl mx-auto">
