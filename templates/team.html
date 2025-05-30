@@ -10,19 +10,19 @@
 </head>
 <body class="bg-rose-50 text-gray-800 font-sans h-full flex flex-col">
 
-<!-- Navbar -->
-<nav class="bg-white shadow sticky top-0 z-40">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a class="text-blue-700 font-bold text-xl hover:text-rose-500 transition" href="{{ url_for('index') }}">DogArmor</a>
-    <div class="hidden md:flex space-x-6 text-gray-700 font-medium text-sm">
-      <a class="hover:text-rose-500 transition" href="{{ url_for('index') }}">Home</a>
-      <a class="hover:text-rose-500 transition" href="{{ url_for('how_it_works') }}">How it Works</a>
-      <a class="hover:text-rose-500 transition" href="{{ url_for('demo') }}">Demo</a>
-      <a class="hover:text-rose-500 transition" href="{{ url_for('features') }}">Features</a>
-      <a class="hover:text-rose-500 transition" href="{{ url_for('why_us') }}">Why Our Company Matters</a>
-      <a class="hover:text-rose-500 transition" href="{{ url_for('about') }}">About Us</a>
-      <a class="text-rose-500 font-semibold" href="{{ url_for('team') }}">Team</a>
-    </div>
+<!-- Navigation Bar -->
+<nav class="bg-white p-4 shadow-md flex justify-between items-center">
+  <a href="{{ url_for('index') }}" class="text-xl font-bold text-blue-700 hover:text-rose-500 transition flex items-center gap-2">
+    <i data-lucide="shield-dog" class="w-6 h-6 text-blue-700"></i> DogArmor
+  </a>
+  <div class="space-x-4 text-sm text-gray-700 font-medium">
+    <a href="{{ url_for('index') }}" class="hover:text-rose-500 transition">Home</a>
+    <a href="{{ url_for('how_it_works') }}" class="hover:text-rose-500 transition">How it Works</a>
+    <a href="{{ url_for('demo') }}" class="hover:text-rose-500 transition">Demo</a>
+    <a href="{{ url_for('features') }}" class="hover:text-rose-500 transition">Features</a>
+    <a href="{{ url_for('why_us') }}" class="hover:text-rose-500 transition">Why Our Company Matters</a>
+    <a href="{{ url_for('about') }}" class="hover:text-rose-500 transition">About Us</a>
+    <a href="{{ url_for('team') }}" class="text-rose-500 font-semibold">Team</a>
   </div>
 </nav>
 

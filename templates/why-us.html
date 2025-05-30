@@ -21,19 +21,19 @@
     </svg>
   </div>
 
-  <!-- Navbar -->
-  <nav class="bg-gray-900 bg-opacity-90 backdrop-blur-md p-4 shadow-lg flex justify-between items-center sticky top-0 z-50">
-    <a href="index.html" class="text-amber-400 hover:text-amber-300 font-extrabold text-xl transition duration-300">DogArmor</a>
-    <div class="space-x-6 text-sm font-semibold">
-      <a href="index.html" class="hover:text-amber-400 transition">Home</a>
-      <a href="how-it-works.html" class="hover:text-amber-400 transition">How it Works</a>
-      <a href="demo.html" class="hover:text-amber-400 transition">Demo</a>
-      <a href="features.html" class="hover:text-amber-400 transition">Features</a>
-      <a href="why-us.html" class="text-amber-400 underline decoration-amber-600 underline-offset-4 transition">Why Our Company Matters</a>
-      <a href="about.html" class="hover:text-amber-400 transition">About Us</a>
-      <a href="team.html" class="hover:text-amber-400 transition">Team</a>
-    </div>
-  </nav>
+<!-- Navbar -->
+<nav class="bg-gray-900 bg-opacity-90 backdrop-blur-md p-4 shadow-lg flex justify-between items-center sticky top-0 z-50">
+  <a class="text-amber-400 hover:text-amber-300 font-extrabold text-xl transition duration-300" href="{{ url_for('index') }}">DogArmor</a>
+  <div class="space-x-6 text-sm font-semibold">
+    <a class="hover:text-amber-400 transition" href="{{ url_for('index') }}">Home</a>
+    <a class="hover:text-amber-400 transition" href="{{ url_for('how_it_works') }}">How it Works</a>
+    <a class="hover:text-amber-400 transition" href="{{ url_for('demo') }}">Demo</a>
+    <a class="hover:text-amber-400 transition" href="{{ url_for('features') }}">Features</a>
+    <a class="text-amber-400 underline decoration-amber-600 underline-offset-4 transition" href="{{ url_for('why_us') }}">Why Our Company Matters</a>
+    <a class="hover:text-amber-400 transition" href="{{ url_for('about') }}">About Us</a>
+    <a class="hover:text-amber-400 transition" href="{{ url_for('team') }}">Team</a>
+  </div>
+</nav>
 
   <!-- Content Section -->
   <main class="flex-grow max-w-4xl mx-auto px-6 pt-[350px] py-20 space-y-16 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-800 rounded-lg">
