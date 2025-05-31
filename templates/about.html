@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-blue-50 py-16 text-center px-4">
+<section class="bg-blue-50 py-16 text-center px-4" data-aos="fade-up">
   <h1 class="text-4xl font-extrabold text-blue-700 mb-4">About DogArmor</h1>
   <p class="text-lg max-w-2xl mx-auto text-blue-900">
     Built to help every dog find the perfect gear — intelligently, compassionately, and affordably.
@@ -13,10 +13,10 @@
 </section>
 
 <!-- Section 1 Background -->
-<section class="bg-sky-100 py-20">
+<section class="bg-sky-100 py-20" data-aos="fade-up">
   <div class="max-w-4xl mx-auto bg-white rounded shadow-md py-12 px-6">
-    <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
-      <i data-lucide="target" class="w-5 h-5 text-blue-600"></i>
+    <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2 group">
+      <i data-lucide="target" class="w-5 h-5 text-blue-600 transition-transform duration-300 group-hover:scale-125"></i>
       Our Mission
     </h2>
     <p>
@@ -26,10 +26,10 @@
 </section>
 
 <!-- Section 2 Background -->
-<section class="bg-rose-100 py-20">
+<section class="bg-rose-100 py-20" data-aos="fade-up">
   <div class="max-w-4xl mx-auto bg-white rounded shadow-md py-16 px-6">
-    <h2 class="text-3xl font-bold text-orange-700 mb-6 flex items-center gap-2">
-      <i data-lucide="star" class="w-6 h-6 text-orange-600"></i>
+    <h2 class="text-3xl font-bold text-orange-700 mb-6 flex items-center gap-2 group">
+      <i data-lucide="star" class="w-6 h-6 text-orange-600 transition-transform duration-300 group-hover:scale-125"></i>
       What Makes Us Different
     </h2>
     <p class="text-lg text-gray-800 mb-8">
@@ -43,10 +43,10 @@
 </section>
 
 <!-- Section 3 Background -->
-<section class="bg-rose-300 py-20">
+<section class="bg-rose-300 py-20" data-aos="fade-up">
   <div class="max-w-4xl mx-auto bg-white rounded shadow-md py-12 px-6">
-    <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
-      <i data-lucide="book-open" class="w-5 h-5 text-blue-600"></i>
+    <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2 group">
+      <i data-lucide="book-open" class="w-5 h-5 text-blue-600 transition-transform duration-300 group-hover:scale-125"></i>
       How It All Started
     </h2>
     <p>
@@ -56,10 +56,10 @@
 </section>
 
 <!-- Section 4 Background -->
-<section class="bg-fuchsia-200 py-20">
+<section class="bg-fuchsia-200 bg-[url('https://www.transparenttextures.com/patterns/purty-wood.png')] bg-repeat py-20" data-aos="fade-up">
   <div class="max-w-4xl mx-auto bg-white rounded shadow-md py-12 px-6">
-    <h2 class="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
-      <i data-lucide="heart" class="w-6 h-6 text-red-500"></i>
+    <h2 class="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2 group">
+      <i data-lucide="heart" class="w-6 h-6 text-red-500 transition-transform duration-300 group-hover:scale-125"></i>
       What We Believe In
     </h2>
     <ul class="list-disc list-inside space-y-2 text-gray-700">
@@ -71,4 +71,19 @@
   </div>
 </section>
 
+<!-- Quote Section -->
+<section class="bg-purple-900 py-12 px-4 text-center" data-aos="fade-up">
+  <blockquote class="italic text-white max-w-xl mx-auto text-lg">
+    “DogArmor helped me find the first harness my rescue actually *loved* wearing. Game changer.”
+  </blockquote>
+  <p class="mt-4 text-sm text-white">— A real DogArmor customer</p>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  lucide.createIcons();
+  AOS.init();
+</script>
 {% endblock %}
