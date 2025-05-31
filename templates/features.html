@@ -3,87 +3,87 @@
 {% block title %}Features | DogArmor{% endblock %}
 
 {% block content %}
-<!-- AOS Library -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<!-- Hero Section -->
-<section class="py-24 px-6 text-center bg-orange-50">
-  <h1 class="text-4xl font-bold text-orange-700 mb-4 flex items-center justify-center gap-2" data-aos="fade-up">
-    <i class="w-7 h-7 text-orange-700" data-lucide="stars"></i>
-    Key Features of DogArmor
-  </h1>
-  <p class="text-2xl text-orange-800 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-    Smart, personalized, and built for your dog’s unique needs.
-  </p>
-</section>
-
-<!-- Features Grid Section -->
-<section class="bg-orange-200 rounded-t-[3rem] p-10 mt-[-3rem]">
-  <div class="max-w-6xl mx-auto bg-orange-50 rounded-2xl shadow-lg p-8 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-    
-    <!-- Feature Card -->
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="0">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="camera" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Image-Based Recognition</h3>
-      </div>
-      <p class="text-gray-700 text-sm">
-        Upload a photo of your dog to help us understand their body type and age for more accurate gear fitting.
+<div class="flex flex-col flex-grow bg-orange-200">
+  <!-- Hero Section -->
+  <section class="py-24 px-6 text-center">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl font-bold text-orange-700 mb-4 flex items-center justify-center gap-2" data-aos="fade-up">
+        <i class="w-7 h-7 text-orange-700" data-lucide="stars"></i>
+        Key Features of DogArmor
+      </h1>
+      <p class="text-2xl text-orange-800 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+        Smart, personalized, and built for your dog’s unique needs.
       </p>
     </div>
+  </section>
 
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="100">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="paw-print" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Behavioral Matching</h3>
+  <!-- Features Grid Section -->
+  <section class="rounded-t-[3rem] p-10 mt-[-3rem]">
+    <div class="max-w-6xl mx-auto bg-orange-50 rounded-2xl shadow-lg p-8 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Feature Cards -->
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="camera" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Image-Based Recognition</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          Upload a photo of your dog to help us understand their body type and age for more accurate gear fitting.
+        </p>
       </div>
-      <p class="text-gray-700 text-sm">
-        Takes into account activity, age, and temperament to suggest the most comfortable gear.
-      </p>
-    </div>
 
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="200">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Data-Driven Suggestions</h3>
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="paw-print" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Behavioral Matching</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          Takes into account activity, age, and temperament to suggest the most comfortable gear.
+        </p>
       </div>
-      <p class="text-gray-700 text-sm">
-        Uses breed, size, and budget data to match your dog with optimal collar, harness, and leash options.
-      </p>
-    </div>
 
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="300">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="wallet" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Budget Flexibility</h3>
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Data-Driven Suggestions</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          Uses breed, size, and budget data to match your dog with optimal collar, harness, and leash options.
+        </p>
       </div>
-      <p class="text-gray-700 text-sm">
-        Whether you want premium or affordable gear, DogArmor adjusts to your price range.
-      </p>
-    </div>
 
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="400">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="smartphone" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Mobile-Ready Future</h3>
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="wallet" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Budget Flexibility</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          Whether you want premium or affordable gear, DogArmor adjusts to your price range.
+        </p>
       </div>
-      <p class="text-gray-700 text-sm">
-        Our upcoming mobile app lets you scan, search, and shop conveniently on the go.
-      </p>
-    </div>
 
-    <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="500">
-      <div class="flex items-center gap-2 text-orange-600">
-        <i data-lucide="lock" class="w-5 h-5"></i>
-        <h3 class="text-lg font-semibold">Privacy First</h3>
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="smartphone" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Mobile-Ready Future</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          Our upcoming mobile app lets you scan, search, and shop conveniently on the go.
+        </p>
       </div>
-      <p class="text-gray-700 text-sm">
-        We never sell your data. Everything is private, secure, and in your control.
-      </p>
+
+      <div class="bg-white p-6 rounded-xl border shadow-md space-y-3" data-aos="fade-up" data-aos-delay="500">
+        <div class="flex items-center gap-2 text-orange-600">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+          <h3 class="text-lg font-semibold">Privacy First</h3>
+        </div>
+        <p class="text-gray-700 text-sm">
+          We never sell your data. Everything is private, secure, and in your control.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <!-- AOS Init -->
 <script>

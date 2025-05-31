@@ -11,7 +11,7 @@
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 </head>
-<body class="text-gray-800 font-sans">
+<body class="flex flex-col min-h-screen text-gray-800 font-sans">
 
   <!-- Nav -->
   <nav class="bg-white py-2 px-4 flex justify-between items-center shadow-lg border-b border-gray-300">
@@ -33,7 +33,7 @@
   </nav>
 
   <!-- Page-specific content -->
-  <main>
+  <main class="flex-grow">
     {% block content %}{% endblock %}
   </main>
 
