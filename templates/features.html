@@ -12,8 +12,7 @@
   <!-- Navbar -->
   <nav class="bg-white p-4 shadow-md flex justify-between items-center">
     <a class="text-xl font-bold text-orange-600 flex items-center gap-2" href="{{ url_for('index') }}">
-      <i class="w-6 h-6 text-orange-600" data-lucide="shield-check"></i>
-      DogArmor
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1"> DogArmor
     </a>
     <div class="space-x-4 text-sm">
       <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>
@@ -40,9 +39,9 @@
     </section>
 
     <!-- Features Grid -->
-    <div class="bg-orange-100 rounded-xl p-8 mt-[-2rem]">
-      <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+    <div class="bg-orange-200 rounded-xl p-8 mt-[-2rem]">
+      <div class="max-w-6xl mx-auto bg-orange-50 rounded-2xl p-6 shadow-lg grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="camera" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Image-Based Recognition</h3>
@@ -52,7 +51,7 @@
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="paw-print" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Behavioral Matching</h3>
@@ -62,7 +61,7 @@
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Data-Driven Suggestions</h3>
@@ -72,7 +71,7 @@
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="wallet" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Budget Flexibility</h3>
@@ -82,7 +81,7 @@
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="smartphone" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Mobile-Ready Future</h3>
@@ -92,7 +91,7 @@
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3">
+        <div class="bg-white p-6 rounded-xl border shadow-sm space-y-3 feature-card">
           <div class="flex items-center gap-2 text-orange-600">
             <i data-lucide="lock" class="w-5 h-5"></i>
             <h3 class="text-lg font-semibold">Privacy First</h3>

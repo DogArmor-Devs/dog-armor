@@ -7,12 +7,32 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ADDED: Global font family for body -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    button[type="submit"] {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); /* green glow */
+    }
+  </style>
 </head>
+
 <body class="text-gray-800 font-sans bg-green-50">
   <!-- Navigation Bar -->
   <nav class="bg-white p-4 shadow-md flex justify-between items-center">
     <a href="{{ url_for('index') }}" class="text-xl font-bold text-green-600 flex items-center gap-2">
-      <i data-lucide="shield-dog" class="w-6 h-6 text-green-600"></i> DogArmor
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1">
+      DogArmor
     </a>
     <div class="space-x-4 text-sm">
       <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-green-600 font-medium transition duration-300">Home</a>
@@ -26,110 +46,115 @@
   </nav>
 
   <!-- Demo Section -->
-  <section class="py-16 px-6 max-w-3xl mx-auto" data-aos="zoom-in">
-    <h1 class="text-4xl font-bold text-green-700 text-center mb-10 flex items-center justify-center gap-3">
-      <i data-lucide="activity" class="w-8 h-8 text-green-700"></i>
+  <section class="py-24 px-6 max-w-6xl mx-auto" data-aos="zoom-in">
+    <h1 class="text-5xl font-extrabold text-green-700 text-center mb-12 flex items-center justify-center gap-4">
+      <i data-lucide="activity" class="w-10 h-10 text-green-700"></i>
       Try the Recommendation Demo
     </h1>
 
-    <form id="demo-form" class="space-y-6 bg-white p-6 rounded-xl border border-gray-200 shadow">
-      <!-- Dog photo-derived info -->
-      <div>
-        <label class="block text-lg font-medium text-green-700 mb-2">Information derived from photo of dog:</label>
-        <label class="block text-sm font-medium text-gray-700">Weight</label>
-        <select name="weight" id="weight" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="Small">Strawweight: &lt;10lbs</option>
-          <option value="Medium">Middleweight &lt;40lbs</option>
-          <option value="Large">Heavyweight &gt;40lbs</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Length of Chest Bridge</label>
-        <select name="chest_bridge_length" id="chest_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;9"</option>
-          <option value="Medium">Medium: &lt;28"</option>
-          <option value="Large">Large: &gt;28"</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Neck Circumference</label>
-        <select name="neck_circumference" id="neck_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;10"</option>
-          <option value="Medium">Medium: &lt;18"</option>
-          <option value="Large">Large: &gt;18"</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Length of Back Bridge</label>
-        <select name="back_bridge_length" id="back_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;6"</option>
-          <option value="Medium">Medium: &lt;8.6"</option>
-          <option value="Large">Large: &gt;8.6"</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Belly Circumference</label>
-        <select name="belly_circumference" id="belly_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="Small">Small: &lt;20"</option>
-          <option value="Medium">Medium: &lt;28"</option>
-          <option value="Large">Large: &gt;28"</option>
-        </select>
-      </div>
+    <form id="demo-form" class="space-y-6 bg-white p-8 rounded-2xl border border-gray-200 shadow-md">
 
-      <!-- User input -->
-      <div>
-        <label class="block text-lg font-medium text-green-700 mb-2">Information from user input:</label>
-        <label class="block text-sm font-medium text-gray-700">Dog Breed</label>
-        <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Dog Age</label>
-        <select name="age" id="age" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="small">Young &lt;6 months</option>
-          <option value="medium">Average &lt;2 years</option>
-          <option value="large">Old &gt;2 years</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Does dog pull on leash during walks?</label>
-        <select name="pull" id="pull" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Is this dog being trained or used for guarding/protection?</label>
-        <select name="guard_dog" id="guard_dog" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">How many dogs do you take care of?</label>
-        <select name="total_dogs" id="total_dogs" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="small">1 dog</option>
-          <option value="medium">&lt;5 dogs</option>
-          <option value="large">&gt;5 dogs</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Your total budget for gear?</label>
-        <select name="budget" id="budget" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="small">&lt;$30</option>
-          <option value="medium">&lt;$60</option>
-          <option value="large">&gt;$60</option>
-        </select>
-      </div>
+      <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
+        <legend class="text-lg font-medium text-green-700 px-2 mb-2" style="margin-top: -1.5rem;">Information derived from photo of dog:</legend>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Weight</label>
+          <select name="weight" id="weight" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Small">Strawweight: &lt;10lbs</option>
+            <option value="Medium">Middleweight &lt;40lbs</option>
+            <option value="Large">Heavyweight &gt;40lbs</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Length of Chest Bridge</label>
+          <select name="chest_bridge_length" id="chest_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Small">Small: &lt;9"</option>
+            <option value="Medium">Medium: &lt;28"</option>
+            <option value="Large">Large: &gt;28"</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Neck Circumference</label>
+          <select name="neck_circumference" id="neck_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Small">Small: &lt;10"</option>
+            <option value="Medium">Medium: &lt;18"</option>
+            <option value="Large">Large: &gt;18"</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Length of Back Bridge</label>
+          <select name="back_bridge_length" id="back_bridge_length" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Small">Small: &lt;6"</option>
+            <option value="Medium">Medium: &lt;8.6"</option>
+            <option value="Large">Large: &gt;8.6"</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Belly Circumference</label>
+          <select name="belly_circumference" id="belly_circumference" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Small">Small: &lt;20"</option>
+            <option value="Medium">Medium: &lt;28"</option>
+            <option value="Large">Large: &gt;28"</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
+        <legend class="text-lg font-medium text-green-700 px-2 mb-2" style="margin-top: -rem;">Information from user input:</legend>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Dog Breed</label>
+          <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Dog Age</label>
+          <select name="age" id="age" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="small">Young &lt;6 months</option>
+            <option value="medium">Average &lt;2 years</option>
+            <option value="large">Old &gt;2 years</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Does dog pull on leash during walks?</label>
+          <select name="pull" id="pull" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Is this dog being trained or used for guarding/protection?</label>
+          <select name="guard_dog" id="guard_dog" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">How many dogs do you take care of?</label>
+          <select name="total_dogs" id="total_dogs" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="small">1 dog</option>
+            <option value="medium">&lt;5 dogs</option>
+            <option value="large">&gt;5 dogs</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Your total budget for gear?</label>
+          <select name="budget" id="budget" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="small">&lt;$30</option>
+            <option value="medium">&lt;$60</option>
+            <option value="large">&gt;$60</option>
+          </select>
+        </div>
+      </fieldset>
 
       <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow transition">
         Get Recommendation
@@ -147,7 +172,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-white py-6 text-center mt-16 border-t">
+  <footer class="bg-pink-100 py-6 text-center mt-16 border-t">
     <p class="text-sm text-gray-600">&copy; 2025 DogArmor. All rights reserved.</p>
   </footer>
 
