@@ -276,7 +276,7 @@ article {
   will-change: transform, box-shadow;
 }
 
-/* This makes the SVG move gently up and down */
+/* This makes the SVG in why-us move gently up and down */
 @keyframes floatUpDown {
   0%, 100% {
     transform: translateY(0);
@@ -287,6 +287,6 @@ article {
 }
 
 #visual {
-  animation: floatUpDown 4s ease-in-out infinite;
+  animation: floatUpDown 3s ease-in-out infinite;
   transform-origin: center;
 }
