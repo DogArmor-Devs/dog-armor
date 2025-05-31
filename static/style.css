@@ -227,3 +227,11 @@ p {
 .text-dark {
   color: var(--color-text-dark);
 }
+
+
+.feature-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(251, 146, 60, 0.4); /* orange glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
