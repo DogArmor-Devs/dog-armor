@@ -4,81 +4,81 @@
 
 {% block content %}
 
-<div class="bg-green-50 min-h-screen">
+<section class="bg-green-50 min-h-screen">
   <!-- Demo Section -->
-  <section class="py-16 px-6 max-w-6xl mx-auto" data-aos="zoom-in">
+  <div class="py-16 px-6 max-w-6xl mx-auto" data-aos="zoom-in">
     <h1 class="text-5xl font-extrabold text-green-700 text-center mb-12 flex items-center justify-center gap-4">
       <i data-lucide="activity" class="w-10 h-10 text-green-700"></i>
       Try the Recommendation Demo
     </h1>
 
-  <form id="demo-form" class="space-y-6 bg-white p-8 rounded-2xl border border-gray-200 shadow-md">
+    <form id="demo-form" class="space-y-6 bg-white p-8 rounded-2xl border border-gray-200 shadow-md">
+      <!-- Derived from image -->
+      <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
+        <legend class="text-lg font-medium text-green-700 px-2 mb-2" style="margin-top: -1.5rem;">
+          Information derived from photo of dog:
+        </legend>
 
-    <!-- Derived from image -->
-    <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
-      <legend class="text-lg font-medium text-green-700 px-2 mb-2" style="margin-top: -1.5rem;">
-        Information derived from photo of dog:
-      </legend>
+        {% for field, label, options in [
+          ('weight', 'Weight', ['Small', 'Medium', 'Large']),
+          ('chest_bridge_length', 'Length of Chest Bridge', ['Small', 'Medium', 'Large']),
+          ('neck_circumference', 'Neck Circumference', ['Small', 'Medium', 'Large']),
+          ('back_bridge_length', 'Length of Back Bridge', ['Small', 'Medium', 'Large']),
+          ('belly_circumference', 'Belly Circumference', ['Small', 'Medium', 'Large'])
+        ] %}
+        <div>
+          <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
+          <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            {% for size in options %}
+            <option value="{{ size }}">{{ size }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endfor %}
+      </fieldset>
 
-      {% for field, label, options in [
-        ('weight', 'Weight', ['Small', 'Medium', 'Large']),
-        ('chest_bridge_length', 'Length of Chest Bridge', ['Small', 'Medium', 'Large']),
-        ('neck_circumference', 'Neck Circumference', ['Small', 'Medium', 'Large']),
-        ('back_bridge_length', 'Length of Back Bridge', ['Small', 'Medium', 'Large']),
-        ('belly_circumference', 'Belly Circumference', ['Small', 'Medium', 'Large'])
-      ] %}
-      <div>
-        <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
-        <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          {% for size in options %}
-          <option value="{{ size }}">{{ size }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      {% endfor %}
-    </fieldset>
+      <!-- User input fields -->
+      <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
+        <legend class="text-lg font-medium text-green-700 px-2 mb-2">Information from user input:</legend>
 
-    <!-- User input fields -->
-    <fieldset class="border border-gray-200 rounded-md p-4 space-y-4">
-      <legend class="text-lg font-medium text-green-700 px-2 mb-2">Information from user input:</legend>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Dog Breed</label>
+          <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
+        </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Dog Breed</label>
-        <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
-      </div>
+        {% for field, label in [
+          ('age', 'Dog Age'),
+          ('pull', 'Does dog pull on leash during walks?'),
+          ('guard_dog', 'Is this dog being trained or used for guarding/protection?'),
+          ('total_dogs', 'How many dogs do you take care of?'),
+          ('budget', 'Your total budget for gear?')
+        ] %}
+        <div>
+          <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
+          <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="" disabled selected>Select</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+        {% endfor %}
+      </fieldset>
 
-      {% for field, label in [
-        ('age', 'Dog Age'),
-        ('pull', 'Does dog pull on leash during walks?'),
-        ('guard_dog', 'Is this dog being trained or used for guarding/protection?'),
-        ('total_dogs', 'How many dogs do you take care of?'),
-        ('budget', 'Your total budget for gear?')
-      ] %}
-      <div>
-        <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
-        <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-          <option value="" disabled selected>Select</option>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-      </div>
-      {% endfor %}
-    </fieldset>
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow transition">
+        Get Recommendation
+      </button>
+    </form>
 
-    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow transition">
-      Get Recommendation
-    </button>
-  </form>
-
-  <div id="result" class="mt-10 hidden p-6 bg-emerald-50 border border-emerald-200 rounded shadow-md">
-    <h2 class="text-2xl text-green-700 font-bold mb-2 flex items-center gap-2">
-      <i data-lucide="check-circle" class="w-5 h-5 text-green-700"></i>
-      Recommended Gear
-    </h2>
-    <ul id="recommendation-list" class="list-disc list-inside text-gray-700"></ul>
-    <p id="recommendation-message" class="mb-4 font-medium text-gray-800"></p>
+    <div id="result" class="mt-10 hidden p-6 bg-emerald-50 border border-emerald-200 rounded shadow-md">
+      <h2 class="text-2xl text-green-700 font-bold mb-2 flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-700"></i>
+        Recommended Gear
+      </h2>
+      <ul id="recommendation-list" class="list-disc list-inside text-gray-700"></ul>
+      <p id="recommendation-message" class="mb-4 font-medium text-gray-800"></p>
+    </div>
   </div>
 </section>
 
@@ -138,5 +138,5 @@
     resultBox.classList.remove('hidden');
   });
 </script>
-</div>
+
 {% endblock %}
