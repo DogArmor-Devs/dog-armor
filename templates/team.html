@@ -7,6 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
   <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body class="bg-rose-50 text-gray-800 font-sans h-full flex flex-col">
 
@@ -33,7 +36,7 @@
   <div class="grid md:grid-cols-2 gap-12">
 
     <!-- Team Member 1 -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
+    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
       <img alt="Vihaan Kesharwani" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member1.jpg') }}"/>
       <h2 class="text-3xl font-semibold text-blue-700 mb-1">Vihaan Kesharwani</h2>
       <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
@@ -43,6 +46,7 @@
       <p class="text-gray-700 max-w-md">
         Vihaan leads visual development and frontend as well as crafting models, with a deep interest in creating technology to improve lives.
       </p>
+      <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
       <div class="mt-6 flex space-x-6 justify-center text-gray-500">
         <a aria-label="Email Vihaan" class="hover:text-rose-500 transition" href="mailto:vihaan@example.com">
           <i class="w-6 h-6" data-lucide="mail"></i>
@@ -54,7 +58,7 @@
     </div>
 
     <!-- Team Member 2 -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
+    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
       <img alt="Anto Francis" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member2.jpg') }}"/>
       <h2 class="text-3xl font-semibold text-blue-700 mb-1">Anto Francis</h2>
       <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
@@ -64,6 +68,7 @@
       <p class="text-gray-700 max-w-md">
         Anto works on creating the best models for user experience, ensuring the app provides a delightful experience for others.
       </p>
+      <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
       <div class="mt-6 flex space-x-6 justify-center text-gray-500">
         <a aria-label="Email Anto" class="hover:text-rose-500 transition" href="mailto:anto@example.com">
           <i class="w-6 h-6" data-lucide="mail"></i>
@@ -85,6 +90,10 @@
 <!-- Lucide Init -->
 <script>
   lucide.createIcons();
+</script>
+
+<script>
+  AOS.init({ duration: 800, easing: 'ease-in-out' });
 </script>
 
 </body>
