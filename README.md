@@ -32,8 +32,8 @@ This is not just a form — it’s a smart recommender that adapts to each uniqu
 - Built with:
   - Python + Flask (Backend)
   - HTML/CSS + Tailwind + AOS (Frontend)
-  - Data Management: SQLite 
-  - Future: ML model for dog picture analysis 
+  - SQLite (Data Management)
+  - Future: ML models (dog picture analysis)
   - Hosted via Azure's Cloud
 
 ---
