@@ -20,18 +20,18 @@
         </legend>
 
         {% for field, label, options in [
-          ('weight', 'Weight', ['Small', 'Medium', 'Large']),
-          ('chest_bridge_length', 'Length of Chest Bridge', ['Small', 'Medium', 'Large']),
-          ('neck_circumference', 'Neck Circumference', ['Small', 'Medium', 'Large']),
-          ('back_bridge_length', 'Length of Back Bridge', ['Small', 'Medium', 'Large']),
-          ('belly_circumference', 'Belly Circumference', ['Small', 'Medium', 'Large'])
+          ('weight', 'Weight', ['Strawweight: <10lbs', 'Middleweight <40lbs', 'Heavyweight >40lbs']),
+          ('chest_bridge_length', 'Length of Chest Bridge', ['Small: <9"', 'Medium: <28"', 'Large: >28"']),
+          ('neck_circumference', 'Neck Circumference', ['Small: <10"', 'Medium: <18"', 'Large: >18"']),
+          ('back_bridge_length', 'Length of Back Bridge', ['Small: <6"', 'Medium: <8.6"', 'Large: >8.6"']),
+          ('belly_circumference', 'Belly Circumference', ['Small: <20"', 'Medium: <28"', 'Large: >28"'])
         ] %}
         <div>
           <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
           <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
             <option value="" disabled selected>Select</option>
             {% for size in options %}
-            <option value="{{ size }}">{{ size }}</option>
+              <option value="{{ size }}">{{ size|e }}</option>
             {% endfor %}
           </select>
         </div>
@@ -47,20 +47,20 @@
           <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
         </div>
 
-        {% for field, label in [
-          ('age', 'Dog Age'),
-          ('pull', 'Does dog pull on leash during walks?'),
-          ('guard_dog', 'Is this dog being trained or used for guarding/protection?'),
-          ('total_dogs', 'How many dogs do you take care of?'),
-          ('budget', 'Your total budget for gear?')
+        {% for field, label, options in [
+          ('age', 'Dog Age', ['Young <6 months', 'Average <2 years', 'Old >2 years']),
+          ('pull', 'Does dog pull on leash during walks?', ['Yes', 'No']),
+          ('guard_dog', 'Is this dog being trained or used for guarding/protection?', ['Yes', 'No']),
+          ('total_dogs', 'How many dogs do you take care of?', ['1 dog', '<5 dogs', '>5 dogs']),
+          ('budget', 'Your total budget for gear?', ['<$30', '<$60', '>$60'])
         ] %}
         <div>
           <label class="block text-sm font-medium text-gray-700">{{ label }}</label>
           <select name="{{ field }}" id="{{ field }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
             <option value="" disabled selected>Select</option>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+            {% for option in options %}
+              <option value="{{ option }}">{{ option|e }}</option>
+            {% endfor %}
           </select>
         </div>
         {% endfor %}
