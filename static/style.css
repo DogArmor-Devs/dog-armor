@@ -246,3 +246,47 @@ p {
   box-shadow: 0 15px 30px rgba(251, 146, 60, 0.3); /* warm orange glow */
   cursor: pointer;
 }
+
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(270deg, #0a2342, #143d6f, #1e579a, #0a2342);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move 8s ease infinite;
+}
+
+
+article:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(205, 74, 69, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+article {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+/* This makes the SVG move gently up and down */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+#visual {
+  animation: floatUpDown 4s ease-in-out infinite;
+  transform-origin: center;
+}
