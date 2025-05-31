@@ -6,6 +6,10 @@
   <title>{% block title %}DogArmor{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
 </head>
 <body class="text-gray-800 font-sans">
 
@@ -40,6 +44,9 @@
 
   <script>
     lucide.createIcons();
-  </script>
+  </script> 
+
+{% block scripts %}{% endblock %}
+
 </body>
 </html>

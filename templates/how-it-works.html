@@ -3,75 +3,72 @@
 {% block title %}How It Works | DogArmor{% endblock %}
 
 {% block content %}
-<div class="bg-[#f9f4ff] min-h-screen py-16">
-  <div class="bg-white rounded-xl shadow-md max-w-6xl mx-auto p-8">
+<!-- ✅ Load AOS CSS only on this page -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <section>
-      <h1 class="text-4xl font-extrabold text-blue-700 text-center mb-8" data-aos="fade-up">How It Works</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<section class="py-24 px-6 max-w-6xl mx-auto bg-[#f9f4ff]">
+  <h1 class="text-4xl font-extrabold text-blue-700 text-center mb-4" data-aos="fade-up">How It Works</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-        <!-- Step 1 -->
-        <div class="bg-surface p-6 rounded-xl shadow-md border border-muted" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
-            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M12 11c0 2.21-1.79 4-4 4S4 13.21 4 11s1.79-4 4-4 4 1.79 4 4Z"></path>
-              <path d="M20 21v-2a4 4 0 0 0-4-4h-5"></path>
-            </svg>
-            1. Upload a Picture of Your Dog
-          </h2>
-          <p class="text-gray-600 leading-relaxed">
-            Start by uploading a clear photo of your dog. This helps us understand breed and body structure for accurate recommendations for the best harness.
-          </p>
-        </div>
+    <!-- Step 1 -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-300" data-aos="fade-up" data-aos-delay="100">
+      <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
+        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 11c0 2.21-1.79 4-4 4S4 13.21 4 11s1.79-4 4-4 4 1.79 4 4Z"></path>
+          <path d="M20 21v-2a4 4 0 0 0-4-4h-5"></path>
+        </svg>
+        1. Upload a Picture of Your Dog
+      </h2>
+      <p class="text-gray-600 leading-relaxed">
+        Start by uploading a clear photo of your dog. This helps us understand breed and body structure for accurate recommendations for the best harness.
+      </p>
+    </div>
 
-        <!-- Step 2 -->
-        <div class="bg-surface p-6 rounded-xl shadow-md border border-muted" data-aos="fade-up" data-aos-delay="200">
-          <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
-            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M12 2a10 10 0 0 0-10 10v6a2 2 0 0 0 2 2h5l1 2 1-2h5a2 2 0 0 0 2-2v-6a10 10 0 0 0-10-10Z"></path>
-            </svg>
-            2. Tell Us About Their Behavior
-          </h2>
-          <p class="text-gray-600 leading-relaxed">
-            Share your dog’s breed, size, activity level, and temperament — and let us find the perfect gear that keeps them comfy, secure, and ready for every adventure!
-          </p>
-        </div>
+    <!-- Step 2 -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-300" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
+        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-10 10v6a2 2 0 0 0 2 2h5l1 2 1-2h5a2 2 0 0 0 2-2v-6a10 10 0 0 0-10-10Z"></path>
+        </svg>
+        2. Tell Us About Their Behavior
+      </h2>
+      <p class="text-gray-600 leading-relaxed">
+        Share your dog’s breed, size, activity level, and temperament — and let us find the perfect gear that keeps them comfy, secure, and ready for every adventure!
+      </p>
+    </div>
 
-        <!-- Step 3 -->
-        <div class="bg-surface p-6 rounded-xl shadow-md border border-muted" data-aos="fade-up" data-aos-delay="300">
-          <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
-            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 15v4a2 2 0 0 1-2 2h-4"></path>
-              <path d="M3 15v4a2 2 0 0 0 2 2h4"></path>
-              <path d="M3 10V6a2 2 0 0 1 2-2h4"></path>
-              <path d="M21 10V6a2 2 0 0 0-2-2h-4"></path>
-              <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
-            </svg>
-            3. Get Smart Recommendations
-          </h2>
-          <p class="text-gray-600 leading-relaxed">
-            Our AI picks the perfect collar, harness, and leash combo that’s safe, comfy, and fits your budget — made just for your dog!
-          </p>
-        </div>
+    <!-- Step 3 -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-300" data-aos="fade-up" data-aos-delay="300">
+      <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
+        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2h-4"></path>
+          <path d="M3 15v4a2 2 0 0 0 2 2h4"></path>
+          <path d="M3 10V6a2 2 0 0 1 2-2h4"></path>
+          <path d="M21 10V6a2 2 0 0 0-2-2h-4"></path>
+          <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+        </svg>
+        3. Get Smart Recommendations
+      </h2>
+      <p class="text-gray-600 leading-relaxed">
+        Our AI picks the perfect collar, harness, and leash combo that’s safe, comfy, and fits your budget — made just for your dog!
+      </p>
+    </div>
 
-        <!-- Step 4 -->
-        <div class="bg-surface p-6 rounded-xl shadow-md border border-muted" data-aos="fade-up" data-aos-delay="400">
-          <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
-            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M12 2a10 10 0 1 1 0 20"></path>
-            </svg>
-            4. Explore or Shop
-          </h2>
-          <p class="text-gray-600 leading-relaxed">
-            (Coming soon) Save your favorites or shop the gear we recommend — all carefully chosen for quality and the perfect fit just for you.
-          </p>
-        </div>
-
-      </div>
-    </section>
+    <!-- Step 4 -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-300" data-aos="fade-up" data-aos-delay="400">
+      <h2 class="text-2xl font-extrabold text-blue-700 mb-4 flex items-center">
+        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2a10 10 0 1 1 0 20"></path>
+        </svg>
+        4. Explore or Shop
+      </h2>
+      <p class="text-gray-600 leading-relaxed">
+        (Coming soon) Save your favorites or shop the gear we recommend — all carefully chosen for quality and the perfect fit just for you.
+      </p>
+    </div>
 
   </div>
-</div>
+</section>
 
 <!-- ✅ AOS Script -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

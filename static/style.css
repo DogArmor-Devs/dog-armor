@@ -276,6 +276,21 @@ article {
   will-change: transform, box-shadow;
 }
 
+/* subtle float animation to icons for features */
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.feature-card i {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+
 /* This makes the SVG in why-us move gently up and down */
 @keyframes floatUpDown {
   0%, 100% {
@@ -290,3 +305,5 @@ article {
   animation: floatUpDown 3s ease-in-out infinite;
   transform-origin: center;
 }
+
+

@@ -3,6 +3,10 @@
 {% block title %}Team | DogArmor{% endblock %}
 
 {% block content %}
+<!-- Add AOS CSS and JS here -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <div class="bg-rose-50 text-gray-800 font-sans min-h-screen py-16">
   <div class="bg-white rounded-xl shadow-md max-w-6xl mx-auto p-10">
 
@@ -61,9 +65,11 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script>
-  lucide.createIcons();
-  AOS.init({ duration: 800, easing: 'ease-in-out' });
+  // Initialize AOS after content loads
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({ duration: 800, easing: 'ease-in-out' });
+  });
 </script>
+
 {% endblock %}

@@ -15,7 +15,7 @@ def demo():
 def features():
     return render_template('features.html')
 
-@app.route('/how-it-works')
+@app.route('/how-it-works') 
 def how_it_works():
     return render_template('how-it-works.html')
 
