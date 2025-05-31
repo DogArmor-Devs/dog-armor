@@ -1,100 +1,69 @@
-<!DOCTYPE html>
-<html class="h-full" lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>Team | DogArmor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
-  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+{% extends "base.html" %}
 
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-</head>
-<body class="bg-rose-50 text-gray-800 font-sans h-full flex flex-col">
+{% block title %}Team | DogArmor{% endblock %}
 
-<!-- Navigation Bar -->
-<nav class="bg-white p-4 shadow-md flex justify-between items-center">
-  <a href="{{ url_for('index') }}" class="text-xl font-bold text-blue-700 hover:text-rose-500 transition flex items-center gap-2">
-    <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1">
-    DogArmor
-  </a>
-  <div class="space-x-4 text-sm text-gray-700 font-medium">
-    <a href="{{ url_for('index') }}" class="hover:text-rose-500 transition">Home</a>
-    <a href="{{ url_for('how_it_works') }}" class="hover:text-rose-500 transition">How it Works</a>
-    <a href="{{ url_for('demo') }}" class="hover:text-rose-500 transition">Demo</a>
-    <a href="{{ url_for('features') }}" class="hover:text-rose-500 transition">Features</a>
-    <a href="{{ url_for('why_us') }}" class="hover:text-rose-500 transition">Why Our Company Matters</a>
-    <a href="{{ url_for('about') }}" class="hover:text-rose-500 transition">About Us</a>
-    <a href="{{ url_for('team') }}" class="text-rose-500 font-semibold">Team</a>
-  </div>
-</nav>
+{% block content %}
+<div class="bg-rose-50 text-gray-800 font-sans min-h-screen py-16">
+  <div class="bg-white rounded-xl shadow-md max-w-6xl mx-auto p-10">
 
-<!-- Hero Section -->
-<section class="max-w-5xl mx-auto px-6 py-16 text-center" data-aos="fade-up" data-aos-delay="100">
-  <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Meet Our Team</h1>
-  <div class="grid md:grid-cols-2 gap-12">
+    <!-- Hero Section -->
+    <section class="text-center" data-aos="fade-up" data-aos-delay="100">
+      <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Meet Our Team</h1>
+      <div class="grid md:grid-cols-2 gap-12">
 
-    <!-- Team Member 1 -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
-      <img alt="Vihaan Kesharwani" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member1.jpg') }}"/>
-      <h2 class="text-3xl font-semibold text-blue-700 mb-1">Vihaan Kesharwani</h2>
-      <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
-        <i class="w-5 h-5" data-lucide="user-check"></i>
-        <span>Co-Founder</span>
-      </p>
-      <p class="text-gray-700 max-w-md">
-        Vihaan leads visual development and frontend as well as crafting models, with a deep interest in creating technology to improve lives.
-      </p>
-      <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
-      <div class="mt-6 flex space-x-6 justify-center text-gray-500">
-        <a aria-label="Email Vihaan" class="hover:text-rose-500 transition" href="mailto:vihaan@example.com">
-          <i class="w-6 h-6" data-lucide="mail"></i>
-        </a>
-        <a aria-label="LinkedIn Vihaan" class="hover:text-rose-500 transition" href="https://linkedin.com/in/vihaan-kesharwani" rel="noopener" target="_blank">
-          <i class="w-6 h-6" data-lucide="linkedin"></i>
-        </a>
+        <!-- Team Member 1 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
+          <img alt="Vihaan Kesharwani" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member1.jpg') }}"/>
+          <h2 class="text-3xl font-semibold text-blue-700 mb-1">Vihaan Kesharwani</h2>
+          <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
+            <i class="w-5 h-5" data-lucide="user-check"></i>
+            <span>Co-Founder</span>
+          </p>
+          <p class="text-gray-700 max-w-md">
+            Vihaan leads visual development and frontend as well as crafting models, with a deep interest in creating technology to improve lives.
+          </p>
+          <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
+          <div class="mt-6 flex space-x-6 justify-center text-gray-500">
+            <a aria-label="Email Vihaan" class="hover:text-rose-500 transition" href="mailto:vihaan@example.com">
+              <i class="w-6 h-6" data-lucide="mail"></i>
+            </a>
+            <a aria-label="LinkedIn Vihaan" class="hover:text-rose-500 transition" href="https://linkedin.com/in/vihaan-kesharwani" rel="noopener" target="_blank">
+              <i class="w-6 h-6" data-lucide="linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
+          <img alt="Anto Francis" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member2.jpg') }}"/>
+          <h2 class="text-3xl font-semibold text-blue-700 mb-1">Anto Francis</h2>
+          <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
+            <i class="w-5 h-5" data-lucide="user-check"></i>
+            <span>Co-Founder</span>
+          </p>
+          <p class="text-gray-700 max-w-md">
+            Anto works on creating the best models and writing the backend for user experience, ensuring the app provides a delightful experience for others.
+          </p>
+          <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
+          <div class="mt-6 flex space-x-6 justify-center text-gray-500">
+            <a aria-label="Email Anto" class="hover:text-rose-500 transition" href="mailto:anto@example.com">
+              <i class="w-6 h-6" data-lucide="mail"></i>
+            </a>
+            <a aria-label="LinkedIn Anto" class="hover:text-rose-500 transition" href="https://linkedin.com/in/anto-francis" rel="noopener" target="_blank">
+              <i class="w-6 h-6" data-lucide="linkedin"></i>
+            </a>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <!-- Team Member 2 -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center team-card" data-aos="fade-up" data-aos-delay="100">
-      <img alt="Anto Francis" class="rounded-full w-48 h-48 object-cover mb-8 shadow-md" src="{{ url_for('static', filename='images/member2.jpg') }}"/>
-      <h2 class="text-3xl font-semibold text-blue-700 mb-1">Anto Francis</h2>
-      <p class="flex items-center text-rose-500 font-semibold mb-4 space-x-2">
-        <i class="w-5 h-5" data-lucide="user-check"></i>
-        <span>Co-Founder</span>
-      </p>
-      <p class="text-gray-700 max-w-md">
-        Anto works on creating the best models for user experience, ensuring the app provides a delightful experience for others.
-      </p>
-      <p class="italic text-rose-400 mt-4 max-w-sm">“Making tech that feels like a warm hug.”</p>
-      <div class="mt-6 flex space-x-6 justify-center text-gray-500">
-        <a aria-label="Email Anto" class="hover:text-rose-500 transition" href="mailto:anto@example.com">
-          <i class="w-6 h-6" data-lucide="mail"></i>
-        </a>
-        <a aria-label="LinkedIn Anto" class="hover:text-rose-500 transition" href="https://linkedin.com/in/anto-francis" rel="noopener" target="_blank">
-          <i class="w-6 h-6" data-lucide="linkedin"></i>
-        </a>
-      </div>
-    </div>
+    </section>
 
   </div>
-</section>
+</div>
 
-<!-- Footer -->
-<footer class="bg-pink-100 border-t text-center py-4 text-sm text-gray-500 mt-auto">
-  © 2025 DogArmor. All rights reserved.
-</footer>
-
-<!-- Lucide Init -->
+<!-- Scripts -->
 <script>
   lucide.createIcons();
-</script>
-
-<script>
   AOS.init({ duration: 800, easing: 'ease-in-out' });
 </script>
-
-</body>
-</html>
+{% endblock %}

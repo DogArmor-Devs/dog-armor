@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}DogArmor{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="text-gray-800 font-sans">
+
+  <!-- Nav -->
+  <nav class="bg-white py-2 px-4 flex justify-between items-center shadow-lg border-b border-gray-300">
+    <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
+      <img src="{{ url_for('static', filename='dog-armor.png') }}"
+           alt="DogArmor Icon"
+           class="w-[70px] h-[70px] ml-[-8px] mt-[3px] object-contain">
+      DogArmor
+    </a>
+        <div class="flex text-gray-700 text-base font-medium">
+            <a href="{{ url_for('index') }}" class="{% if request.path == url_for('index') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-8">Home</a>
+            <a href="{{ url_for('how_it_works') }}" class="{% if request.path == url_for('how_it_works') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-4">How it Works</a>
+            <a href="{{ url_for('demo') }}" class="{% if request.path == url_for('demo') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-4">Demo</a>
+            <a href="{{ url_for('features') }}" class="{% if request.path == url_for('features') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-4">Features</a>
+            <a href="{{ url_for('why_us') }}" class="{% if request.path == url_for('why_us') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-4">Why Our Company Matters</a>
+            <a href="{{ url_for('about') }}" class="{% if request.path == url_for('about') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300 mr-4">About Us</a>
+            <a href="{{ url_for('team') }}" class="{% if request.path == url_for('team') %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300">Team</a>
+        </div>      
+  </nav>
+
+  <!-- Page-specific content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-pink-100 border-t border-gray-300 py-6 text-center text-sm text-gray-500">
+    © 2025 DogArmor. All rights reserved.
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,39 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DogArmor | Smart Gear Recommender</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.275.0/dist/lucide.min.js"></script>
-</head>
-<body class="text-gray-900 bg-white font-sans">
+{% extends "base.html" %}
 
-<!-- 🌐 NAVBAR -->
-<nav class="bg-white shadow-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <div class="text-xl font-bold text-blue-700">
-        <a href="{{ url_for('index') }}" class="hover:text-accent transition">DogArmor</a>
-      </div>
-      <div class="hidden md:flex space-x-8">
-        <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="help-circle"></i> How it works</a>
-        <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="play-circle"></i> Demo</a>
-        <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="list-check"></i> Features</a>
-        <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="star"></i> Why our company matters</a>
-        <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="info"></i> About us</a>
-        <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-accent font-medium transition duration-300 flex items-center"><i data-lucide="users"></i> Team</a>
-      </div>
-      <div class="hidden md:flex">
-        <a class="button" href="#launch">Launch App</a>
-      </div>
-    </div>
-  </div>
-</nav>
+{% block title %}DogArmor | Smart Gear Recommender{% endblock %}
 
+{% block content %}
 <!-- 🐶 HERO SECTION -->
-<section class="section text-center bg-[var(--bg-light)]">
-  <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-[var(--primary)]">Find the Perfect Collar, Harness, or Leash</h1>
-  <p class="text-gr
+<section class="section text-center bg-white py-24 px-6">
+  <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-[var(--primary)]">
+    Find the Perfect Collar, Harness, or Leash
+  </h1>
+  <p class="text-gray-700 max-w-2xl mx-auto">
+    Smart, AI-powered gear recommendations — tailored for your dog’s breed, size, behavior, and more.
+  </p>
+</section>
+
+<!-- Optional: Add more homepage sections here if needed -->
+
+<script>
+  lucide.createIcons();
+</script>
+{% endblock %}

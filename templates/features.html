@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Features | DogArmor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="text-gray-800 font-sans bg-orange-50 min-h-screen flex flex-col">
-  <!-- Navbar -->
-  <nav class="bg-white p-4 shadow-md flex justify-between items-center">
-    <a class="text-xl font-bold text-orange-600 flex items-center gap-2" href="{{ url_for('index') }}">
-      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1"> DogArmor
-    </a>
-    <div class="space-x-4 text-sm">
-      <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Home</a>
-      <a href="{{ url_for('how_it_works') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">How it Works</a>
-      <a href="{{ url_for('demo') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Demo</a>
-      <a href="{{ url_for('features') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Features</a>
-      <a href="{{ url_for('why_us') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Why Our Company Matters</a>
-      <a href="{{ url_for('about') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">About Us</a>
-      <a href="{{ url_for('team') }}" class="text-gray-700 hover:text-orange-600 font-medium transition">Team</a>
-    </div>
-  </nav>
+{% extends "base.html" %}
+
+{% block title %}Features | DogArmor{% endblock %}
+
+{% block content %}
+<div class="bg-orange-50 min-h-screen flex flex-col">
 
   <!-- Page Content Wrapper -->
   <main class="flex-grow">
@@ -104,14 +84,9 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-pink-100 py-6 text-center border-t mt-auto">
-    <p class="text-sm text-gray-600">© 2025 DogArmor. All rights reserved.</p>
-  </footer>
+</div>
 
-  <!-- Initialize Lucide Icons -->
-  <script>
-    lucide.createIcons();
-  </script>
-</body>
-</html>
+<script>
+  lucide.createIcons();
+</script>
+{% endblock %}

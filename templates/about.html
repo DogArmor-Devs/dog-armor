@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>About Us | DogArmor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="text-gray-800 font-sans">
+{% extends "base.html" %}
 
-  <nav class="bg-white p-4 flex justify-between items-center shadow-lg border-b border-gray-300">
-    <!-- Logo -->
-    <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
-      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1 object-contain">
-      DogArmor
-    </a>
-  
-    <!-- Nav Links -->
-    <div class="flex text-gray-700 text-sm font-medium">
-      <a href="{{ url_for('index') }}" class="hover:text-blue-600 transition duration-300 mr-8">Home</a>
-      <a href="{{ url_for('how_it_works') }}" class="hover:text-blue-600 transition duration-300 mr-4">How it Works</a>
-      <a href="{{ url_for('demo') }}" class="hover:text-blue-600 transition duration-300 mr-4">Demo</a>
-      <a href="{{ url_for('features') }}" class="hover:text-blue-600 transition duration-300 mr-4">Features</a>
-      <a href="{{ url_for('why_us') }}" class="hover:text-blue-600 transition duration-300 mr-4">Why Our Company Matters</a>
-      <a href="{{ url_for('about') }}" class="text-blue-600 underline font-semibold mr-4">About Us</a>
-      <a href="{{ url_for('team') }}" class="hover:text-blue-600 transition duration-300">Team</a>
-    </div>
-  </nav>  
+{% block title %}About Us | DogArmor{% endblock %}
+
+{% block content %}
 
 <!-- Hero Section -->
 <section class="bg-blue-50 py-16 text-center px-4">
@@ -95,13 +71,4 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-pink-100 border-t border-gray-300 py-6 text-center text-sm text-gray-500">
-  © 2025 DogArmor. All rights reserved.
-</footer>
-
-<script>
-  lucide.createIcons();
-</script>
-</body>
-</html>
+{% endblock %}
