@@ -43,19 +43,19 @@
 
     <!-- Logo & Brand -->
     <div class="space-y-3">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="DogArmor Logo" class="w-16 h-16 mx-auto md:mx-0">
+      <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Logo" class="w-16 h-16 mx-auto md:mx-0">
       <h2 class="text-xl font-bold">DogArmor</h2>
-      <p class="text-sm text-gray-600">Smart gear for smarter walks.</p>
     </div>
 
     <!-- Navigation -->
     <div class="space-y-3">
       <h3 class="text-lg font-semibold">Navigation</h3>
       <ul class="space-y-1 text-sm">
-        <li><a href="{{ url_for('index') }}" class="hover:underline">Home</a></li>
-        <li><a href="how.html" class="hover:underline">How It Works</a></li>
-        <li><a href="team.html" class="hover:underline">Our Team</a></li>
-        <li><a href="demo.html" class="hover:underline">Demo</a></li>
+        <li><a href="{{ url_for('how_it_works') }}" class="hover:underline">How It Works</a></li>
+        <li><a href="{{ url_for('features') }}" class="hover:underline"> Features</a></li>
+        <li><a href="{{ url_for('why_us') }}" class="hover:underline"> Why Our Company Matters</a></li>
+        <li><a href="{{ url_for('about') }}" class="hover:underline"> About Us</a></li>
+        <li><a href="{{ url_for('team') }}" class="hover:underline"> Team</a></li>
       </ul>
     </div>
 
