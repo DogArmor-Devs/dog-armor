@@ -38,9 +38,57 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-pink-100 border-t border-gray-300 py-6 text-center text-sm text-gray-500">
+<footer class="bg-pink-100 border-t border-gray-300 py-12 px-6 text-gray-700">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left items-start">
+
+    <!-- Logo & Brand -->
+    <div class="space-y-3">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="DogArmor Logo" class="w-16 h-16 mx-auto md:mx-0">
+      <h2 class="text-xl font-bold">DogArmor</h2>
+      <p class="text-sm text-gray-600">Smart gear for smarter walks.</p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold">Navigation</h3>
+      <ul class="space-y-1 text-sm">
+        <li><a href="{{ url_for('index') }}" class="hover:underline">Home</a></li>
+        <li><a href="how.html" class="hover:underline">How It Works</a></li>
+        <li><a href="team.html" class="hover:underline">Our Team</a></li>
+        <li><a href="demo.html" class="hover:underline">Demo</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold">Follow Us</h3>
+      <div class="flex justify-center md:justify-start gap-4">
+        <a href="#" aria-label="Instagram" class="hover:text-pink-700">
+          <i data-lucide="instagram" class="w-5 h-5"></i>
+        </a>
+        <a href="#" aria-label="Twitter" class="hover:text-pink-700">
+          <i data-lucide="twitter" class="w-5 h-5"></i>
+        </a>
+        <a href="#" aria-label="Facebook" class="hover:text-pink-700">
+          <i data-lucide="facebook" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold">Contact</h3>
+      <p class="text-sm">Questions? Reach out at:</p>
+      <a href="mailto:support@dogarmor.com" class="text-sm text-pink-700 hover:underline">support@dogarmor.com</a>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="mt-12 text-center text-xs text-gray-500">
     © 2025 DogArmor. All rights reserved.
-  </footer>
+  </div>
+</footer>
+
 
   <script>
     lucide.createIcons();

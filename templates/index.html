@@ -3,17 +3,243 @@
 {% block title %}DogArmor | Smart Gear Recommender{% endblock %}
 
 {% block content %}
-<!-- 🐶 HERO SECTION -->
-<section class="section text-center bg-white py-24 px-6">
-  <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-[var(--primary)]">
-    Find the Perfect Collar, Harness, or Leash
-  </h1>
-  <p class="text-gray-700 max-w-2xl mx-auto">
-    Smart, AI-powered gear recommendations — tailored for your dog’s breed, size, behavior, and more.
-  </p>
+<!-- 🐶 HERO SECTION (Section 1)-->
+<section class="section bg-blue-50 py-24 px-6">
+  <!-- Main Flex Container -->
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+    <!-- Left: Heading -->
+    <div class="md:w-1/2">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-[var(--primary)] leading-tight">
+        Find the Perfect Collar, Harness, or Leash
+      </h1>
+    </div>
+
+    <!-- Right: Subtext + CTA -->
+    <div class="md:w-1/2 flex flex-col justify-between h-full">
+      <!-- Subtext -->
+      <p class="text-gray-700 mb-6 text-lg max-w-md">
+        Personalized gear recommendations just for your dog.<br>
+        Built with care, powered by AI — because your dog deserves the best.
+      </p>
+
+      <!-- CTA Button -->
+      <div>
+        <a href="demo.html" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-lg transition duration-300">
+          Take Action Now!
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Below -->
+  <div class="mt-20 flex justify-center">
+    <img src="{{ url_for('static', filename='images/dog-collar-hero.png') }}" alt="Dog wearing gear"
+         class="w-4/5 md:w-3/4 lg:w-2/3 h-auto rounded-2xl shadow-2xl">
+  </div>
 </section>
 
+
 <!-- Optional: Add more homepage sections here if needed -->
+ <!-- (Section 2) -->
+<section class="bg-yellow-50 py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+      
+      <!-- Feature 1 -->
+      <div class="flex flex-col items-center">
+        <i data-lucide="dog" class="w-12 h-12 text-yellow-700 mb-4"></i>
+        <ul class="text-gray-800 list-disc list-inside space-y-2">
+          <li>Breed-specific recommendations</li>
+          <li>Smart matching logic</li>
+          <li>Trusted by dog lovers</li>
+        </ul>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="flex flex-col items-center">
+        <i data-lucide="activity" class="w-12 h-12 text-yellow-700 mb-4"></i>
+        <ul class="text-gray-800 list-disc list-inside space-y-2">
+          <li>Tracks activity level</li>
+          <li>Behavior-based suggestions</li>
+          <li>Custom fit every time</li>
+        </ul>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="flex flex-col items-center">
+        <i data-lucide="shield-check" class="w-12 h-12 text-yellow-700 mb-4"></i>
+        <ul class="text-gray-800 list-disc list-inside space-y-2">
+          <li>Prioritizes safety</li>
+          <li>Top-rated materials</li>
+          <li>Comfort-first design</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+ <!-- (Section 3) -->
+<section class="bg-white py-24 px-6">
+  <!-- Top Main Heading -->
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-[var(--primary)]">
+      The perfect gear. All by filling out a quick form.
+    </h2>
+  </div>
+
+  <!-- Step 1: Image Right -->
+  <div class="flex flex-col md:flex-row items-center justify-between gap-8 max-w-6xl mx-auto mb-20">
+    <div class="md:w-1/2">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-2">Step 1: Tell us about your dog</h3>
+      <p class="text-gray-600">Choose your dog's breed, age, and behavior style.</p>
+    </div>
+    <div class="md:w-1/2">
+      <img src="{{ url_for('static', filename='images/step1.png') }}" alt="Step 1"
+           class="rounded-xl shadow-lg w-full h-auto object-cover">
+    </div>
+  </div>
+
+  <!-- Step 2: Image Left -->
+  <div class="flex flex-col md:flex-row-reverse items-center justify-between gap-8 max-w-6xl mx-auto mb-20">
+    <div class="md:w-1/2">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-2">Step 2: Choose your preferences</h3>
+      <p class="text-gray-600">Decide what matters — comfort, control, durability, or design.</p>
+    </div>
+    <div class="md:w-1/2">
+      <img src="{{ url_for('static', filename='images/step2.png') }}" alt="Step 2"
+           class="rounded-xl shadow-lg w-full h-auto object-cover">
+    </div>
+  </div>
+
+  <!-- Step 3: Image Right Again -->
+  <div class="flex flex-col md:flex-row items-center justify-between gap-8 max-w-6xl mx-auto">
+    <div class="md:w-1/2">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-2">Step 3: Get your perfect match</h3>
+      <p class="text-gray-600">We’ll recommend the perfect collar, harness, or leash for your dog.</p>
+    </div>
+    <div class="md:w-1/2">
+      <img src="{{ url_for('static', filename='images/step3.png') }}" alt="Step 3"
+           class="rounded-xl shadow-lg w-full h-auto object-cover">
+    </div>
+  </div>
+</section>
+
+
+ <!-- (Section 4) -->
+<section class="bg-yellow-50 py-24 px-6">
+  <!-- Section Heading -->
+  <div class="text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-800">
+      What People Are Saying
+    </h2>
+  </div>
+
+  <!-- Reviews Row -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+    
+    <!-- Platform 1 -->
+    <div class="bg-white rounded-2xl p-8 shadow-md">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Google Reviews</h3>
+      <div class="flex justify-center mb-2 text-yellow-500">
+        {% for _ in range(5) %}
+          <i data-lucide="star" class="w-6 h-6 fill-yellow-500"></i>
+        {% endfor %}
+      </div>
+      <p class="text-gray-600 text-sm">4.9 average rating across 200+ reviews</p>
+    </div>
+
+    <!-- Platform 2 -->
+    <div class="bg-white rounded-2xl p-8 shadow-md">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Trustpilot</h3>
+      <div class="flex justify-center mb-2 text-yellow-500">
+        {% for _ in range(5) %}
+          <i data-lucide="star" class="w-6 h-6 fill-yellow-500"></i>
+        {% endfor %}
+      </div>
+      <p class="text-gray-600 text-sm">Rated Excellent by 500+ users</p>
+    </div>
+
+    <!-- Platform 3 -->
+    <div class="bg-white rounded-2xl p-8 shadow-md">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Facebook</h3>
+      <div class="flex justify-center mb-2 text-yellow-500">
+        {% for _ in range(4) %}
+          <i data-lucide="star" class="w-6 h-6 fill-yellow-500"></i>
+        {% endfor %}
+        <i data-lucide="star" class="w-6 h-6 stroke-yellow-500"></i>
+      </div>
+      <p class="text-gray-600 text-sm">4.5 stars from 350+ happy pet owners</p>
+    </div>
+
+  </div>
+</section>
+
+
+ <!-- (Section 5) -->
+<section class="bg-yellow-600 py-24 px-6 text-center text-white">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-6">
+      Ready to Find the Perfect Gear for Your Dog?
+    </h2>
+    <p class="text-lg mb-10">
+      Start the form now and get tailored recommendations in under 2 minutes.
+    </p>
+    <a href="demo.html"
+       class="inline-block bg-white text-yellow-700 font-semibold text-lg px-10 py-4 rounded-full shadow-lg hover:bg-yellow-100 transition duration-300">
+      Start Now
+    </a>
+  </div>
+</section>
+
+
+<!-- Add Alpine.js to your base layout if not already -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<section class="bg-white py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-[var(--primary)] mb-12">
+      Frequently Asked Questions
+    </h2>
+
+    <div class="space-y-6">
+      <!-- FAQ Item -->
+      <div x-data="{ open: false }" class="border-b pb-4">
+        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
+          <span>Placeholder question number one?</span>
+          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
+        </button>
+        <div x-show="open" x-collapse class="mt-3 text-gray-600">
+          Placeholder answer to the question goes here. It provides useful context or clarification.
+        </div>
+      </div>
+
+      <!-- FAQ Item -->
+      <div x-data="{ open: false }" class="border-b pb-4">
+        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
+          <span>Another placeholder question to answer?</span>
+          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
+        </button>
+        <div x-show="open" x-collapse class="mt-3 text-gray-600">
+          Here’s a helpful explanation that appears when the user clicks the question.
+        </div>
+      </div>
+
+      <!-- FAQ Item -->
+      <div x-data="{ open: false }" class="border-b pb-4">
+        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
+          <span>Third question that helps reduce confusion?</span>
+          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
+        </button>
+        <div x-show="open" x-collapse class="mt-3 text-gray-600">
+          A short answer explaining the feature, policy, or function in simple words.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <script>
   lucide.createIcons();
