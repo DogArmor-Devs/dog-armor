@@ -2,6 +2,50 @@
 
 {% block title %}DogArmor | Smart Gear Recommender{% endblock %}
 
+{% block styles %}
+/<!-- This is to make the Frequently Asked Questions text dance (not implenting now) */ -->
+<style>
+  #faq-heading {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  #faq-heading.dancing {
+    background: linear-gradient(270deg, #cd4a45, #9b2342, #7b0e3c, #cd4a45);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientDance 6s ease-in-out infinite, danceRotate 1s ease-in-out infinite;
+  }
+
+  @keyframes gradientDance {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes danceRotate {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(3deg); }
+    40% { transform: rotate(-3deg); }
+    60% { transform: rotate(2deg); }
+    80% { transform: rotate(-2deg); }
+  }
+
+  .bounce-in {
+    animation: bounceIn 0.8s ease-out forwards;
+  }
+
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: translateY(-50px) scale(0.9); }
+    60% { opacity: 1; transform: translateY(20px) scale(1.05); }
+    80% { transform: translateY(-10px) scale(0.97); }
+    100% { transform: translateY(0) scale(1); }
+  }
+</style>
+{% endblock %}
+
+
 {% block content %}
 <!-- 🐶 HERO SECTION (Section 1)-->
 <section class="section bg-blue-50 py-24 px-6">
@@ -214,7 +258,7 @@
 
  <!-- (Section 6) -->
 <section class="bg-white py-24 px-6">
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto" style="text-align: center;">
     <h2 id="faq-heading" class="text-4xl md:text-5xl font-extrabold text-center text-[var(--primary)] mb-12 bounce-in" 
     data-aos="zoom-in" data-aos-easing="ease-out-back" data-aos-duration="800">
       Frequently Asked Questions
