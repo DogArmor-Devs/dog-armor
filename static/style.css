@@ -98,8 +98,6 @@ nav a:hover {
 /* 4. Section Styling */
 section {
   padding: 4rem 2rem;
-  max-width: 900px;
-  margin: auto;
   background-color: white;
 }
 
@@ -307,3 +305,48 @@ article {
 }
 
 
+/* This is to make the Frequently Asked Questions text dance (not implenting now) */
+#faq-heading {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+#faq-heading.dancing {
+  background: linear-gradient(270deg, #cd4a45, #9b2342, #7b0e3c, #cd4a45);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientDance 6s ease-in-out infinite, danceRotate 1s ease-in-out infinite;
+}
+
+/* Gradient shimmer effect */
+@keyframes gradientDance {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Rotational wiggle */
+@keyframes danceRotate {
+  0%, 100%   { transform: rotate(0deg); }
+  20%        { transform: rotate(3deg); }
+  40%        { transform: rotate(-3deg); }
+  60%        { transform: rotate(2deg); }
+  80%        { transform: rotate(-2deg); }
+}
+
+/* Bounce-in once */
+.bounce-in {
+  animation: bounceIn 0.8s ease-out forwards;
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: translateY(-50px) scale(0.9); }
+  60%  { opacity: 1; transform: translateY(20px) scale(1.05); }
+  80%  { transform: translateY(-10px) scale(0.97); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+section {
+  display: block; /* Ensure sections behave as block elements */
+}
