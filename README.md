@@ -36,7 +36,4 @@ This is not just a form — it’s a smart recommender that adapts to each uniqu
   - Future: ML models (dog picture analysis)
   - Hosted via Azure's Cloud
 
----
-
-## 📁 Folder Structure
 
