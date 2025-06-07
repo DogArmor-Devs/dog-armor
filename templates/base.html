@@ -9,6 +9,7 @@
 
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  
 
   {% block styles %}{% endblock %}
 </head>
@@ -93,7 +94,13 @@
 
   <script>
     lucide.createIcons();
-    AOS.init();
+    AOS.init({
+      duration: 300,               // Animation duration in ms
+      offset: 40,                 // Trigger when element is 200px into viewport
+      easing: 'ease-in-out',       // Smooth easing
+      once: true,                  // Run only once (no repeat)
+      anchorPlacement: 'top-bottom' // Trigger when top hits bottom of viewport
+    });
   </script> 
 
 {% block scripts %}{% endblock %}
