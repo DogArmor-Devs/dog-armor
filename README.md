@@ -12,6 +12,8 @@ Upload a photo of your dog and input details like breed, size, activity level, a
 
 This is not just a form — it’s a smart recommender that adapts to each unique dog.
 
+For all questions, concerns, and business inquiries, please contact us at: dogarmorteam@gmail.com
+
 ---
 
 ## 🧠 How It Works
