@@ -21,7 +21,7 @@
 }
 
 #visual {
-  animation: floatUpDown 3s ease-in-out infinite;
+  animation: floatUpDown 2s ease-in-out infinite;
   transform-origin: center;
 }
 
@@ -48,6 +48,19 @@
   animation: bounceOut 0.6s forwards;
 }
 
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.3), 0 0 24px rgba(255, 193, 7, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(255, 193, 7, 0.6), 0 0 48px rgba(255, 193, 7, 0.4);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
 </style>
 
 
@@ -66,8 +79,15 @@
 <!-- Content Section -->
 <main class="relative z-10 flex-grow max-w-4xl mx-auto px-6 pt-[350px] py-20 space-y-16 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-800 rounded-lg">
   <header class="text-center max-w-3xl mx-auto">
-    <h1 class="text-5xl font-extrabold animated-gradient-text text-amber-400 mb-6 drop-shadow-[0_4px_6px_rgba(205,74,69,0.8)] leading-tight">Why Our Company Matters</h1>
-    <p class="text-lg text-amber-100/90 leading-relaxed tracking-wide">
+    <h1 class="text-5xl font-extrabold animated-gradient-text text-amber-400 mb-6 drop-shadow-[0_4px_6px_rgba(205,74,69,0.8)] leading-tight"
+    data-aos="fade-down"
+    data-aos-duration="1000">
+    Why Our Company Matters</h1>
+    <p class="text-lg text-amber-100/90 leading-relaxed tracking-wide"
+    data-aos="fade-up"
+    data-aos-delay="300"
+    data-aos-duration="1000"
+    >
       At DogArmor, we believe every dog deserves gear that fits perfectly — because a happy dog means a happy owner. 
       Our mission is to combine technology and care to make choosing dog gear simple, smart, and stress-free.
     </p>
@@ -76,7 +96,11 @@
   <!-- Cards -->
   <section class="space-y-12">
     <!-- Card 1 -->
-    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover pulse-glow bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer"
+    data-aos="zoom-in-up" 
+    data-aos-delay="200"
+    data-aos-duration="1000" 
+    >
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -92,7 +116,10 @@
     </article>
 
     <!-- Card 2 -->
-    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover pulse-glow rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer"
+    data-aos="zoom-in-up" 
+    data-aos-delay="400" 
+    data-aos-duration="1000">
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <polygon points="12 2 15 11 22 11 17 16 19 22 12 18 5 22 7 16 2 11 9 11 12 2"></polygon>
@@ -107,7 +134,10 @@
     </article>
 
     <!-- Card 3 -->
-    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover pulse-glow rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer"
+    data-aos="zoom-in-up" 
+    data-aos-delay="600" 
+    data-aos-duration="1000">
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"></path>
@@ -122,5 +152,9 @@
     </article>
   </section>
 </main>
+
+<script>
+  AOS.init();
+</script>
 
 {% endblock %}
