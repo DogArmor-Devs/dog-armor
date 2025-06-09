@@ -1,5 +1,5 @@
 
-![dogarmor_for_github-removebg-preview](https://github.com/user-attachments/assets/31df9c3b-ebb7-4442-9915-8470c41a1ba2)
+![fixed_smaller](https://github.com/user-attachments/assets/48a7ae47-bda4-47b8-bd6f-a3cb5bc0e0b0)
 
 # DogArmor: Smart AI-Powered Dog Gear Recommender
 
