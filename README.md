@@ -42,19 +42,19 @@ Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends 
 
 ## How It Works
 
-**1. Upload a photo of your dog to help us understand its size and shape.**
+1. Upload a photo of your dog to help us understand its size and shape.
 
 ![image](https://github.com/user-attachments/assets/8e260bf3-4c46-4479-bd08-382571174ab6)
 
-**2. Fill out a short form about your dog’s behavior, habits, and environment.**
+2. Fill out a short form about your dog’s behavior, habits, and environment.
 
-   ![image](https://github.com/user-attachments/assets/8ad609fb-4154-4b1c-9076-510db72d39fc)
+![image](https://github.com/user-attachments/assets/8ad609fb-4154-4b1c-9076-510db72d39fc)
 
-**3. Get instant gear recommendations based on both the photo and your answers.**
+3. Get instant gear recommendations based on both the photo and your answers.
 
 ![image](https://github.com/user-attachments/assets/0ab8d5ad-1b31-4c54-acc7-8332b0651d2a)
 
-**4. View product links and details tailored to your dog’s unique profile.** -- TO BE IMPLEMENTED 
+4. View product links and details tailored to your dog’s unique profile. -- TO BE IMPLEMENTED 
 
 ## Features
 
@@ -70,7 +70,7 @@ Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends 
 
 🔄 **End-to-End Pipeline** — From image input to final product recommendation, the backend handles preprocessing, pose inference, behavior integration, and response generation—all automatically.
 
-## Tech Stack and Contact Info
+## Tech Stack & Contact Info
 
 Built with:
 - Python + Flask, HTML/CSS + Tailwind + AOS, SQLite, Future: ML models utilizing DeepLabCut and YOLO 
