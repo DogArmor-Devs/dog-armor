@@ -31,6 +31,8 @@ def about():
 def team():
     return render_template('team.html')
 
+# these recommendations are placeholders
+
 @app.route('/recommend', methods=['POST'])
 def recommend_gear():
     data = request.get_json()
@@ -70,7 +72,7 @@ def recommend_gear():
     })
 
 
-# Optional fallback for undefined pages
+# fallback for undefined pages
 @app.errorhandler(404)
 def page_not_found(e):
     return "Page not found", 404
