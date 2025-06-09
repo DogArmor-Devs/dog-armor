@@ -13,7 +13,7 @@
 
   {% block styles %}{% endblock %}
 </head>
-<body class="flex flex-col min-h-screen text-gray-800 font-sans {% block body_bg %}{% endblock %}">
+<body class="{% block body_class %}flex flex-col min-h-screen text-gray-800 font-sans{% endblock %}">
 
   <!-- Nav -->
   <nav class="bg-white py-2 px-4 flex justify-between items-center shadow-lg border-b border-gray-300">

@@ -1,13 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>Why Our Company Matters | DogArmor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
-</head>
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-200 font-sans min-h-screen flex flex-col">
+{% extends "base.html" %}
+
+{% block title %}Why Our Company Matters | DogArmor{% endblock %}
+
+{% block body_class %}bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-200 font-sans min-h-screen flex flex-col{% endblock %}
+
+{% block content %}
+<!-- Add AOS CSS and JS here -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<style>
+  /* This makes the SVG in why-us move gently up and down */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+#visual {
+  animation: floatUpDown 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes bounceOut {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    transform: scale(1.1) translateY(-10px);
+  }
+  50% {
+    transform: scale(0.95) translateY(5px);
+  }
+  70% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    transform: scale(1.1) translateY(-10px);
+  }
+}
+
+/* Hover animation class */
+.bounce-out-hover:hover {
+  animation: bounceOut 0.6s forwards;
+}
+
+</style>
+
 
  <!-- Background SVG -->
  <div class="absolute top-0 left-0 w-full h-[600px] -z-10 opacity-20 overflow-hidden pointer-events-none">
@@ -20,26 +62,9 @@
     <path d="M0 551L21.5 547.2C43 543.3 86 535.7 128.8 536.3C171.7 537 214.3 546 257.2 549.8C300 553.7 343 552.3 385.8 550.2C428.7 548 471.3 545 514.2 547.5C557 550 600 558 642.8 559.8C685.7 561.7 728.3 557.3 771.2 557.8C814 558.3 857 563.7 878.5 566.3L900 569L900 601L878.5 601C857 601 814 601 771.2 601C728.3 601 685.7 601 642.8 601C600 601 557 601 514.2 601C471.3 601 428.7 601 385.8 601C343 601 300 601 257.2 601C214.3 601 171.7 601 128.8 601C86 601 43 601 21.5 601L0 601Z" fill="#cd4a45"></path>
   </svg>
 </div>
-  
-<!-- Navbar -->
-<nav class="bg-gray-900 bg-opacity-90 backdrop-blur-md p-4 shadow-md flex justify-between items-center">
-  <a href="{{ url_for('index') }}" class="text-amber-400 hover:text-amber-300 font-extrabold text-xl flex items-center gap-2 transition duration-300">
-    <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon" class="w-8 h-8 -mt-1">
-    DogArmor
-  </a>
-  <div class="space-x-4 text-sm font-semibold">
-    <a href="{{ url_for('index') }}" class="hover:text-amber-400 transition">Home</a>
-    <a href="{{ url_for('how_it_works') }}" class="hover:text-amber-400 transition">How it Works</a>
-    <a href="{{ url_for('demo') }}" class="hover:text-amber-400 transition">Demo</a>
-    <a href="{{ url_for('features') }}" class="hover:text-amber-400 transition">Features</a>
-    <a href="{{ url_for('why_us') }}" class="text-amber-400 underline decoration-amber-600 underline-offset-4 transition">Why Our Company Matters</a>
-    <a href="{{ url_for('about') }}" class="hover:text-amber-400 transition">About Us</a>
-    <a href="{{ url_for('team') }}" class="hover:text-amber-400 transition">Team</a>
-  </div>
-</nav>
 
 <!-- Content Section -->
-<main class="flex-grow max-w-4xl mx-auto px-6 pt-[350px] py-20 space-y-16 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-800 rounded-lg">
+<main class="relative z-10 flex-grow max-w-4xl mx-auto px-6 pt-[350px] py-20 space-y-16 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-800 rounded-lg">
   <header class="text-center max-w-3xl mx-auto">
     <h1 class="text-5xl font-extrabold animated-gradient-text text-amber-400 mb-6 drop-shadow-[0_4px_6px_rgba(205,74,69,0.8)] leading-tight">Why Our Company Matters</h1>
     <p class="text-lg text-amber-100/90 leading-relaxed tracking-wide">
@@ -51,7 +76,7 @@
   <!-- Cards -->
   <section class="space-y-12">
     <!-- Card 1 -->
-    <article class="bg-gray-800 bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-default">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -67,7 +92,7 @@
     </article>
 
     <!-- Card 2 -->
-    <article class="bg-gray-800 bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-default">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <polygon points="12 2 15 11 22 11 17 16 19 22 12 18 5 22 7 16 2 11 9 11 12 2"></polygon>
@@ -82,7 +107,7 @@
     </article>
 
     <!-- Card 3 -->
-    <article class="bg-gray-800 bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-default">
+    <article class="bg-gradient-to-br from-pink-500 via-rose-400 to-fuchsia-600 bounce-out-hover bg-opacity-80 rounded-3xl shadow-[0_8px_20px_rgba(205,74,69,0.6)] p-8 flex items-start gap-8 hover:bg-gray-700 transition duration-300 ease-in-out cursor-pointer">
       <div class="flex-shrink-0 text-amber-400 flex items-center justify-center w-14 h-14 bg-amber-900 bg-opacity-30 rounded-full shadow-md drop-shadow-md">
         <svg class="w-12 h-12 stroke-amber-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"></path>
@@ -98,9 +123,4 @@
   </section>
 </main>
 
-<footer class="bg-pink-100 text-gray-900 py-6 text-center text-sm mt-auto select-none shadow-inner">
-  © 2025 DogArmor. All rights reserved.
-</footer>
-
-</body>
-</html>
+{% endblock %}
