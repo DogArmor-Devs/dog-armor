@@ -5,7 +5,7 @@
 
 > 🐶 **DogArmor** is currently in it's post-MVP pre-Final Product phase. We are getting user feedback and still working on the AI models. If you're excited to use our technology, consider giving our github page a ⭐
 >  
-> Please note development is being done every day!
+> Please note development is being done every day! Check it out for yourself at: https://dogarmor.online/
 
 🚀 [Overview](#overview) | ⚙️ [How It Works](#how-it-works) | 🧠 [Features](#features) | 🛠️ [Tech Stack](#tech-stack-and-contact-info) | 🤝 [Contributing](CONTRIBUTING.md)
 
