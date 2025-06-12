@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 import random
+import logging
+from datetime import datetime
+
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+
+logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
+
 
 @app.route('/')
 def index():
@@ -36,6 +42,8 @@ def team():
 @app.route('/recommend', methods=['POST'])
 def recommend_gear():
     data = request.get_json()
+
+    logging.info(f"[{datetime.now()}] /recommend requested with data: {data}")
 
     all_recommendations = [
         {
