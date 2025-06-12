@@ -1,6 +1,7 @@
 **Here are our references for images and other media used in DogArmor.**
 
 
+
 Dog-gear1.png
 Source: “OneTigris Adventure Dog Gear.” Stylish Paws, 3 Nov. 2022, https://stylishpaws.co.za/2022/11/03/onetigris-adventure-dog-gear/
 
