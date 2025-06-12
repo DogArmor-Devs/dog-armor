@@ -40,7 +40,7 @@ DogArmor makes it simple.
 You answer a few short questions about your dog's **behavior**, **environment**, and **budget**, then upload a couple of photos.  
 Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends a tailored gear combo (harness, collar, and leash included).
 
-## How It Works
+## How It Works (For now, currently only MVP available)
 
 1. Upload a photo of your dog to help us understand its size and shape.
 
