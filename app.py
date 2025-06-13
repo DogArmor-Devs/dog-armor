@@ -55,10 +55,10 @@ def recommend_gear():
 
    # 🧠 Very basic filtering: check if any matching rows exist
     filtered = gear_data[
-        (gear_data("breed").str.lower().str.contains(breed, na=False)) |
-        (gear_data("size").str.lower().str.contains(size, na=False)) |
-        (gear_data=("pulls").str.lower().str.contains(puller, na=False)) |
-        (gear_data("budget").str.lower().str.contains(budget, na=False))   
+        (gear_data["breed"].str.lower().str.contains(breed.lower(), na=False)) |
+        (gear_data["size"].str.lower().str.contains(size.lower(), na=False)) |
+        (gear_data["pulls"].str.lower().str.contains(puller.lower(), na=False)) |
+        (gear_data["budget"].str.lower().str.contains(budget.lower(), na=False))   
     ]
 
     if filtered.empty:
