@@ -3,9 +3,15 @@ import random
 import logging
 import pandas as pd
 from datetime import datetime
-
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+
+# A folder inside static called 'uploads' for storing 
+UPLOAD_FOLDER = 'static/uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 🧾 Logs user gear recommendation requests
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
@@ -71,9 +77,32 @@ def recommend_gear():
     logging.info(f"[{datetime.now()}] /recommend requested with data: {data}")
 
     return jsonify({
-        "recommendations": selected,
+        "recommendations": recommendation,
         "input": data
     })
+
+
+# Here is a route to take care of image uploads
+@app.route('/upload', methods=['POST'])
+def upload_image():
+    if 'dog_image' not in request.files:
+        return jsonify({"status": "error", "message": "No file apart"}), 400
+
+    file = request.files['dog_image']
+
+    if file.filename == '':
+        return jsonify({"status": "error", "message": "No selected file"}), 400
+
+    if file:
+        # Good practice to secure file name
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        # Save file to uploads folder
+        file.save(filepath)
+
+        # Can return success response + saved filepath
+        return jsonify({"status": "success", "file_path": filepath}), 200
 
 
 # fallback for undefined pages

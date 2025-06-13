@@ -19,6 +19,12 @@
           Information derived from photo of dog:
         </legend>
 
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Upload Dog Photo</label>
+          <input type="file" name="dog_image" id="dog_image" accept="image/*"
+                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" required>
+        </div>
+
         {% for field, label, options in [
           ('weight', 'Weight [Estimated from photo unless provided by user input]', ['Strawweight: <10lbs', 'Middleweight <40lbs', 'Heavyweight >40lbs']),
           ('chest_bridge_length', 'Length of Chest Bridge', ['Small: <9"', 'Medium: <28"', 'Large: >28"']),

@@ -142,3 +142,45 @@ INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "[36mGET /static/dog-gear1.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "[36mGET /static/harness-scene.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:46] "[36mGET /static/run-forest.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "[36mGET /static/dog-gear1.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "[36mGET /static/harness-scene.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:03:48] "[36mGET /static/run-forest.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:14:48] "GET /demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:14:48] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:18:03] "GET /demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 13:18:03] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
