@@ -7,12 +7,13 @@ from datetime import datetime
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
+# 🧾 Logs user gear recommendation requests
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
 # 📄 Load CSV of gear options (you’ll create this later)
 gear_data = pd.read_csv('gear_data.csv')
 
-
+# 🌐 Web page routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -46,17 +47,18 @@ def team():
 def recommend_gear():
     data = request.get_json()
 
-    breed = data.get("breed", "")
-    size = data.get("size", "")
-    puller = data.get("puller", "")
-    budget = data.get("budget", "")
+    # Get user answers from the demo form   
+    breed = data.get("breed", "").lower()
+    size = data.get("size", "").lower()
+    puller = data.get("puller", "").lower()
+    budget = data.get("budget", "").lower()
 
-   # 🧠 Very basic filtering (replace this with ML soon)
+   # 🧠 Very basic filtering: check if any matching rows exist
     filtered = gear_data[
-        (gear_data("breed") == breed) |
-        (gear_data("size") == size) |
-        (gear_data=("pulls") == puller) |
-        (gear_data("budget") == budget)   
+        (gear_data("breed").str.lower().str.contains(breed, na=False)) |
+        (gear_data("size").str.lower().str.contains(size, na=False)) |
+        (gear_data=("pulls").str.lower().str.contains(puller, na=False)) |
+        (gear_data("budget").str.lower().str.contains(budget, na=False))   
     ]
 
     if filtered.empty:
@@ -65,7 +67,7 @@ def recommend_gear():
          recommendation = filtered.sample(1).to_dict(orient="records")[0]    
 
 
-    # Logging
+    # 🧾 Log this request
     logging.info(f"[{datetime.now()}] /recommend requested with data: {data}")
 
     return jsonify({
