@@ -184,3 +184,31 @@ INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 105-417-689
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:01] "GET /demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:01] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:11] "GET /why-us HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:11] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:14] "GET /why-us HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:14] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "GET /static/dog-gear1.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "GET /static/harness-scene.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:15:23] "[36mGET /static/run-forest.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:35] "GET /demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:35] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "[36mGET /static/dog-gear1.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "[36mGET /static/run-forest.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:37] "[36mGET /static/harness-scene.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:43] "GET /why-us HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:43] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "[36mGET /static/dog-armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "[36mGET /static/dog-gear1.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "[36mGET /static/harness-scene.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 15:18:45] "[36mGET /static/run-forest.png HTTP/1.1[0m" 304 -

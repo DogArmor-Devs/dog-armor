@@ -111,6 +111,22 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Upload Image separately
+    const imageInput = document.getElementById("dog_image");
+    const formData = new FormData();
+    formData.append("dog_image", imageInput.files[0]);
+
+    const uploadResponse = await fetch('/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (uploadResult.status !== "success") {
+      alert("Image upload failed :(  Please try again!");
+      return;
+    }
+
+    // Send form data for gear recommendation
     const data = {
       weight: document.getElementById('weight').value,
       chest_bridge_length: document.getElementById('chest_bridge_length').value,
