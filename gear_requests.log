@@ -138,3 +138,7 @@ INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 02:02:44] "[36mGET /static/run-forest.
 INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 02:02:44] "[36mGET /static/happy-dog.png HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 02:02:44] "[36mGET /static/dog-gear1.png HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [13/Jun/2025 02:02:44] "[36mGET /static/harness-scene.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/vihaankesharwani/Downloads/dog_armor/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 105-417-689
