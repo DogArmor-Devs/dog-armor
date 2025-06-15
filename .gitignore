@@ -8,3 +8,7 @@ data/stanford-dogs/
 
 # Ignore
 ..bfg-report/
+
+
+# Ignore models
+model/

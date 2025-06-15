@@ -6,12 +6,45 @@ from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
 
+# Import for ML
+import torch
+from torchvision import transforms, models
+from PIL import Image
+import json
+
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # A folder inside static called 'uploads' for storing 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Breed classifier model
+MODEL_PATH = 'model/breed_classifier.pth'
+
+# Class labels
+BREED_LABELS = [
+    'beagle', 'chihuahua', 'golden_retriever', 'pug', 'tibetan_terrier', 'doberman',
+    'scottish_deerhound', 'malamute', 'saint_bernard'
+    # Add more..
+]
+
+# For loading models and weights
+device = torch.device("cuda" if torch.cuda.is_avaliable() else "cpu")
+model = models.resnet18(pretrained=False)
+model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
+model.load_state_dict(torch.load(MODEL_PATH), map_location = device)
+model.to(device)
+model.eval()
+
+# Preprocessing pipeline
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transform.ToTensor(),
+])
+
+
 
 # 🧾 Logs user gear recommendation requests
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
@@ -103,6 +136,31 @@ def upload_image():
 
         # Can return success response + saved filepath
         return jsonify({"status": "success", "message": "Image uploaded", "file_path": filepath}), 200
+
+
+@app.route('/predict_breed', methods =['POST'])
+def predict_breed():
+    if 'dog_image' not in request.files:
+        return jsonify({"status": "error", "message": "No file part"}), 400
+    
+    file = request.files['dog_image']
+
+    if file.filename == '':
+        return jsonify({"status": "error", "message": "No selected file"}), 400
+    
+    try:
+        image = Image.open(file).convert("RGB")
+        image = transform(image).unsqueeze(0).to(device)
+
+        with torch.no_grad():
+            outputs = model(image)
+            _, predicted = torch.max(outputs, 1)
+            breed = BREED_LABELS[predicted.item()]
+
+        return jsonify({"status": "success", "predicted_breed": breed}), 200
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500    
 
 
 # fallback for undefined pages
