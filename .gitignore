@@ -4,3 +4,7 @@ __pycache__/
 
 # Ignore Stanford Dogs dataset images and folders
 data/stanford-dogs/
+
+
+# Ignore
+..bfg-report/
