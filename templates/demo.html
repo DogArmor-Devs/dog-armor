@@ -25,6 +25,12 @@
                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" required>
         </div>
 
+        <div id="preview-container" class="mt-4 hidden">
+          <p class="text-sm text-green-700 font-medium mb-2">✅ Image uploaded successfully!</p>
+          <img id="image-preview" class="rounded-lg max-w-xs border border-green-400 shadow-md mb-2" />
+          <p id="predicted-breed" class="text-green-800 font-semibold"></p>
+        </div>
+
         {% for field, label, options in [
           ('weight', 'Weight [Estimated from photo unless provided by user input]', ['Strawweight: <10lbs', 'Middleweight <40lbs', 'Heavyweight >40lbs']),
           ('chest_bridge_length', 'Length of Chest Bridge', ['Small: <9"', 'Medium: <28"', 'Large: >28"']),
@@ -121,10 +127,24 @@
       body: formData
     });
 
+    const uploadResult = await uploadResponse.json();
+
     if (uploadResult.status !== "success") {
       alert("Image upload failed :(  Please try again!");
       return;
     }
+
+    const previewBox = document.getElementById("preview-container");
+    const previewImage = document.getElementById("image-preview");
+    const predictedBreed = document.getElementById("predicted-breed");
+
+    previewImage.src = URL.createObjectURL(imageInput.files[0]);
+    predictedBreed.textContent = 'Predicted breed: ${uploadResult.breed || 'Unknown'}';
+    previewBox.classList.remove("hidden");
+
+    // Autofill the breed input field
+    document.getElementById('breed').value = uploadResult.breed;
+    
 
     // Send form data for gear recommendation
     const data = {

@@ -102,7 +102,7 @@ def upload_image():
         file.save(filepath)
 
         # Can return success response + saved filepath
-        return jsonify({"status": "success", "file_path": filepath}), 200
+        return jsonify({"status": "success", "message": "Image uploaded", "file_path": filepath}), 200
 
 
 # fallback for undefined pages
