@@ -11,7 +11,7 @@ import torch
 from torchvision import transforms, models
 from PIL import Image
 import json
-
+from utils.breed_predictor import predict_breed
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -31,7 +31,7 @@ BREED_LABELS = [
 ]
 
 # For loading models and weights
-device = torch.device("cuda" if torch.cuda.is_avaliable() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = models.resnet18(pretrained=False)
 model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
 model.load_state_dict(torch.load(MODEL_PATH), map_location = device)
@@ -134,33 +134,19 @@ def upload_image():
         # Save file to uploads folder
         file.save(filepath)
 
-        # Can return success response + saved filepath
-        return jsonify({"status": "success", "message": "Image uploaded", "file_path": filepath}), 200
-
-
-@app.route('/predict_breed', methods =['POST'])
-def predict_breed():
-    if 'dog_image' not in request.files:
-        return jsonify({"status": "error", "message": "No file part"}), 400
-    
-    file = request.files['dog_image']
-
-    if file.filename == '':
-        return jsonify({"status": "error", "message": "No selected file"}), 400
-    
-    try:
-        image = Image.open(file).convert("RGB")
-        image = transform(image).unsqueeze(0).to(device)
-
-        with torch.no_grad():
-            outputs = model(image)
-            _, predicted = torch.max(outputs, 1)
-            breed = BREED_LABELS[predicted.item()]
-
-        return jsonify({"status": "success", "predicted_breed": breed}), 200
-
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500    
+        
+        # Breed prediction
+        try:
+            predicted_breed = predict_breed(filepath)
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+        
+        return jsonify({
+            "status": "success",
+             "message": "Image uploaded",
+             "file_path": filepath,
+             "breed": predicted_breed
+            })    
 
 
 # fallback for undefined pages
