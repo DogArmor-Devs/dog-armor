@@ -23,13 +23,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Breed classifier model
 MODEL_PATH = 'model/breed_classifier.pth'
 
-# Class labels
-BREED_LABELS = [
-    'beagle', 'chihuahua', 'golden_retriever', 'pug', 'tibetan_terrier', 'doberman',
-    'scottish_deerhound', 'malamute', 'saint_bernard'
-    # Add more..
-]
-
 # For loading models and weights
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = models.resnet18(pretrained=False)

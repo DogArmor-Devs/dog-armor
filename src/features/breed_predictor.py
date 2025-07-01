@@ -146,9 +146,22 @@ transform = transforms.Compose([
 def predict_breed(image_path):
     image = Image.open(image_path).convert('RGB')
     image = transform(image).unsqueeze(0).to(device)
+
     with torch.no_grad():
         output = model(image)
-        predicted_class = output.argmax(dim=1).item()
-        breed = encoder.inverse_transform([predicted_class])[0]
-        return breed
+        probabilities = torch.nn.functional.softmax(output[0], dim=0)
+        top3 = torch.topk(probabilities, 3)
+
+    top3_indices = top3.indices.tolist()
+    top3_scores = top3.values.tolist()
+    top3_breeds = encoder.inverse_transform(top3_indices)
+
+    results = []
+    for breed, score in zip(top3_breeds, top3_scores):
+        results.append({
+            "breed": breed,
+            "confidence": round(float(score), 4)    # convert to float and round
+        })
+
+    return results
     
