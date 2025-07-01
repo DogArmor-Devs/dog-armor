@@ -37,7 +37,8 @@ transform = transforms.Compose([
     transform.ToTensor(),
 ])
 
-
+predicted_breeds = predict_breed(filepath)
+print(predicted_breeds)
 
 # 🧾 Logs user gear recommendation requests
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
