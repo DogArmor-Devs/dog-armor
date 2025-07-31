@@ -139,7 +139,7 @@
     const predictedBreed = document.getElementById("predicted-breed");
 
     previewImage.src = URL.createObjectURL(imageInput.files[0]);
-    predictedBreed.textContent = 'Predicted breed: ${uploadResult.breed || 'Unknown'}';
+    predictedBreed.textContent = `Predicted breed: ${uploadResult.breed || 'Unknown'}`;
     previewBox.classList.remove("hidden");
 
     // Autofill the breed input field
