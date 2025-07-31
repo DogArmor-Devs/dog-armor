@@ -21,7 +21,7 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Upload Dog Photo</label>
-          <input type="file" name="dog_image" id="dog_image" accept="image/*"
+          <input type="file" name="image" id="dog_image" accept="image/*"
                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" required>
         </div>
 
@@ -147,70 +147,49 @@
   const recommendationList = document.getElementById('recommendation-list');
 
   form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Upload Image separately
-    const imageInput = document.getElementById("dog_image");
-    const formData = new FormData();
-    formData.append("dog_image", imageInput.files[0]);
+  const formData = new FormData(form); // form element includes all inputs + file with correct names
 
-    const uploadResponse = await fetch('/upload', {
-      method: 'POST',
-      body: formData
-    });
-
-    const uploadResult = await uploadResponse.json();
-
-    if (uploadResult.status !== "success") {
-      alert("Image upload failed :(  Please try again!");
-      return;
-    }
-
-    const previewBox = document.getElementById("preview-container");
-    const previewImage = document.getElementById("image-preview");
-    const predictedBreed = document.getElementById("predicted-breed");
-
-    previewImage.src = URL.createObjectURL(imageInput.files[0]);
-    predictedBreed.textContent = `Predicted breed: ${uploadResult.breed || 'Unknown'}`;
-    previewBox.classList.remove("hidden");
-
-    // Autofill the breed input field
-    document.getElementById('breed').value = uploadResult.breed;
-    
-
-    // Send form data for gear recommendation
-    const data = {
-      weight: document.getElementById('weight').value,
-      chest_bridge_length: document.getElementById('chest_bridge_length').value,
-      neck_circumference: document.getElementById('neck_circumference').value,
-      back_bridge_length: document.getElementById('back_bridge_length').value,
-      belly_circumference: document.getElementById('belly_circumference').value,
-      breed: document.getElementById('breed').value,
-      age: document.getElementById('age').value,
-      pull: document.getElementById('pull').value,
-      guard_dog: document.getElementById('guard_dog').value,
-      total_dogs: document.getElementById('total_dogs').value,
-      budget: document.getElementById('budget').value
-    };
-
-    const response = await fetch('/recommend', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-    const rec = result.recommendations[0];
-
-    document.getElementById('recommendation-message').innerHTML = `<strong>${rec.message}</strong>`;
-    recommendationList.innerHTML = `
-      <li><strong>Collar:</strong> ${rec.collar}</li>
-      <li><strong>Harness:</strong> ${rec.harness}</li>
-      <li><strong>Leash:</strong> ${rec.leash}</li>
-    `;
-
-    resultBox.classList.remove('hidden');
+  const response = await fetch('/full_recommendation', {
+    method: 'POST',
+    body: formData
   });
+
+  const result = await response.json();
+
+  if (result.status !== "success") {
+    alert("Recommendation failed: " + (result.message || "Unknown error"));
+    return;
+  }
+
+  // Show image preview
+  const previewBox = document.getElementById("preview-container");
+  const previewImage = document.getElementById("image-preview");
+  previewImage.src = URL.createObjectURL(form.dog_image.files[0]);
+  previewBox.classList.remove("hidden");
+
+  // Show breed prediction
+  const predictedBreed = document.getElementById("predicted-breed");
+  const topBreed = result.top_breeds && result.top_breeds[0] ? result.top_breeds[0].breed : "Unknown";
+  predictedBreed.textContent = `Predicted breed: ${topBreed}`;
+
+  // Autofill breed input field
+  document.getElementById('breed').value = topBreed;
+
+  // Show gear recommendation
+  const rec = result.gear_recommendation;
+  const recommendationList = document.getElementById('recommendation-list');
+  document.getElementById('recommendation-message').innerHTML = `<strong>Recommended Gear:</strong>`;
+  recommendationList.innerHTML = `
+    <li><strong>Collar:</strong> ${rec.collar}</li>
+    <li><strong>Harness:</strong> ${rec.harness}</li>
+    <li><strong>Leash:</strong> ${rec.leash}</li>
+  `;
+
+  document.getElementById('result').classList.remove('hidden');
+});
+  
 </script>
 
 {% endblock %}
