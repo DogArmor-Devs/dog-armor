@@ -37,7 +37,7 @@ How do you choose the right one for *your* dog?
 
 DogArmor makes it simple.
 
-You answer a few short questions about your dog's **behavior**, **environment**, and **budget**, then upload a couple of photos.  
+You answer a few short questions about your dog's **behavior**, **environment**, and **your budget**, then upload a couple of photos.  
 Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends a tailored gear combo (harness, collar, and leash included).
 
 ## How It Works 
