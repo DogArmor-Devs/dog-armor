@@ -34,6 +34,16 @@ logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 # 📄 Load CSV of gear options (you’ll create this later)
 gear_data = pd.read_csv('gear_data.csv')
 
+def get_material_note(activity_level, water_activities, heat_sensitive):
+    if heat_sensitive == "yes":
+        return "Mesh: Lightweight and breathable, ideal for hot weather or dogs highly prone to overheating."
+    if water_activities == 'yes':
+        return "Neoprene: Cushioned, sweet for sensitive skin and water activities, but it can absorb heat."
+    if activity_level == 'high':
+        return "Nylon: Durable, lightwell, & affordable, a great option for upbeat, active dogs."
+    return "Nylon: Durable and affordable."
+
+
 # 🌐 Web page routes
 @app.route('/')
 def index():
@@ -185,11 +195,18 @@ def full_recommendation():
 
     # Extract behavior inputs
     activity_level = request.form.get('activity_level', '').lower()
-    aggression_level = request.form.get('aggreesion_level', '').lower()
+    aggression_level = request.form.get('aggression_level', '').lower()
     climate = request.form.get('climate', '').lower()
+
+    # Extract material inputs
+    water_activities = request.form.get('water_activities_yn', '').lower()
+    heat_sensitive = request.form.get('heat_sensitive_yn', '').lower()
+
+    material_note = get_material_note(activity_level, water_activities, heat_sensitive)
 
     # Recommend gear from behavior
     gear = behavior_based_recommendation(activity_level, aggression_level, climate)
+    gear['material_note'] = material_note
 
     return jsonify({
         'status': 'success',
