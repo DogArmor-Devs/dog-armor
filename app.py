@@ -24,7 +24,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Preprocessing pipeline
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
-    transform.ToTensor(),
+    transforms.ToTensor(),
 ])
 
 

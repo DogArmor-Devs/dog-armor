@@ -1,4 +1,5 @@
 import os
+import csv
 import joblib
 import torch
 import torch.nn as nn
@@ -39,7 +40,7 @@ class DogDataset(Dataset):
         return len(self.data)
     
     def __getitem__(self, idx):
-        row = self.data.iloc(idx)
+        row = self.data.iloc[idx]
         image_path = row['filepath']
         label = row['label']
 
@@ -113,7 +114,7 @@ def train_one_epoch(model, dataloader, optimze, criterion, device):
 
         running_loss += loss.item() * images.size(0)
         _, preds = torch.max(outputs, 1)
-        correct += (preds == labels).sum.item()
+        correct += (preds == labels).sum().item()
         total += labels.size(0)
     
     epoch_loss = running_loss / total
