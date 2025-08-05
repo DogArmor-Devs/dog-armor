@@ -27,6 +27,9 @@ except FileNotFoundError:
     # Create fallback gear data
     app.gear_data = pd.DataFrame({
         'breed': ['labrador', 'beagle', 'bulldog', 'poodle'],
+        'size': ['large', 'medium', 'large', 'medium'],
+        'pulls': ['yes', 'no', 'yes', 'no'],
+        'budget': ['medium', 'low', 'high', 'medium'],
         'gear_type': ['harness', 'collar', 'leash', 'toys'],
         'recommendation': ['Active dog harness', 'Comfortable collar', 'Strong leash', 'Interactive toys']
     })
