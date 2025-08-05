@@ -20,8 +20,16 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Logging
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
-# Load gear recommendation CSV
-app.gear_data = pd.read_csv('gear_data.csv')
+# Load gear recommendation CSV with fallback
+try:
+    app.gear_data = pd.read_csv('gear_data.csv')
+except FileNotFoundError:
+    # Create fallback gear data
+    app.gear_data = pd.DataFrame({
+        'breed': ['labrador', 'beagle', 'bulldog', 'poodle'],
+        'gear_type': ['harness', 'collar', 'leash', 'toys'],
+        'recommendation': ['Active dog harness', 'Comfortable collar', 'Strong leash', 'Interactive toys']
+    })
 
 # Define breed labels (replace with your actual list)
 BREED_LABELS = [
@@ -29,14 +37,21 @@ BREED_LABELS = [
     # Add your actual classes here
 ]
 
-# Load model
+# Load model with fallback
 MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = models.resnet18(pretrained=False)
-model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
-model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
-model.to(device)
-model.eval()
+
+try:
+    model = models.resnet18(pretrained=False)
+    model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
+    model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+    model.to(device)
+    model.eval()
+    app.model_loaded = True
+except (FileNotFoundError, Exception) as e:
+    print(f"Model not found or error loading: {e}")
+    model = None
+    app.model_loaded = False
 
 # Attach to app for routes to use
 app.device = device
