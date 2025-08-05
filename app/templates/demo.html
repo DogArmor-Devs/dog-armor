@@ -59,7 +59,7 @@
           <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
         </div>
 
-        {% set field_data [
+        {% set field_data = [
           ('hiking_yn', 'Will you regularly take your dog hiking?', 'For example, on trails, hills, forests, etc.'),
           ('hunting_yn', 'Will you regularly take your dog hunting?', 'E.g., upland game, waterfowl, tracking, etc.'),
           ('working_dog_yn', 'Is your dog a working/service/protection dog?', 'Guide, police, military, security, emotional support, etc.'),
@@ -116,7 +116,6 @@
           </select>
         </div>
 
-        {% endfor %}
       </fieldset>
 
       <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow transition">
