@@ -1,9 +1,7 @@
 import os
 import logging
-import torch
 import pandas as pd
 from flask import Flask
-from torchvision import models
 
 # Create Flask app
 app = Flask(
@@ -13,7 +11,7 @@ app = Flask(
 )
 
 # Configure where uploaded images go
-UPLOAD_FOLDER = os.path.join(app.static_folder)  # everything in static/
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads') 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

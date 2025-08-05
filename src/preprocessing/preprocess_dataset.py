@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 
-DATA_DIR = 'data/stanford-dogs/images/Images'
+DATA_DIR = 'data/stanford-dogs/Images'
 records = []
 
 for breed_folder in os.listdir(DATA_DIR):
