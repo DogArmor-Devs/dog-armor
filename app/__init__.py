@@ -2,6 +2,7 @@ import os
 import logging
 import pandas as pd
 from flask import Flask
+from src.features.breed_predictor import BREED_LABELS
 
 # Create Flask app
 app = Flask(
@@ -21,25 +22,31 @@ logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 # Load gear recommendation CSV
 app.gear_data = pd.read_csv('gear_data.csv')
 
-# Define breed labels (replace with your actual list)
-BREED_LABELS = [
-    'labrador', 'beagle', 'bulldog', 'poodle'
-    # Add your actual classes here
-]
-
 # Load model
 MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = models.resnet18(pretrained=False)
-model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
-model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
-model.to(device)
-model.eval()
-
-# Attach to app for routes to use
-app.device = device
-app.model = model
+app.model = None
+app.device = None
 app.breed_labels = BREED_LABELS
+
+try:
+    import torch
+    from torchvision import models
+
+    if os.path.exists[MODEL_PATH]:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model = models.resnet18(pretrained=False)
+        model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
+        model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+        model.to(device)
+        model.eval()
+        
+        app.device = device
+        app.model = model
+        app.logger.info("Model loaded successfully!")
+    else:
+        app.logger.warning(f"Model file not found at {MODEL_PATH}. Using fallback predictions.")
+except Exception as e:
+    app.logger.error(f"Error training model: {e}. Using fallback predictions.")
 
 # Import routes (must be last so app is defined first)
 from app import routes
