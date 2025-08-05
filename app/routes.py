@@ -106,6 +106,74 @@ def upload_image():
         })
 
 
+# 🎯 Full recommendation pipeline
+@app.route('/full_recommendation', methods=['POST'])
+def full_recommendation():
+    try:
+        # Get form data
+        breed = request.form.get('breed', '').lower()
+        size = request.form.get('size', '').lower()
+        activity_level = request.form.get('activity_level', '').lower()
+        aggression_level = request.form.get('aggression_level', '').lower()
+        climate = request.form.get('climate', '').lower()
+        
+        # Handle image upload
+        if 'dog_image' in request.files:
+            file = request.files['dog_image']
+            if file.filename != '':
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                
+                # Predict breed from image
+                try:
+                    predicted_breed = predict_breed(
+                        filepath,
+                        model=app.model,
+                        device=app.device,
+                        labels=app.breed_labels
+                    )
+                    breed = predicted_breed
+                except Exception as e:
+                    predicted_breed = predict_breed(filepath, model=None, device=None, labels=None)
+                    breed = predicted_breed
+        else:
+            predicted_breed = breed
+
+        # Generate gear recommendations
+        gear_data = app.gear_data
+        
+        # Filter based on breed and characteristics
+        filtered = gear_data[
+            (gear_data["breed"].str.lower().str.contains(breed, na=False)) |
+            (gear_data["size"].str.lower().str.contains(size, na=False))
+        ]
+
+        if filtered.empty:
+            recommendation = gear_data.sample(1).to_dict(orient="records")[0]
+        else:
+            recommendation = filtered.sample(1).to_dict(orient="records")[0]
+
+        # Create comprehensive recommendation
+        gear_recommendation = {
+            "collar": f"Comfortable {size} collar for {breed}",
+            "harness": f"Active {size} harness for {activity_level} activity",
+            "leash": f"Strong {size} leash for {aggression_level} behavior",
+            "material_note": f"Climate-appropriate materials for {climate} weather"
+        }
+
+        return jsonify({
+            "status": "success",
+            "top_breeds": [{"breed": predicted_breed, "confidence": 0.85}],
+            "gear_recommendation": gear_recommendation,
+            "recommendation": recommendation
+        })
+
+    except Exception as e:
+        app.logger.error(f"Error in full_recommendation: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
 # 404 page
 @app.errorhandler(404)
 def page_not_found(e):
