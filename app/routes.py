@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
 from PIL import Image
-from utils.breed_predictor import predict_breed
+from src.features.breed_predictor import predict_breed
 
 # Simple pages
 @app.route('/')
