@@ -53,8 +53,20 @@ class DogDataset(Dataset):
         
         return image, label
     
-# Transformations
-transform = transforms.Compose([
+# ----- Transformations ------
+# Training: Add random flip + slight rotation to increase variety
+train_transform = transforms.Compose([
+    transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.8, 1.0)),
+    transforms.RandomHorizontalFlip(p=0.5),      # this flips 50% of images
+    transforms.RandomRotation(degrees=15),        # to rotate images randomly up to ±15 degrees
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225])
+])
+
+# Validation: resize & normalize
+val_transform = transforms.Compose([
     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -62,7 +74,7 @@ transform = transforms.Compose([
 ])
 
 # ---- Training Function ----
-def train_one_epoch(model, dataloader, optimze, criterion, device):
+def train_one_epoch(model, dataloader, optimizer, criterion, device):
     model.train()
     running_loss = 0.0
     correct = 0
@@ -114,8 +126,8 @@ def validate(model, dataloader, criterion, device):
 
 if __name__ == "__main__":
     # ---- Load Datasets ----
-    train_dataset = DogDataset(TRAIN_CSV, transform=transform)
-    val_dataset = DogDataset(VAL_CSV, transform=transform)
+    train_dataset = DogDataset(TRAIN_CSV, transform=train_transform)
+    val_dataset = DogDataset(VAL_CSV, transform=val_transform)
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
@@ -140,14 +152,16 @@ if __name__ == "__main__":
 
     # Replace final fully connected layer with number of dog breed classes
     num_classes = len(encoder.classes_)
-    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    model.fc = nn.Sequential(
+        nn.Dropout(0.5),
+        nn.Linear(model.fc.in_features, num_classes))
 
     # Move model to device
     model = model.to(device)
 
     # Define loss function & optimizer
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
 
     # ---- Main Training Loop ----
     print(f"Starting training for {EPOCHS} epochs...")
