@@ -13,3 +13,17 @@ Source: “Comprehensive Guide to Front-Clip Dog Harnesses.” Wild Side Dog Gea
 
 Run-forest.png
 Source: “How to Hike Off-Leash with Your Dog.” Long Haul Trekkers, https://longhaultrekkers.com/hike-off-leash/
+
+
+## Stanford Dogs Dataset
+
+This project uses the Stanford Dogs Dataset.
+
+If you use this dataset, please cite:
+
+**Khosla, A., Jayadevaprakash, N., Yao, B., & Fei-Fei, L. (2013).**  
+*Novel dataset for fine-grained image categorization.*  
+[arXiv:1306.5151](https://arxiv.org/abs/1306.5151)
+
+Dataset available at:  
+[http://vision.stanford.edu/aditya86/ImageNetDogs/](http://vision.stanford.edu/aditya86/ImageNetDogs/)
