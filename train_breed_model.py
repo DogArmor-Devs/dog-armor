@@ -5,7 +5,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset,DataLoader
-from torchvision import datasets, models, transforms
+from torchvision import transforms
+from torchvision.models import resnet18, ResNet18_Weights
 import pandas as pd
 import pickle
 from PIL import Image
@@ -20,7 +21,7 @@ LEARNING_RATE = 0.001
 # Dataset paths
 TRAIN_CSV = 'data/train.csv'     # created from split_dataset.py
 VAL_CSV = 'data/val.csv'
-MODEL_SAVE_PATH = 'model/dog_breed_model.pth'
+MODEL_SAVE_PATH = 'model/retrained_models/breed_classifier.pth'
 ENCODER_SAVE_PATH = 'model/label_encoder.pkl'
 
 # Create model directory if it doesn't exist
@@ -134,7 +135,8 @@ if __name__ == "__main__":
     print(f"Using device {device}")
 
     # Load ResNet18 with pretrained weights
-    model = models.resnet18(pretrained=True)
+    weights = ResNet18_Weights.IMAGENET1K_V1
+    model = resnet18(weights=weights)
 
     # Replace final fully connected layer with number of dog breed classes
     num_classes = len(encoder.classes_)
@@ -157,8 +159,8 @@ if __name__ == "__main__":
               f"Train Loss={train_loss:.4f}, Train Acc={train_acc:.4f}, "
               f"Val Loss={val_loss:.4f}, Val Acc={val_acc:.4f}")
 
-# ---- Save Model ----
-torch.save(model.state_dict(), MODEL_SAVE_PATH)
-print(f"Model saved to {MODEL_SAVE_PATH}")
+    # ---- Save Model ----
+    torch.save(model.state_dict(), MODEL_SAVE_PATH)
+    print(f"Model saved to {MODEL_SAVE_PATH}")
 
-print("Training complete!")
+    print("Training complete!")
