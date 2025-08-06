@@ -25,7 +25,7 @@ MODEL_SAVE_PATH = 'model/retrained_models/breed_classifier.pth'
 ENCODER_SAVE_PATH = 'model/label_encoder.pkl'
 
 # Create model directory if it doesn't exist
-os.makedirs('model', exist_ok=True)
+os.makedirs('model/retrained_models', exist_ok=True)
 
 # Custom Dataset Class
 class DogDataset(Dataset):
