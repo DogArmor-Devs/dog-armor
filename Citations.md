@@ -15,6 +15,7 @@ Run-forest.png
 Source: “How to Hike Off-Leash with Your Dog.” Long Haul Trekkers, https://longhaultrekkers.com/hike-off-leash/
 
 
+
 ## Stanford Dogs Dataset
 
 This project uses the Stanford Dogs Dataset.
