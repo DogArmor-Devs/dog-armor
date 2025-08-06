@@ -71,12 +71,12 @@ def train_one_epoch(model, dataloader, optimze, criterion, device):
         images = images.to(device)
         labels = labels.to(device)
 
-        optimize.zero_grad()
+        optimizer.zero_grad()
         outputs = model(images)
 
         loss = criterion(outputs, labels)
         loss.backward()
-        optimize.step()
+        optimizer.step()
 
         running_loss += loss.item() * images.size(0)
         _, preds = torch.max(outputs, 1)
@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
         print(f"Epoch {epoch+1}/{EPOCHS}: "
               f"Train Loss={train_loss:.4f}, Train Acc={train_acc:.4f}, "
-              f"Val Loss={val_loss:.4f}, Val Acc={val_loss:.4f}")
+              f"Val Loss={val_loss:.4f}, Val Acc={val_acc:.4f}")
 
 # ---- Save Model ----
 torch.save(model.state_dict(), MODEL_SAVE_PATH)
