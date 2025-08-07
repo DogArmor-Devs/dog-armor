@@ -4,17 +4,19 @@ import joblib
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import Dataset,DataLoader
 from torchvision import transforms
-from torchvision.models import resnet18, ResNet18_Weights
+from torchvision.models import resnet50, ResNet50_Weights
+import torch.cuda.amp as amp
+from torch.amp import GradScaler, autocast
 import pandas as pd
-import pickle
 from PIL import Image
 from sklearn.preprocessing import LabelEncoder
 
 # Hyperparameters
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 30
 IMAGE_SIZE = 224
 LEARNING_RATE = 0.001
 
@@ -58,7 +60,8 @@ class DogDataset(Dataset):
 train_transform = transforms.Compose([
     transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.8, 1.0)),
     transforms.RandomHorizontalFlip(p=0.5),      # this flips 50% of images
-    transforms.RandomRotation(degrees=15),        # to rotate images randomly up to ±15 degrees
+    transforms.RandomAffine(degrees=15, translate=(0.05, 0.05), scale=(0.9, 1.1)),
+    transforms.RandomPerspective(distortion_scale=0.2, p=0.5),
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -74,7 +77,9 @@ val_transform = transforms.Compose([
 ])
 
 # ---- Training Function ----
-def train_one_epoch(model, dataloader, optimizer, criterion, device):
+scaler = torch.amp.GradScaler() if torch.cuda.is_available() else None
+
+def train_one_epoch(model, dataloader, optimizer, criterion, device, scaler):
     model.train()
     running_loss = 0.0
     correct = 0
@@ -85,11 +90,18 @@ def train_one_epoch(model, dataloader, optimizer, criterion, device):
         labels = labels.to(device)
 
         optimizer.zero_grad()
-        outputs = model(images)
-
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
+        if torch.cuda.is_available():
+            with autocast(device_type='cuda'):
+                outputs = model(images)
+                loss = criterion(outputs, labels)
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
 
         running_loss += loss.item() * images.size(0)
         _, preds = torch.max(outputs, 1)
@@ -147,8 +159,17 @@ if __name__ == "__main__":
     print(f"Using device {device}")
 
     # Load ResNet18 with pretrained weights
-    weights = ResNet18_Weights.IMAGENET1K_V1
-    model = resnet18(weights=weights)
+    weights = ResNet50_Weights.IMAGENET1K_V1
+    model = resnet50(weights=weights)
+
+    # Freeze all layers first
+    for param in model.parameters():
+        param.requires_grad = False
+
+    # Unfreeze layer4 + FC head
+    for name, param in model.named_parameters():
+        if "layer4" in name or "fc" in name:
+            param.requires_grad = True
 
     # Replace final fully connected layer with number of dog breed classes
     num_classes = len(encoder.classes_)
@@ -159,22 +180,37 @@ if __name__ == "__main__":
     # Move model to device
     model = model.to(device)
 
-    # Define loss function & optimizer
+    # Define loss function, optimizer, scheduler
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
+    optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=LEARNING_RATE, weight_decay=1e-4)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
     # ---- Main Training Loop ----
+    best_val_loss = float('inf')
+    patience = 3
+    counter = 0
+    
     print(f"Starting training for {EPOCHS} epochs...")
     for epoch in range(EPOCHS):
-        train_loss, train_acc = train_one_epoch(model, train_loader, optimizer, criterion, device)
+        train_loss, train_acc = train_one_epoch(model, train_loader, optimizer, criterion, device, scaler)
         val_loss, val_acc = validate(model, val_loader, criterion, device)
+        scheduler.step(val_loss)
 
         print(f"Epoch {epoch+1}/{EPOCHS}: "
               f"Train Loss={train_loss:.4f}, Train Acc={train_acc:.4f}, "
               f"Val Loss={val_loss:.4f}, Val Acc={val_acc:.4f}")
 
     # ---- Save Model ----
-    torch.save(model.state_dict(), MODEL_SAVE_PATH)
-    print(f"Model saved to {MODEL_SAVE_PATH}")
+    # Check if val_loss improved
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            counter = 0
+            torch.save(model.state_dict(), MODEL_SAVE_PATH)
+            print("✅ Saved best model, training complete!")
+        else:
+            counter += 1
+            print(f"⏳ No improvement, counter {counter}/{patience}")
 
-    print("Training complete!")
+            if counter >= patience:
+                print("❌ Early stopping triggered!")
+                break  
