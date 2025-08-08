@@ -1,10 +1,9 @@
 import os
-import csv
 import joblib
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import Dataset,DataLoader
 from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
@@ -15,10 +14,10 @@ from PIL import Image
 from sklearn.preprocessing import LabelEncoder
 
 # Hyperparameters
-BATCH_SIZE = 32
-EPOCHS = 30
+BATCH_SIZE = 64
+EPOCHS = 50
 IMAGE_SIZE = 224
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0001
 
 # Dataset paths
 TRAIN_CSV = 'data/train.csv'     # created from split_dataset.py
@@ -31,8 +30,9 @@ os.makedirs('model/retrained_models', exist_ok=True)
 
 # Custom Dataset Class
 class DogDataset(Dataset):
-    def __init__(self, csv_file, transform=None):
+    def __init__(self, csv_file, label_encoder=None, transform=None):
         self.data=pd.read_csv(csv_file)
+        self.encoder = label_encoder
         self.transform = transform
 
         # Check columns
@@ -47,6 +47,10 @@ class DogDataset(Dataset):
         image_path = row['filepath']
         label = row['label']
 
+        # string label → integer
+        if self.encoder is not None:
+            label = self.encoder.transform([label])[0]
+
         # Open image & convert to RGB
         image = Image.open(image_path).convert('RGB')
 
@@ -60,10 +64,12 @@ class DogDataset(Dataset):
 train_transform = transforms.Compose([
     transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.8, 1.0)),
     transforms.RandomHorizontalFlip(p=0.5),      # this flips 50% of images
+    transforms.RandomRotation(20),
     transforms.RandomAffine(degrees=15, translate=(0.05, 0.05), scale=(0.9, 1.1)),
     transforms.RandomPerspective(distortion_scale=0.2, p=0.5),
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
     transforms.ToTensor(),
+    transforms.RandomErasing(p=0.3),
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
@@ -87,7 +93,7 @@ def train_one_epoch(model, dataloader, optimizer, criterion, device, scaler):
 
     for images, labels in dataloader:
         images = images.to(device)
-        labels = labels.to(device)
+        labels = labels.to(device).long()
 
         optimizer.zero_grad()
         if torch.cuda.is_available():
@@ -122,7 +128,7 @@ def validate(model, dataloader, criterion, device):
     with torch.no_grad():
         for images, labels in dataloader:
             images = images.to(device)
-            labels = labels.to(device)
+            labels = labels.to(device).long()
 
             outputs = model(images)
             loss = criterion(outputs, labels)
@@ -137,29 +143,29 @@ def validate(model, dataloader, criterion, device):
     return epoch_loss, epoch_acc
 
 if __name__ == "__main__":
-    # ---- Load Datasets ----
-    train_dataset = DogDataset(TRAIN_CSV, transform=train_transform)
-    val_dataset = DogDataset(VAL_CSV, transform=val_transform)
-
-    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
-    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
-
-    # ---- Encode labels ----
+     # ---- Encode labels ----
     # Extract all labels from train dataset for encoding
-    labels = train_dataset.data['label']
+    labels = pd.read_csv(TRAIN_CSV)['label']
     encoder = LabelEncoder()
     encoder.fit(labels)
 
     # Save encoder label for future referencing
     joblib.dump(encoder, ENCODER_SAVE_PATH)
     print(f"Save label encoder to {ENCODER_SAVE_PATH}")
+    
+    # ---- Load Datasets ----
+    train_dataset = DogDataset(TRAIN_CSV, label_encoder=encoder, transform=train_transform)
+    val_dataset = DogDataset(VAL_CSV, label_encoder=encoder, transform=val_transform)
+
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
 
     # ---- Model Setup & Development ----
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device {device}")
 
-    # Load ResNet18 with pretrained weights
-    weights = ResNet50_Weights.IMAGENET1K_V1
+    # Load ResNet50 with pretrained weights
+    weights = ResNet50_Weights.IMAGENET1K_V2
     model = resnet50(weights=weights)
 
     # Freeze all layers first
@@ -168,7 +174,7 @@ if __name__ == "__main__":
 
     # Unfreeze layer4 + FC head
     for name, param in model.named_parameters():
-        if "layer4" in name or "fc" in name:
+        if any(layer in name for layer in ["layer2", "layer3", "layer4", "fc"]):
             param.requires_grad = True
 
     # Replace final fully connected layer with number of dog breed classes
@@ -181,36 +187,28 @@ if __name__ == "__main__":
     model = model.to(device)
 
     # Define loss function, optimizer, scheduler
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=LEARNING_RATE, weight_decay=1e-4)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.2)
+    optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=LEARNING_RATE, momentum=0.9, weight_decay=1e-4)
+    scheduler = CosineAnnealingLR(optimizer, T_max=10)
 
     # ---- Main Training Loop ----
     best_val_loss = float('inf')
-    patience = 3
-    counter = 0
     
     print(f"Starting training for {EPOCHS} epochs...")
     for epoch in range(EPOCHS):
         train_loss, train_acc = train_one_epoch(model, train_loader, optimizer, criterion, device, scaler)
         val_loss, val_acc = validate(model, val_loader, criterion, device)
-        scheduler.step(val_loss)
+        scheduler.step()
 
         print(f"Epoch {epoch+1}/{EPOCHS}: "
               f"Train Loss={train_loss:.4f}, Train Acc={train_acc:.4f}, "
               f"Val Loss={val_loss:.4f}, Val Acc={val_acc:.4f}")
 
     # ---- Save Model ----
-    # Check if val_loss improved
+   # Check if val_loss improved
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            counter = 0
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
-            print("✅ Saved best model, training complete!")
+            print(f"✅ Saved best model at epoch {epoch+1}", "training complete!")
         else:
-            counter += 1
-            print(f"⏳ No improvement, counter {counter}/{patience}")
-
-            if counter >= patience:
-                print("❌ Early stopping triggered!")
-                break  
+            print("⏳ No improvement in val_loss")
