@@ -9,6 +9,7 @@ from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
 import torch.cuda.amp as amp
 from torch.amp import GradScaler, autocast
+import numpy as np
 import pandas as pd
 from PIL import Image
 from sklearn.preprocessing import LabelEncoder
@@ -17,7 +18,7 @@ from sklearn.preprocessing import LabelEncoder
 BATCH_SIZE = 64
 EPOCHS = 50
 IMAGE_SIZE = 224
-LEARNING_RATE = 0.0001
+LEARNING_RATE = 0.02
 
 # Dataset paths
 TRAIN_CSV = 'data/train.csv'     # created from split_dataset.py
@@ -62,9 +63,9 @@ class DogDataset(Dataset):
 # ----- Transformations ------
 # Training: Add random flip + slight rotation to increase variety
 train_transform = transforms.Compose([
-    transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.8, 1.0)),
+    transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.85, 1.0)),
     transforms.RandomHorizontalFlip(p=0.5),      # this flips 50% of images
-    transforms.RandomRotation(20),
+    transforms.RandomRotation(15),
     transforms.RandomAffine(degrees=15, translate=(0.05, 0.05), scale=(0.9, 1.1)),
     transforms.RandomPerspective(distortion_scale=0.2, p=0.5),
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
@@ -85,6 +86,15 @@ val_transform = transforms.Compose([
 # ---- Training Function ----
 scaler = torch.amp.GradScaler() if torch.cuda.is_available() else None
 
+def mixup_data(x, y, alpha=0.4):
+    lam = np.random.beta(alpha, alpha)
+    batch_size = x.size(0)
+    index = torch.randperm(batch_size).to(x.device)
+
+    mixed_x = lam * x + (1-lam) * x[index, :]
+    y_a, y_b = y, y[index]
+    return mixed_x, y_a, y_b, lam
+
 def train_one_epoch(model, dataloader, optimizer, criterion, device, scaler):
     model.train()
     running_loss = 0.0
@@ -96,22 +106,39 @@ def train_one_epoch(model, dataloader, optimizer, criterion, device, scaler):
         labels = labels.to(device).long()
 
         optimizer.zero_grad()
+
+        use_mixup = torch.rand(1).item() < 0.3
+
+        if use_mixup:
+            images, labels_a, labels_b, lam = mixup_data(images, labels)
+
         if torch.cuda.is_available():
             with autocast(device_type='cuda'):
                 outputs = model(images)
-                loss = criterion(outputs, labels)
+                if use_mixup:
+                    loss = lam * criterion(outputs, labels_a) + (1-lam) * criterion(outputs, labels_b)
+                else:
+                    loss = criterion(outputs, labels)
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
         else:
             outputs = model(images)
-            loss = criterion(outputs, labels)
+            if use_mixup:
+                loss = lam * criterion(outputs, labels_a) + (1-lam) * criterion(outputs, labels_b)
+            else:
+                loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
 
         running_loss += loss.item() * images.size(0)
         _, preds = torch.max(outputs, 1)
-        correct += (preds == labels).sum().item()
+
+        if use_mixup:
+            correct += (lam * (preds == labels_a).sum().item() + (1-lam) * (preds == labels_b).sum().item())
+        else:
+            correct += (preds == labels).sum().item()
+
         total += labels.size(0)
     
     epoch_loss = running_loss / total
@@ -152,7 +179,7 @@ if __name__ == "__main__":
     # Save encoder label for future referencing
     joblib.dump(encoder, ENCODER_SAVE_PATH)
     print(f"Save label encoder to {ENCODER_SAVE_PATH}")
-    
+
     # ---- Load Datasets ----
     train_dataset = DogDataset(TRAIN_CSV, label_encoder=encoder, transform=train_transform)
     val_dataset = DogDataset(VAL_CSV, label_encoder=encoder, transform=val_transform)
@@ -180,22 +207,38 @@ if __name__ == "__main__":
     # Replace final fully connected layer with number of dog breed classes
     num_classes = len(encoder.classes_)
     model.fc = nn.Sequential(
-        nn.Dropout(0.5),
+        nn.Dropout(0.4),
         nn.Linear(model.fc.in_features, num_classes))
 
     # Move model to device
     model = model.to(device)
 
     # Define loss function, optimizer, scheduler
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.2)
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
     optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=LEARNING_RATE, momentum=0.9, weight_decay=1e-4)
-    scheduler = CosineAnnealingLR(optimizer, T_max=10)
+    scheduler = CosineAnnealingLR(optimizer, T_max=EPOCHS)
 
     # ---- Main Training Loop ----
     best_val_loss = float('inf')
+    no_improve_epochs = 0
+    unfreezed_layer1 = False
     
     print(f"Starting training for {EPOCHS} epochs...")
     for epoch in range(EPOCHS):
+        if epoch < 5:
+            warmup_lr = LEARNING_RATE * (epoch + 1) / 5
+            for g in optimizer.param_groups:
+                g['lr'] = warmup_lr
+
+        if epoch == EPOCHS - 5:
+            optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4, weight_decay=1e-4)
+            scheduler=CosineAnnealingLR(optimizer, T_max=5)
+            print("🔄 Switched to AdamW for final fine-tuning!")
+        
+        if epoch == EPOCHS - 1:  # final epoch
+            for g in optimizer.param_groups:
+                g['lr'] *= 0.1
+
         train_loss, train_acc = train_one_epoch(model, train_loader, optimizer, criterion, device, scaler)
         val_loss, val_acc = validate(model, val_loader, criterion, device)
         scheduler.step()
@@ -209,6 +252,13 @@ if __name__ == "__main__":
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
-            print(f"✅ Saved best model at epoch {epoch+1}", "training complete!")
+            print(f"✅ Saved best model at epoch {epoch+1}", ",training complete!")
         else:
+            no_improve_epochs += 1
             print("⏳ No improvement in val_loss")
+
+        if no_improve_epochs >= 5 and not unfreezed_layer1:
+            for p in model.layer1.parameters():
+                p.requires_grad = True
+            unfreezed_layer1 = True
+            print("🔓 Unfroze layer1 for fine-tuning")
