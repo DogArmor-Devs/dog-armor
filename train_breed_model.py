@@ -7,7 +7,6 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import Dataset,DataLoader
 from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
-import torch.cuda.amp as amp
 from torch.amp import GradScaler, autocast
 import numpy as np
 import pandas as pd
@@ -84,7 +83,7 @@ val_transform = transforms.Compose([
 ])
 
 # ---- Training Function ----
-scaler = torch.amp.GradScaler() if torch.cuda.is_available() else None
+scaler = GradScaler() if torch.cuda.is_available() else None
 
 def mixup_data(x, y, alpha=0.4):
     lam = np.random.beta(alpha, alpha)
@@ -185,7 +184,7 @@ if __name__ == "__main__":
     val_dataset = DogDataset(VAL_CSV, label_encoder=encoder, transform=val_transform)
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
-    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
 
     # ---- Model Setup & Development ----
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -201,7 +200,7 @@ if __name__ == "__main__":
 
     # Unfreeze layer4 + FC head
     for name, param in model.named_parameters():
-        if any(layer in name for layer in ["layer2", "layer3", "layer4", "fc"]):
+        if any(layer in name for layer in ["layer1", "layer2", "layer3", "layer4", "fc"]):
             param.requires_grad = True
 
     # Replace final fully connected layer with number of dog breed classes
@@ -222,18 +221,21 @@ if __name__ == "__main__":
     best_val_loss = float('inf')
     no_improve_epochs = 0
     unfreezed_layer1 = False
+    best_epoch = 0
     
     print(f"Starting training for {EPOCHS} epochs...")
     for epoch in range(EPOCHS):
         if epoch < 5:
-            warmup_lr = LEARNING_RATE * (epoch + 1) / 5
+            warmup_lr = LEARNING_RATE * ((epoch + 1) / 5) ** 2
             for g in optimizer.param_groups:
                 g['lr'] = warmup_lr
+        else:
+            scheduler.step()
 
-        if epoch == EPOCHS - 5:
+        if epoch == 30:
             optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4, weight_decay=1e-4)
-            scheduler=CosineAnnealingLR(optimizer, T_max=5)
-            print("🔄 Switched to AdamW for final fine-tuning!")
+            scheduler=CosineAnnealingLR(optimizer, T_max=EPOCHS - 30)
+            print("🔄 Switched to AdamW for final fine-tuning from epoch 30!")
         
         if epoch == EPOCHS - 1:  # final epoch
             for g in optimizer.param_groups:
@@ -241,18 +243,18 @@ if __name__ == "__main__":
 
         train_loss, train_acc = train_one_epoch(model, train_loader, optimizer, criterion, device, scaler)
         val_loss, val_acc = validate(model, val_loader, criterion, device)
-        scheduler.step()
 
         print(f"Epoch {epoch+1}/{EPOCHS}: "
               f"Train Loss={train_loss:.4f}, Train Acc={train_acc:.4f}, "
               f"Val Loss={val_loss:.4f}, Val Acc={val_acc:.4f}")
 
-    # ---- Save Model ----
-   # Check if val_loss improved
+        # ---- Save Model ----
+        # Check if val_loss improved
         if val_loss < best_val_loss:
             best_val_loss = val_loss
+            best_epoch = epoch + 1
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
-            print(f"✅ Saved best model at epoch {epoch+1}", ",training complete!")
+            print(f"✅ Saved best model at epoch {epoch+1} (training checkpoint)")
         else:
             no_improve_epochs += 1
             print("⏳ No improvement in val_loss")
@@ -262,3 +264,5 @@ if __name__ == "__main__":
                 p.requires_grad = True
             unfreezed_layer1 = True
             print("🔓 Unfroze layer1 for fine-tuning")
+
+    print(f"Training complete. Best Validation Loss: {best_val_loss:.4f}")
