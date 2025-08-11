@@ -16,7 +16,7 @@ from sklearn.preprocessing import LabelEncoder
 
 # Hyperparameters
 BATCH_SIZE = 64
-EPOCHS = 50
+EPOCHS = 60
 IMAGE_SIZE = 224
 LEARNING_RATE = 0.02
 
