@@ -2,6 +2,7 @@ import os
 import logging
 import pandas as pd
 from flask import Flask
+from torchvision.models import resnet50
 from src.features.breed_predictor import BREED_LABELS
 
 def create_app():
@@ -34,7 +35,7 @@ def create_app():
 
         if os.path.exists(MODEL_PATH):
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            model = models.resnet18(pretrained=False)
+            model = models.resnet50(pretrained=False)
             model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
             model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
             model.to(device)
