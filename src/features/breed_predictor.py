@@ -130,8 +130,8 @@ BREED_LABELS = [
 ]
 
 # Paths
-MODEL_PATH = os.path.join("src", "models", "dog_breed_model.pth")
-ENCODER_PATH = os.path.join("src", "models", "label_encoder.pkl")
+MODEL_PATH = os.path.join("model", "retrained_models", "breed_classifier.pth")
+ENCODER_PATH = os.path.join("model", "label_encoder.pkl")
 
 # Load label encoder
 with open(ENCODER_PATH, 'rb') as f:
@@ -147,7 +147,7 @@ transform = transforms.Compose([
 
 # Load model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = models.resnet18(pretrained=False)
+model = models.resnet50(pretrained=False)
 model.fc = torch.nn.Linear(model.fc.in_features, len(label_encoder.classes_))
 model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model = model.to(device)
