@@ -228,7 +228,7 @@ if __name__ == "__main__":
         if epoch < 5:
             warmup_lr = LEARNING_RATE * ((epoch + 1) / 5) ** 2
             for g in optimizer.param_groups:
-                g['lr'] = warmup_lr
+                 g['lr'] = warmup_lr
         else:
             scheduler.step()
 
