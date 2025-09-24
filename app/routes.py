@@ -59,7 +59,13 @@ def upload_image():
     file.save(filepath)
 
     try:
-        breed_predictions = predict_breed(filepath)
+        breed_predictions = predict_breed(
+            filepath,
+            model=current_app.model,
+            device=current_app.device,
+            transform=transform,
+            breed_labels=current_app.breed_labels
+        )
         top_breed = breed_predictions[0]["breed"] if breed_predictions else "Unknown"
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
