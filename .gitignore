@@ -3,7 +3,7 @@ __pycache__/
 .env
 
 # Ignore Stanford Dogs dataset images and folders
-data/stanford-dogs/
+data/
 
 
 # Ignore

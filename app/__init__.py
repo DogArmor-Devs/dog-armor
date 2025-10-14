@@ -21,7 +21,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
 # Load gear recommendation CSV
-app.gear_data = pd.read_csv('gear_data.csv')
+app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
 
 # Define breed labels (replace with your actual list)
 BREED_LABELS = [
