@@ -5,7 +5,9 @@
 import os
 import pandas as pd
 
-DATA_DIR = 'data/stanford-dogs/images/Images'
+DATA_DIR = 'data/stanford-dogs/Images'
+print(f"✅ Looking inside: {os.path.abspath(DATA_DIR)}")
+print("📁 Subfolders found:", os.listdir(DATA_DIR))
 records = []
 
 for breed_folder in os.listdir(DATA_DIR):

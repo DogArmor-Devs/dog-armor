@@ -3,11 +3,11 @@
 
 # DogArmor: Smart AI-Powered Dog Gear Recommender
 
-> 🐶 **DogArmor** is currently in it's post-MVP pre-Final Product phase. We are getting user feedback and still working on the AI models. If you're excited to use our technology, consider giving our github page a ⭐
+> 🐶 **DogArmor** is currently in it's post-MVP, pre-Final Product phase. We are getting user feedback and still working on the AI models. If you're excited to use our technology, consider giving our github page a ⭐
 >  
 > Please note development is being done every day! Check it out for yourself at: https://dogarmor.online/
 
-🚀 [Overview](#overview) | ⚙️ [How It Works](#how-it-works) | 🧠 [Features](#features) | 🛠️ [Tech Stack](#tech-stack-and-contact-info) | 🤝 [Contributing](CONTRIBUTING.md)
+🚀 [Overview](#overview) | ⚙️ [How It Works](#how-it-works) | 🧠 [Features](#features) | 🛠️ [Tech Stack](#tech-stack-and-contact-info) 
 
 ## What are we?
 
@@ -37,10 +37,10 @@ How do you choose the right one for *your* dog?
 
 DogArmor makes it simple.
 
-You answer a few short questions about your dog's **behavior**, **environment**, and **budget**, then upload a couple of photos.  
+You answer a few short questions about your dog's **behavior**, **environment**, and **your budget**, then upload a couple of photos.  
 Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends a tailored gear combo (harness, collar, and leash included).
 
-## How It Works (For now, currently only MVP available)
+## How It Works 
 
 1. Upload a photo of your dog to help us understand its size and shape.
 
@@ -70,7 +70,7 @@ Our AI analyzes everything—**anatomy**, **size**, **habits**—and recommends 
 
 🔄 **End-to-End Pipeline** — From image input to final product recommendation, the backend handles preprocessing, pose inference, behavior integration, and response generation—all automatically.
 
-## Tech Stack & Contact Info
+## Tech Stack and Contact Info
 
 Built with:
 - Python + Flask, HTML/CSS + Tailwind + AOS, SQLite, Future: ML models utilizing DeepLabCut and YOLO 

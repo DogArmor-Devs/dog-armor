@@ -3,7 +3,8 @@
 import torch
 from torchvision import transforms, models
 from PIL import Image
-import joblib
+import pickle
+import os
 
 BREED_LABELS = [
     "Chihuahua",
@@ -128,40 +129,36 @@ BREED_LABELS = [
     "African_hunting_dog"
 ]
 
-device = torch.device("cuda" if torch.cuda.is_avaliable() else "cpu")
+# Paths
+MODEL_PATH = os.path.join("model", "retrained_models", "breed_classifier.pth")
+ENCODER_PATH = os.path.join("model", "label_encoder.pkl")
 
-# Load model and label encoder
-model = models.resnet18()
-model.fc = torch.nn.Linear(model.fc.in_features, 120)  # 120 breeds
-model.load_state_dict(torch.load("model/dog_breed_model.pth", map_location = device))
-model.eval()
+# Load label encoder
+with open(ENCODER_PATH, 'rb') as f:
+    label_encoder = pickle.load(f)
 
-encoder = joblib.load("model/label_encoder.pkl")
-
+# Transform
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406],
+                         [0.229, 0.224, 0.225])
 ])
 
+# Load model
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = models.resnet50(pretrained=False)
+model.fc = torch.nn.Linear(model.fc.in_features, len(label_encoder.classes_))
+model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+model = model.to(device)
+model.eval()
+
+# Predict function
 def predict_breed(image_path):
-    image = Image.open(image_path).convert('RGB')
-    image = transform(image).unsqueeze(0).to(device)
-
+    image = Image.open(image_path).convert("RGB")
+    input_tensor = transform(image).unsqueeze(0).to(device)
     with torch.no_grad():
-        output = model(image)
-        probabilities = torch.nn.functional.softmax(output[0], dim=0)
-        top3 = torch.topk(probabilities, 3)
-
-    top3_indices = top3.indices.tolist()
-    top3_scores = top3.values.tolist()
-    top3_breeds = encoder.inverse_transform(top3_indices)
-
-    results = []
-    for breed, score in zip(top3_breeds, top3_scores):
-        results.append({
-            "breed": breed,
-            "confidence": round(float(score), 4)    # convert to float and round
-        })
-
-    return results
-    
+        outputs = model(input_tensor)
+        _, predicted = torch.max(outputs, 1)
+        class_name = label_encoder.inverse_transform(predicted.cpu().numpy())[0]
+    return class_name

@@ -1,47 +1,64 @@
 import os
 import logging
-import torch
 import pandas as pd
 from flask import Flask
-from torchvision import models
+from torchvision.models import resnet50
+from src.features.breed_predictor import BREED_LABELS
 
-# Create Flask app
-app = Flask(
-    __name__,
-    static_folder='static',
-    template_folder='templates'
-)
+def create_app():
+    app = Flask(
+        __name__,
+        static_folder='static',
+        template_folder='templates'
+    )
 
-# Configure where uploaded images go
-UPLOAD_FOLDER = os.path.join(app.static_folder)  # everything in static/
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    # Upload folder setup
+    UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Logging
-logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
+    # Logging
+    logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
+<<<<<<< HEAD
 # Load gear recommendation CSV
 app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
+=======
+    # Load gear CSV
+    app.gear_data = pd.read_csv('gear_data.csv')
+>>>>>>> 14f33e189b58ecfbc5eb4f8e01fd0b90668ec75a
 
-# Define breed labels (replace with your actual list)
-BREED_LABELS = [
-    'labrador', 'beagle', 'bulldog', 'poodle'
-    # Add your actual classes here
-]
+    # Load model
+    MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
+    app.model = None
+    app.device = None
+    app.breed_labels = BREED_LABELS
 
-# Load model
-MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = models.resnet18(pretrained=False)
-model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
-model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
-model.to(device)
-model.eval()
+    try:
+        import torch
+        from torchvision import models
 
-# Attach to app for routes to use
-app.device = device
-app.model = model
-app.breed_labels = BREED_LABELS
+        if os.path.exists(MODEL_PATH):
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model = models.resnet50(pretrained=False)
+            model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
+            model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+            model.to(device)
+            model.eval()
 
-# Import routes (must be last so app is defined first)
-from app import routes
+            app.device = device
+            app.model = model
+            app.logger.info("Model loaded successfully!")
+        else:
+            app.logger.warning(f"Model file not found at {MODEL_PATH}. Using fallback predictions.")
+    except Exception as e:
+        app.logger.error(f"Error loading model: {e}. Using fallback predictions.")
+
+    # Register all routes
+    from app.routes import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    return app
+
+# Expose app
+app = create_app()

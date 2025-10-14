@@ -59,17 +59,17 @@
           <input type="text" name="breed" id="breed" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="e.g., Labrador" required>
         </div>
 
-        {% set field_data [
+        {% set field_data = [
           ('hiking_yn', 'Will you regularly take your dog hiking?', 'For example, on trails, hills, forests, etc.'),
           ('hunting_yn', 'Will you regularly take your dog hunting?', 'E.g., upland game, waterfowl, tracking, etc.'),
           ('working_dog_yn', 'Is your dog a working/service/protection dog?', 'Guide, police, military, security, emotional support, etc.'),
           ('water_activities_yn', 'Does your dog regularly engage in water activities with its harness on?', 'Swimming, dock diving, paddleboarding, etc.'),
           ('dog_sports_yn', 'Is your dog regularly involved in sports, if so, which ones?', 'Agility, flyball, bikejoring, etc.'),
-          ('leash_pulling_yn', 'Does you have problems with your dog pulling on the leash and need a solution?', 'Select "Yes" if you’re actively trying to reduce pulling.'),
+          ('leash_pulling_yn', 'Do you have problems with your dog pulling on the leash and need a solution?', 'Select "Yes" if you\’re actively trying to reduce pulling.'),
           ('dog_growing_age_yn', 'Is your dog still growing (under 6 months old)?', 'We\'re asking because puppies have special fit and adjustability needs.'),
           ('cleaning_experience_yn', 'Do you have experience cleaning and know how to maintain a dog\'s harness?', 'Some gear types need regular maintenance.'),
-          ('heat_sensitive_yn', 'Does your dog overheat easily or live in a hot climate?', 'Yes” if your dog lives in a climate above 80°F regularly, is a flat-faced (brachycephalic) breed (e.g. pug, bulldog), or has a thick coat (e.g. chow chow, golden retriever, husky). 
-          We’ll recommend breathable gear like mesh harnesses')
+          ('heat_sensitive_yn', 'Does your dog overheat easily or live in a hot climate?', 'Yes if your dog lives in a climate above 80°F regularly, is a flat-faced (brachycephalic) breed (e.g. pug, bulldog), or has a thick coat (e.g. chow chow, golden retriever, husky). 
+          We\’ll recommend breathable gear like mesh harnesses')
         ] %}
         {% for field, label, tooltip in field_data %}
           <div>
