@@ -6,11 +6,7 @@ from torchvision.models import resnet50
 from src.features.breed_predictor import BREED_LABELS
 
 def create_app():
-    app = Flask(
-        __name__,
-        static_folder='static',
-        template_folder='templates'
-    )
+    app = Flask(__name__, static_folder='static', template_folder='templates')
 
     # Upload folder setup
     UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
@@ -20,15 +16,10 @@ def create_app():
     # Logging
     logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
-<<<<<<< HEAD
-# Load gear recommendation CSV
-app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
-=======
     # Load gear CSV
     app.gear_data = pd.read_csv('gear_data.csv')
->>>>>>> 14f33e189b58ecfbc5eb4f8e01fd0b90668ec75a
 
-    # Load model
+    # Load trained model
     MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
     app.model = None
     app.device = None
@@ -37,7 +28,6 @@ app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
     try:
         import torch
         from torchvision import models
-
         if os.path.exists(MODEL_PATH):
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             model = models.resnet50(pretrained=False)
@@ -45,20 +35,16 @@ app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
             model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
             model.to(device)
             model.eval()
-
             app.device = device
             app.model = model
             app.logger.info("Model loaded successfully!")
         else:
-            app.logger.warning(f"Model file not found at {MODEL_PATH}. Using fallback predictions.")
+            app.logger.warning(f"Model not found at {MODEL_PATH}")
     except Exception as e:
-        app.logger.error(f"Error loading model: {e}. Using fallback predictions.")
+        app.logger.error(f"Error loading model: {e}")
 
-    # Register all routes
     from app.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
     return app
 
-# Expose app
 app = create_app()
