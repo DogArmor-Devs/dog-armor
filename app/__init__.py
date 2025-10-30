@@ -20,13 +20,8 @@ def create_app():
     # Logging
     logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
 
-<<<<<<< HEAD
-# Load gear recommendation CSV
-app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
-=======
     # Load gear CSV
     app.gear_data = pd.read_csv('gear_data.csv')
->>>>>>> 14f33e189b58ecfbc5eb4f8e01fd0b90668ec75a
 
     # Load model
     MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
@@ -62,3 +57,4 @@ app.gear_data = pd.read_csv('data/processed_data/gear_data.csv')
 
 # Expose app
 app = create_app()
+
