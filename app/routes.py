@@ -45,12 +45,15 @@ def team():
 
 # -- IMAGE UPLOAD --
 
+# -- IMAGE UPLOAD --
+
 @main.route('/upload', methods=['POST'])
 def upload_image():
-    if 'dog_image' not in request.files:
+    # demo.html and /full_recommendation use the form field name "image"
+    if 'image' not in request.files:
         return jsonify({"status": "error", "message": "No file provided"}), 400
 
-    file = request.files['dog_image']
+    file = request.files['image']
     if file.filename == '':
         return jsonify({"status": "error", "message": "No selected file"}), 400
 
@@ -59,14 +62,12 @@ def upload_image():
     file.save(filepath)
 
     try:
-        breed_predictions = predict_breed(
-            filepath,
-            model=current_app.model,
-            device=current_app.device,
-            transform=transform,
-            breed_labels=current_app.breed_labels
-        )
-        top_breed = breed_predictions[0]["breed"] if breed_predictions else "Unknown"
+        # breed_predictor.predict_breed expects just (image_path) in your current code
+        breed_predictions = predict_breed(filepath)
+        # adjust to whatever predict_breed returns — here we assume list of dicts or at least a breed str
+        # if predict_breed returns a single class string, you can change the following accordingly
+        top_breed = breed_predictions[0]["breed"] if isinstance(breed_predictions, (list, tuple)) and breed_predictions else (breed_predictions if isinstance(breed_predictions, str) else "Unknown")
+        logging.info(f"[{datetime.now()}] Uploaded {filename} - Top breed: {top_breed}")
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 

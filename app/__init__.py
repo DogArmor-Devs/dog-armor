@@ -6,11 +6,7 @@ from torchvision.models import resnet50
 from src.features.breed_predictor import BREED_LABELS
 
 def create_app():
-    app = Flask(
-        __name__,
-        static_folder='static',
-        template_folder='templates'
-    )
+    app = Flask(__name__, static_folder='static', template_folder='templates')
 
     # Upload folder setup
     UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
@@ -23,7 +19,7 @@ def create_app():
     # Load gear CSV
     app.gear_data = pd.read_csv('gear_data.csv')
 
-    # Load model
+    # Load trained model
     MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
     app.model = None
     app.device = None
@@ -32,7 +28,6 @@ def create_app():
     try:
         import torch
         from torchvision import models
-
         if os.path.exists(MODEL_PATH):
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             model = models.resnet50(pretrained=False)
@@ -40,21 +35,17 @@ def create_app():
             model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
             model.to(device)
             model.eval()
-
             app.device = device
             app.model = model
             app.logger.info("Model loaded successfully!")
         else:
-            app.logger.warning(f"Model file not found at {MODEL_PATH}. Using fallback predictions.")
+            app.logger.warning(f"Model not found at {MODEL_PATH}")
     except Exception as e:
-        app.logger.error(f"Error loading model: {e}. Using fallback predictions.")
+        app.logger.error(f"Error loading model: {e}")
 
-    # Register all routes
     from app.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
     return app
 
-# Expose app
 app = create_app()
 
