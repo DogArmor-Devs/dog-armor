@@ -6,7 +6,7 @@
 
 <section class="bg-gradient-to-b from-green-100 to-green-400 min-h-screen">
   <!-- Demo Section -->
-  <div class="py-16 px-6 max-w-6xl mx-auto" data-aos="zoom-in">
+  <div class="py-16 px-6 max-w-6xl mx-auto flex flex-col md:flex-row gap-10" data-aos="zoom-in">
     <h1 class="text-5xl font-extrabold text-green-700 text-center mb-12 flex items-center justify-center gap-4">
       <i data-lucide="activity" class="w-10 h-10 text-green-700"></i>
       Try the Recommendation Demo
@@ -124,14 +124,27 @@
       </button>
     </form>
 
-    <div id="result" class="mt-10 hidden p-6 bg-white border border-emerald-200 rounded shadow-md">
-      <h2 class="text-2xl text-green-700 font-bold mb-2 flex items-center gap-2">
-        <i data-lucide="check-circle" class="w-5 h-5 text-green-700"></i>
-        Recommended Gear
+    <div id="result" class="md:w-1/2 hidden bg-green-50 border border-green-300 rounded-2xl shadow-lg p-8 text-center transition-all duration-500">
+      <h2 class="text-3xl font-extrabold text-green-800 mb-4 flex justify-center items-center gap-2">
+        <i data-lucide="paw-print" class="w-8 h-8 text-green-700"></i>
+        Your Dog's Gear Recommendation
       </h2>
-      <ul id="recommendation-list" class="list-disc list-inside text-gray-700"></ul>
-      <p id="recommendation-message" class="mb-4 font-medium text-gray-800"></p>
+    
+      <div class="flex flex-col items-center justify-center space-y-4">
+        <!-- Image preview appears here dynamically -->
+        <img id="image-preview" class="w-48 h-48 object-cover rounded-full border-4 border-green-500 shadow-lg hidden" />
+    
+        <!-- Predicted breed -->
+        <p id="predicted-breed" class="text-xl font-semibold text-gray-800"></p>
+    
+        <!-- Recommendation list -->
+        <ul id="recommendation-list" class="text-lg text-gray-700 space-y-2"></ul>
+    
+        <!-- Material or special note -->
+        <p id="recommendation-message" class="font-medium text-gray-800 mt-4"></p>
+      </div>
     </div>
+    
   </div>
 </section>
 
@@ -159,6 +172,16 @@
   e.preventDefault();
 
   const formData = new FormData(form); // form element includes all inputs + file with correct names
+  // Show loading state
+  const resultBox = document.getElementById('result');
+  resultBox.classList.remove('hidden');
+  resultBox.innerHTML = `
+    <div class="flex flex-col items-center justify-center text-center p-10 text-green-700">
+      <i data-lucide="loader" class="w-10 h-10 animate-spin mb-4"></i>
+      <p class="font-medium text-lg">Analyzing your dog's photo...</p>
+    </div>
+    `;
+    lucide.createIcons();
 
   const response = await fetch('/full_recommendation', {
     method: 'POST',
@@ -191,10 +214,10 @@
   const recommendationList = document.getElementById('recommendation-list');
   document.getElementById('recommendation-message').innerHTML = `<strong>Recommended Gear:</strong>`;
   recommendationList.innerHTML = `
-    <li><strong>Collar:</strong> ${rec.collar}</li>
-    <li><strong>Harness:</strong> ${rec.harness}</li>
-    <li><strong>Leash:</strong> ${rec.leash}</li>
-    <li><strong>Material Note:</strong> ${rec.material_note} </li>
+    <li>🦮 <strong>Collar:</strong> ${rec.collar}</li>
+    <li>🎽 <strong>Harness:</strong> ${rec.harness}</li>
+    <li>🪢 <strong>Leash:</strong> ${rec.leash}</li>
+    <li>🧵 <em>${rec.material_note}</em></li>
   `;
 
   document.getElementById('result').classList.remove('hidden');
