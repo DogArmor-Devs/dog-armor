@@ -1,9 +1,9 @@
 
 ![fixed_smaller](https://github.com/user-attachments/assets/48a7ae47-bda4-47b8-bd6f-a3cb5bc0e0b0)
 
-# DogArmor: Smart AI-Powered Dog Gear Recommender [THE WEBSITE HAS BEEN TAKEN DOWN PERMENANTLY]
+# DogArmor: Smart AI-Powered Dog Gear Recommender 
 
-> 🐶 **DogArmor** is currently in it's post-MVP, pre-Final Product phase. We are getting user feedback and still working on the AI models. If you're excited to use our technology, consider giving our github page a ⭐ 
+> [THE WEBSITE HAS BEEN TAKEN DOWN PERMENANTLY] 
 >  
 > Please note development is being done every day! Check it out for yourself at: https://dogarmor.online/
 
