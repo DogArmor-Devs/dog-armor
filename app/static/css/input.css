@@ -14,7 +14,9 @@ html, body { overflow-x: clip; }
 
 @layer components {
   .card { @apply bg-white p-6 md:p-8 rounded-2xl border border-gray-200 shadow-md; }
-  .step { @apply flex items-center gap-3 text-xl font-bold text-green-800 mb-4 px-1; }
+  /* Floating a <legend> stops browsers from drawing it on the fieldset's top border. */
+  .step { @apply float-left w-full flex items-center gap-3 text-xl font-bold text-green-800 mb-4 p-0; }
+  .step + * { clear: both; }
   .step-num { @apply inline-flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-base; }
   .field-label { @apply block text-sm font-medium text-gray-700 mb-1; }
   .input { @apply block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none; }
@@ -23,7 +25,7 @@ html, body { overflow-x: clip; }
   .badge-user { @apply bg-blue-100 text-blue-800; }
   .alert-warn { @apply rounded-lg bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 text-sm; }
 
-  .seg { @apply inline-flex rounded-lg border border-gray-300 overflow-hidden; }
+  .seg { @apply inline-flex self-start sm:self-auto rounded-lg border border-gray-300 overflow-hidden; }
   .seg label { @apply cursor-pointer; }
   .seg label + label { @apply border-l border-gray-300; }
   .seg input { @apply sr-only; }
