@@ -57,7 +57,7 @@
                     ('Weight', '66 lb', 'Typical 55 to 80'),
                     ('Chest girth', '30 in', 'Harness size L'),
                     ('Neck', '18.6 in', 'Collar size L'),
-                    ('Combo total', '$87', 'Within budget'),
+                    ('Combo total', '$91', 'Within budget'),
                   ] %}
                   <div class="panel p-3 {% if loop.last %}col-span-2 sm:col-span-1{% endif %}">
                     <p class="text-[11px] text-muted">{{ label }}</p>
@@ -82,9 +82,9 @@
                   </div>
                   <div class="panel p-4">
                     <p class="text-sm font-medium text-ink">Recommended combo</p>
-                    <p class="text-[11px] text-muted">Sized to Luna, under $125</p>
+                    <p class="text-[11px] text-muted">Sized to Luna, under $130</p>
                     <ul class="mt-3 divide-y divide-line text-[12px]">
-                      {% for kind, name, price in [('Harness', 'Ruffwear Front Range', 50), ('Collar', 'PetSafe Martingale', 12), ('Leash', 'Ruffwear Front Range', 25)] %}
+                      {% for kind, name, price in [('Harness', 'Ruffwear Front Range', 60), ('Collar', 'PetSafe Martingale', 6), ('Leash', 'Ruffwear Front Range', 25)] %}
                       <li class="flex items-center justify-between py-2"><span><span class="text-muted">{{ kind }}</span> <span class="text-ink ml-1">{{ name }}</span></span><span class="font-mono text-ink">${{ price }}</span></li>
                       {% endfor %}
                     </ul>
@@ -141,8 +141,8 @@
               <div class="mt-4 hidden" data-hero-pane="gear">
                 <div class="grid gap-2.5 md:grid-cols-3">
                   {% for kind, name, price, why in [
-                    ('Harness', 'Ruffwear Front Range', 50, 'Front clip turns her sideways when she pulls.'),
-                    ('Collar', 'PetSafe Martingale', 12, 'Gentle feedback without choking.'),
+                    ('Harness', 'Ruffwear Front Range', 60, 'Front clip turns her sideways when she pulls.'),
+                    ('Collar', 'PetSafe Martingale', 6, 'Gentle feedback without choking.'),
                     ('Leash', 'Ruffwear Front Range', 25, 'Padded handle for sudden pulls.'),
                   ] %}
                   <div class="panel p-4">
@@ -266,7 +266,7 @@
         <p class="eyebrow"><span class="dot bg-violet-500"></span> Budget</p>
         <h3 class="mt-4 text-2xl md:text-[27px] font-medium tracking-tight max-w-sm">Good gear at every price</h3>
         <div class="mx-auto mt-8 max-w-[680px] grid gap-3 sm:grid-cols-3">
-          {% for tier, range, combo, active in [('Budget', 'Under $65', 'From $28', False), ('Mid-range', '$65 to $125', 'Luna: $87', True), ('Premium', 'No limit', 'Best in class', False)] %}
+          {% for tier, range, combo, active in [('Budget', 'Under $65', 'From $30', False), ('Mid-range', '$65 to $130', 'Luna: $91', True), ('Premium', 'No limit', 'Best in class', False)] %}
           <div class="panel-soft p-5 {{ 'ring-1 ring-ink border-ink' if active }}">
             <p class="text-sm text-muted">{{ tier }}</p>
             <p class="mt-1 text-xl font-semibold text-ink">{{ range }}</p>

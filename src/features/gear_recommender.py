@@ -10,7 +10,6 @@ are returned with the reasons that drove each pick.
 import json
 import os
 from collections import defaultdict
-from urllib.parse import quote_plus
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CATALOG_PATH = os.path.join(ROOT, "data", "processed_data", "gear_catalog.json")
@@ -27,10 +26,7 @@ BUDGETS = {
 }
 YES_NO_FIELDS = ("pulling", "hiking", "hunting", "working", "water", "sports", "growing", "cleaning_experience", "heat_sensitive")
 
-RETAILER_SEARCH = {
-    "amazon": ("Amazon", "https://www.amazon.com/s?k={q}"),
-    "chewy": ("Chewy", "https://www.chewy.com/s?query={q}"),
-}
+RETAILERS = {"amazon": "Amazon", "chewy": "Chewy"}
 
 HARNESS_SIZES = [("XXS", 9, 13), ("XS", 13, 17), ("S", 17, 22), ("M", 22, 27), ("L", 27, 32), ("XL", 32, 46)]
 COLLAR_SIZES = [("XS", 8, 11), ("S", 11, 14), ("M", 14, 18), ("L", 18, 22), ("XL", 22, 30)]
@@ -334,12 +330,8 @@ def sizing(product, p):
 
 
 def links(product):
-    query = quote_plus(f"{product['brand']} {product['name']}")
-    return [
-        {"retailer": RETAILER_SEARCH[r][0], "url": RETAILER_SEARCH[r][1].format(q=query)}
-        for r in product["retailers"]
-        if r in RETAILER_SEARCH
-    ]
+    """Direct product-page links, Amazon first."""
+    return [{"retailer": RETAILERS[r], "url": product["links"][r]} for r in RETAILERS if r in product["links"]]
 
 
 def present(product, prefs, p, rank_score):

@@ -136,10 +136,14 @@ def test_budget_caps_respected(budget):
         assert cap is None or item["price"] <= cap
 
 
-def test_links_point_to_retailers():
+def test_links_point_to_product_pages():
     for item in rec()["combo"].values():
         assert item["links"]
-        assert all(link["url"].startswith(("https://www.amazon.com/", "https://www.chewy.com/")) for link in item["links"])
+        assert all(link["url"].startswith(("https://www.amazon.com/dp/", "https://www.chewy.com/")) for link in item["links"])
+    for product in CATALOG:
+        urls = product["links"].values()
+        assert urls, product["id"]
+        assert all("/dp/" in url and "/s?" not in url for url in urls), product["id"]
 
 
 def test_only_chosen_gear_is_recommended():
