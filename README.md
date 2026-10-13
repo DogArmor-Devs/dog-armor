@@ -16,7 +16,9 @@
 
 A 1:20 walkthrough of the live demo: choosing gear, uploading a photo, adjusting measurements, answering the questions and opening the recommended harness on Amazon.
 
-[![Watch the DogArmor demo video](docs/images/demo-thumbnail.png)](docs/dogarmor-demo.mp4)
+[![Watch the DogArmor demo video](docs/images/demo-thumbnail.png)](https://cdn.jsdelivr.net/gh/DogArmor-Devs/dog-armor@main/docs/dogarmor-demo.mp4)
+
+<sub>The video file lives in this repo at [`docs/dogarmor-demo.mp4`](docs/dogarmor-demo.mp4); the thumbnail streams it through jsDelivr so it plays in the browser.</sub>
 
 ## What it does
 
