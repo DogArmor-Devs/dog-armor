@@ -1,124 +1,116 @@
-![fixed_smaller](https://github.com/user-attachments/assets/48a7ae47-bda4-47b8-bd6f-a3cb5bc0e0b0)
+<div align="center">
 
-# DogArmor: Smart AI-Powered Dog Gear Recommender
+<img src="app/static/favicon.svg" width="64" alt="DogArmor logo">
 
-> Try it live: **https://dogarmor.up.railway.app**
+# DogArmor
 
-🚀 [Overview](#overview) | ⚙️ [How It Works](#how-it-works) | 🧠 [Features](#features) | 🛠️ [Tech Stack](#tech-stack-and-contact-info) | 💻 [Run It Yourself](#run-it-yourself)
+**The right harness, collar and leash for your dog, picked from one photo and a few questions.**
 
-## What are we?
+[**Try it live: dogarmor.up.railway.app**](https://dogarmor.up.railway.app)
 
-DogArmor is an intelligent web app that recommends the perfect collar, harness, and leash combo for your dog using:
-* Visual information: AI analyzes a picture of the dog to identify its breed and build and estimate its size and measurements
-* Behavioral information: the dog's habits and behaviors
-* Environmental information: the dog's surroundings and activities
-* Budget
+</div>
 
-![image](https://github.com/user-attachments/assets/363b32ba-6898-4cee-a972-f00fb6c836eb)
+![DogArmor home page](docs/images/home.png)
 
-## Overview
+## What it does
 
-🟡 **Why Fit Matters:**
+- **Recognizes your dog** from a single photo (118 breeds, blended for mixes) and checks there is a dog in the photo at all.
+- **Estimates the measurements that decide fit**: weight, neck, chest girth, belly and back length. You can replace any of them with a real measurement.
+- **Picks a harness, collar and leash** that fit those measurements, your dog's behavior, where you walk and your budget, and explains every pick.
 
-A properly fitting dog harness is **essential for your dog's comfort, safety, and control** during walks and activities.
+No account needed. Photos are analyzed in memory and never stored.
 
-- **Too tight?** Can cause chafing, skin irritation, or restrict movement/breathing.
-- **Too loose?** Increases the chance of escape, snagging on objects, or uneven pressure that causes injury.
+## How to use it
 
-🔴 **The Problem:**
+### 1. Upload a photo
 
-There are countless options (back-clip, front-clip, dual-clip, step-in) plus materials like nylon, mesh, leather, and BioThane.
-How do you choose the right one for *your* dog?
+Use a clear photo of your whole dog. DogArmor shows its top three breed matches. Click a different one if it got it wrong.
 
-🟢 **Our Solution:**
+![Step 1: upload a photo and see the breed matches](docs/images/step-1-photo.png)
 
-DogArmor makes it simple.
+### 2. Check the measurements
 
-Upload a photo of your dog and answer a few short questions about its **behavior**, **environment**, and **your budget**.
-Our AI analyzes everything (**anatomy**, **size**, **habits**) and recommends a tailored gear combo: harness, collar, and leash.
+Measurements are estimated from the breed and its build, not measured from the photo. Fields marked **Estimated** can be overwritten. Enter a real weight and the girths recalculate around it.
 
-## How It Works
+![Step 2: estimated measurements you can edit](docs/images/step-2-measurements.png)
 
-1. Upload a photo of your dog to help us understand its size and shape.
+### 3. Answer a few questions
 
-![image](https://github.com/user-attachments/assets/8e260bf3-4c46-4479-bd08-382571174ab6)
+Thirteen quick questions about behavior (pulling, reactivity, training, energy), activities (hiking, hunting, water, sports), climate and gear upkeep, then pick a budget.
 
-2. Fill out a short form about your dog's behavior, habits, and environment.
+![Step 3: behavior questions](docs/images/step-3-questions.png)
 
-![image](https://github.com/user-attachments/assets/8ad609fb-4154-4b1c-9076-510db72d39fc)
+### 4. Get your combo
 
-3. Get instant gear recommendations based on both the photo and your answers.
+You get one harness, one collar and one leash. Each comes with the reasons it was chosen, the size to order, two alternatives and links to Amazon and Chewy, plus material and safety notes for your dog.
 
-![image](https://github.com/user-attachments/assets/0ab8d5ad-1b31-4c54-acc7-8332b0651d2a)
+![Step 4: the recommended harness, collar and leash](docs/images/step-4-results.png)
 
-4. View product links and details tailored to your dog's unique profile: the size to buy, why each item was picked, and links to Amazon and Chewy.
+## How it works
 
-## Features
+| Stage | What happens |
+|---|---|
+| **Breed recognition** | EfficientNetV2-S (ImageNet weights) exported to ONNX and run with ONNX Runtime, about 20 ms per photo on CPU. Its non-dog classes double as a "no dog found" check. |
+| **Measurements** | Each breed has a typical adult weight range and build (standard, sighthound, stocky, long-backed). Girths and back length scale with the cube root of weight, adjusted for build. Mixed breeds blend the top matches by confidence. |
+| **Recommendation** | A curated catalog of 36 products, each tagged with features, material, price and fit range. Answers add weight to the tags that matter for your dog. Products that don't fit or exceed the budget are filtered out, and the highest scoring harness, collar and leash win. |
+| **Safety rules** | No head halters for flat-faced or toy breeds, harness-first advice for small dogs, martingales for sighthounds. |
 
-🐾 **Anatomy Estimation**: An image model identifies your dog's breed (118 breeds, blending the top matches for mixed breeds) and checks that the photo actually contains a dog. From the breed's typical adult size and build (standard, deep-chested sighthound, stocky, long-backed) DogArmor estimates **weight, neck, chest, belly and back length**. Owners can override any number with a tape-measured value, and the rest re-estimate from it.
+**Accuracy:** on everyday dog photos the model names the exact breed 81% of the time, and the right breed is in its top three 97% of the time.
 
-🎯 **Behavior Personalization**: Pulling, aggression/reactivity, training level, activity level, working-dog and sport use, and puppy growth all change what gear is recommended (front-clip harnesses for pullers, double-handle leashes and martingales for reactive dogs, adjustable gear for puppies, and so on).
+**Limits:** a single photo has no scale, so measurements are breed-based estimates. For the most precise sizing, measure your dog and enter the numbers. Prices are typical and change often.
 
-🌦️ **Environment Matching**: Climate, heat sensitivity (auto-suggested for flat-faced and thick-coated breeds), hiking, hunting, water activities and how much gear maintenance you're comfortable with.
+## Run it locally
 
-🛒 **Intelligent Gear Matching**: A curated catalog of harnesses, collars, leashes and extras from brands like Ruffwear, PetSafe, Kurgo and Julius-K9, each tagged with features, materials, price and fit range. Products are filtered by your dog's measurements and your budget, scored against your answers, and returned with the reasons they were picked, a size suggestion, alternatives, and Amazon/Chewy links.
-
-🛡️ **Safety-Aware**: Breed-specific safety rules, such as no head halters for brachycephalic breeds, harness-first advice for toy breeds prone to tracheal collapse, and martingales for sighthounds.
-
-🖥️ **Easy-to-Use Interface**: A clean, responsive interface powered by Flask and Tailwind CSS, optimized for mobile and desktop.
-
-🧩 **Modular Flask API**: `/api/analyze` (photo → breed + measurements), `/api/estimate` (breed/weight → measurements), `/api/recommend` (profile → gear combo).
-
-🔄 **End-to-End Pipeline**: From image input to final product recommendation, the backend handles preprocessing, inference, measurement estimation, behavior integration, and response generation automatically. Photos are processed in memory and never stored.
-
-### About the model
-
-The breed classifier is torchvision's EfficientNetV2-S (ImageNet weights) exported to ONNX and served with ONNX Runtime (~20 ms per photo on CPU, no PyTorch needed in production). We benchmarked it against our earlier ResNet-18 fine-tuned on Stanford Dogs:
-
-| Model | Held-out Stanford Dogs | Real-world photos | Real-world top-3 |
-|---|---|---|---|
-| Fine-tuned ResNet-18 (previous) | 55% | 34% | 61% |
-| EfficientNetV2-S (current) | 97% | 81% | 97% |
-
-Measurements are estimates derived from breed morphometrics, not direct pose estimation, so entering real measurements always gives the most precise sizing.
-
-## Tech Stack and Contact Info
-
-Built with:
-- Python + Flask, ONNX Runtime, HTML/CSS + Tailwind + AOS, vanilla JS
-
-Hosted using:
-- Railway (Docker)
-
-For all questions, concerns, and business inquiries, please contact us at: dogarmorteam@gmail.com
-
-## Run It Yourself
+Requires Python 3.12.
 
 ```bash
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python run.py                                         # http://localhost:5000
+python run.py                  # http://localhost:5000
 ```
 
-Run the tests with `pip install pytest && python -m pytest`.
+| Task | Command |
+|---|---|
+| Run tests | `pip install pytest && python -m pytest` |
+| Rebuild CSS after editing templates | `npm install && npm run build:css` |
+| Regenerate the model file | `pip install torch torchvision onnx onnxscript && python -m src.features.export_onnx` |
 
-After changing templates or CSS classes, rebuild the stylesheet: `npm install && npm run build:css`.
+## API
 
-To regenerate the model file (needs `torch torchvision onnx onnxscript`): `python -m src.features.export_onnx`.
+| Endpoint | Purpose |
+|---|---|
+| `POST /api/analyze` | Multipart `image` → breed matches, dog check and measurement estimate |
+| `GET /api/estimate?breed=&weight=` | Measurements for a breed and/or known weight |
+| `POST /api/recommend` | JSON profile → harness, collar, leash, alternatives, extras and notes |
+| `GET /api/breeds` | All supported breed names |
+| `GET /healthz` | Health check |
 
-### Deploying to Railway
+## Deployment
 
-Production runs on Railway from the `Dockerfile` (gunicorn, health check on `/healthz`). Service settings live in code in `.railway/railway.ts` (Railway Infrastructure as Code): preview changes with `railway config plan` and apply them with `railway config apply`. The `PORT=8080` variable is set in the Railway dashboard.
+Production runs on [Railway](https://railway.com) from the `Dockerfile` (gunicorn). Pushes to `main` deploy automatically. Service settings live in `.railway/railway.ts`: preview changes with `railway config plan` and apply them with `railway config apply`. To deploy manually, run `railway up --service web`.
 
-To deploy the current code manually: `railway up --service web`. Pushes to `main` redeploy automatically once the Railway GitHub App is installed on the DogArmor-Devs organization.
-
-### Project layout
+## Project structure
 
 ```
-app/                    Flask app (routes, templates, static assets, demo.js)
-src/features/           breed_predictor.py (ONNX inference + measurements),
-                        gear_recommender.py (scoring engine), export_onnx.py
-data/processed_data/    breed_profiles.csv, gear_catalog.json
-models/                 breed_classifier.onnx
-tests/                  pytest suite
+app/
+  routes.py               pages and JSON API
+  templates/              Jinja templates (Tailwind)
+  static/                 compiled CSS, demo.js, images
+src/features/
+  breed_predictor.py      ONNX inference and measurement estimates
+  gear_recommender.py     scoring engine
+  export_onnx.py          builds models/breed_classifier.onnx
+data/processed_data/
+  breed_profiles.csv      weight range, build and coat for 118 breeds
+  gear_catalog.json       product catalog
+models/                   breed_classifier.onnx
+tests/                    pytest suite
 ```
+
+## Team
+
+Built by **Vihaan Kesharwani** (design and frontend) and **Anto Francis** (models and backend).
+Questions or business inquiries: [dogarmorteam@gmail.com](mailto:dogarmorteam@gmail.com)
+
+Image and dataset credits are in [Citations.md](Citations.md).

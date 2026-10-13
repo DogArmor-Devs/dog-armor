@@ -16,3 +16,4 @@ src/features/export_onnx.py
 .env
 .DS_Store
 .railway
+docs
