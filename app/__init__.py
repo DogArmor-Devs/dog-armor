@@ -1,3 +1,5 @@
+import functools
+import hashlib
 import logging
 import os
 
@@ -16,6 +18,23 @@ def create_app():
 
     from app.routes import main
     app.register_blueprint(main)
+
+    # Cache-bust static assets: url_for('static', ...) gets ?v=<content hash>,
+    # so the week-long browser cache never serves a stale file after a deploy.
+    @functools.lru_cache(maxsize=None)
+    def static_hash(filename):
+        try:
+            with open(os.path.join(app.static_folder, filename), "rb") as f:
+                return hashlib.md5(f.read()).hexdigest()[:10]
+        except OSError:
+            return None
+
+    @app.url_defaults
+    def version_static_urls(endpoint, values):
+        if endpoint == "static" and "filename" in values and "v" not in values:
+            version = static_hash(values["filename"])
+            if version:
+                values["v"] = version
 
     @app.errorhandler(413)
     def too_large(_):
