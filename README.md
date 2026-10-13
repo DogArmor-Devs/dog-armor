@@ -12,6 +12,12 @@
 
 ![DogArmor home page](docs/images/home.png)
 
+## Watch the demo
+
+A 1:20 walkthrough of the live demo: choosing gear, uploading a photo, adjusting measurements, answering the questions and opening the recommended harness on Amazon.
+
+[![Watch the DogArmor demo video](docs/images/demo-thumbnail.png)](docs/dogarmor-demo.mp4)
+
 ## What it does
 
 - **Recognizes your dog** from a single photo (118 breeds, blended for mixes) and checks there is a dog in the photo at all.
