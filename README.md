@@ -16,35 +16,41 @@
 
 - **Recognizes your dog** from a single photo (118 breeds, blended for mixes) and checks there is a dog in the photo at all.
 - **Estimates the measurements that decide fit**: weight, neck, chest girth, belly and back length. You can replace any of them with a real measurement.
-- **Picks a harness, collar and leash** that fit those measurements, your dog's behavior, where you walk and your budget, and explains every pick.
+- **Picks the gear you ask for** (a harness, collar, leash or any mix) that fits those measurements, your dog's behavior, where you walk and your budget, and explains every pick.
 
 No account needed. Photos are analyzed in memory and never stored.
 
 ## How to use it
 
-### 1. Upload a photo
+### 1. Choose your gear
+
+Pick a harness, collar, leash or any mix. DogArmor only recommends, and budgets for, what you choose.
+
+![Step 1: choose which gear you want](docs/images/step-1-gear.png)
+
+### 2. Upload a photo
 
 Use a clear photo of your whole dog. DogArmor shows its top three breed matches. Click a different one if it got it wrong.
 
-![Step 1: upload a photo and see the breed matches](docs/images/step-1-photo.png)
+![Step 2: upload a photo and see the breed matches](docs/images/step-2-photo.png)
 
-### 2. Check the measurements
+### 3. Check the measurements
 
 Measurements are estimated from the breed and its build, not measured from the photo. Fields marked **Estimated** can be overwritten. Enter a real weight and the girths recalculate around it.
 
-![Step 2: estimated measurements you can edit](docs/images/step-2-measurements.png)
+![Step 3: estimated measurements you can edit](docs/images/step-3-measurements.png)
 
-### 3. Answer a few questions
+### 4. Answer a few questions
 
-Thirteen quick questions about behavior (pulling, reactivity, training, energy), activities (hiking, hunting, water, sports), climate and gear upkeep, then pick a budget.
+Thirteen quick questions about behavior (pulling, reactivity, training, energy), activities (hiking, hunting, water, sports), climate and gear upkeep. Then pick a budget; the price ranges add up only the gear you chose (a harness alone is under $30, $30 to $60, or no limit).
 
-![Step 3: behavior questions](docs/images/step-3-questions.png)
+![Step 4: behavior questions](docs/images/step-4-questions.png)
 
-### 4. Get your combo
+### 5. Get your picks
 
-You get one harness, one collar and one leash. Each comes with the reasons it was chosen, the size to order, two alternatives and links to Amazon and Chewy, plus material and safety notes for your dog.
+Each item you asked for comes with the reasons it was chosen, the size to order, two alternatives and links to Amazon and Chewy, plus material and safety notes for your dog.
 
-![Step 4: the recommended harness, collar and leash](docs/images/step-4-results.png)
+![Step 5: the recommended harness, collar and leash](docs/images/step-5-results.png)
 
 ## How it works
 
@@ -82,7 +88,7 @@ python run.py                  # http://localhost:5000
 |---|---|
 | `POST /api/analyze` | Multipart `image` → breed matches, dog check and measurement estimate |
 | `GET /api/estimate?breed=&weight=` | Measurements for a breed and/or known weight |
-| `POST /api/recommend` | JSON profile → harness, collar, leash, alternatives, extras and notes |
+| `POST /api/recommend` | JSON profile → picks for the requested `gear` (any of `harness`, `collar`, `leash`), alternatives, extras and notes |
 | `GET /api/breeds` | All supported breed names |
 | `GET /healthz` | Health check |
 
