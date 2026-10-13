@@ -21,7 +21,7 @@
   .eyebrow i, .eyebrow .dot { @apply w-2.5 h-2.5 rounded-[3px]; }
 
   /* Layout */
-  .wrap { @apply mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-20; }
+  .wrap { @apply mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-20; }
   .section { @apply py-20 md:py-28; }
 
   /* Buttons */
