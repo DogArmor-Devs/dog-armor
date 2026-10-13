@@ -30,7 +30,7 @@ Pick a harness, collar, leash or any mix. DogArmor only recommends, and budgets 
 
 ### 2. Upload a photo
 
-Use a clear photo of your whole dog. DogArmor shows its top three breed matches. Click a different one if it got it wrong.
+Take it from the side at your dog's eye level, with your dog standing and its face visible. Front-on shots and head close-ups hide the body and make the breed harder to read. DogArmor shows its top three breed matches. Click a different one if it got it wrong.
 
 ![Step 2: upload a photo and see the breed matches](docs/images/step-2-photo.png)
 

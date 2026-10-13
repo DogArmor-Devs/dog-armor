@@ -68,12 +68,21 @@
     <!-- 2. Photo -->
     <fieldset class="step-card">
       <legend class="step"><span class="step-num">02</span><span class="step-title">Upload a photo</span></legend>
-      <p class="text-[15px] text-muted mb-5">A clear photo of your whole dog works best. It is analyzed in memory and never stored.</p>
+      <p class="text-[15px] text-muted mb-4">Take it from the side, with your dog standing and its face visible. Front-on shots and head close-ups hide the body and make the breed harder to read.</p>
+      <ul class="mb-5 grid gap-2 sm:grid-cols-3 text-sm text-ink">
+        {% for icon, tip in [
+          ('scan-line', 'Side-on, at your dog\'s eye level'),
+          ('maximize', 'Whole body and face in frame'),
+          ('sun', 'One dog, in good light'),
+        ] %}
+        <li class="flex items-center gap-2.5 rounded-xl border border-line bg-canvas px-3.5 py-2.5"><i data-lucide="{{ icon }}" class="w-4 h-4 text-accent-700 shrink-0"></i>{{ tip }}</li>
+        {% endfor %}
+      </ul>
 
       <label for="dog_image" id="dropzone" class="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-gray-300 bg-canvas p-10 text-center cursor-pointer transition hover:border-accent hover:bg-accent-50">
         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white border border-line text-ink"><i data-lucide="image-up" class="w-5 h-5"></i></span>
         <span class="mt-1 font-medium text-ink">Choose a photo or drag it here</span>
-        <span class="text-xs text-muted">JPG, PNG or WebP, up to 12 MB</span>
+        <span class="text-xs text-muted">JPG, PNG or WebP, up to 12 MB. Analyzed in memory, never stored.</span>
         <input type="file" name="image" id="dog_image" accept="image/*" class="sr-only">
       </label>
 
