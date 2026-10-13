@@ -3,45 +3,108 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #2563eb;
+@layer base {
+  html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  /* Slide-in reveals start slightly off-axis; never let them cause sideways scrolling. */
+  html, body { overflow-x: clip; }
+  body { @apply bg-canvas text-body font-sans; }
+  h1, h2, h3 { @apply text-ink; }
+  ::selection { @apply bg-accent-100 text-ink; }
 }
 
-[x-cloak] { display: none !important; }
-
-/* AOS slide-in animations start off-screen; don't let them cause sideways scrolling. */
-html, body { overflow-x: clip; }
-
 @layer components {
-  .card { @apply bg-white p-6 md:p-8 rounded-2xl border border-gray-200 shadow-md; }
-  /* Floating a <legend> stops browsers from drawing it on the fieldset's top border. */
-  .step { @apply float-left w-full flex items-center gap-3 text-xl font-bold text-green-800 mb-4 p-0; }
+  /* Type */
+  .display { @apply font-serif font-normal tracking-display leading-[1.04]; }
+  .display em { @apply italic; }
+  .lede { @apply text-lg md:text-[18.5px] leading-[1.6] text-muted; }
+  .eyebrow { @apply inline-flex items-center gap-2 text-sm font-semibold text-ink; }
+  .eyebrow i, .eyebrow .dot { @apply w-2.5 h-2.5 rounded-[3px]; }
+
+  /* Layout */
+  .wrap { @apply mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-20; }
+  .section { @apply py-20 md:py-28; }
+
+  /* Buttons */
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-[15px] font-medium transition duration-200; }
+  .btn-accent { @apply btn bg-accent text-ink hover:bg-accent-600 shadow-glow; }
+  .btn-dark { @apply btn bg-ink text-white hover:bg-black; }
+  .btn-ghost { @apply btn text-ink border border-line bg-white hover:border-gray-300; }
+  .link-arrow { @apply inline-flex items-center gap-1.5 text-[15px] font-medium text-ink hover:gap-2.5 transition-all; }
+
+  /* Surfaces */
+  .panel { @apply bg-white border border-line rounded-2xl; }
+  .panel-soft { @apply panel shadow-soft; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1 text-xs text-body; }
+  .chip-accent { @apply chip border-accent/40 bg-accent-50 text-accent-700; }
+  .icon-tile { @apply flex items-center justify-center w-11 h-11 rounded-xl text-white shrink-0; }
+  .dots { background-image: radial-gradient(rgba(16,24,40,.09) 1px, transparent 1px); background-size: 18px 18px; }
+
+  /* Nav */
+  .nav-pill { @apply flex items-center justify-between gap-6 rounded-2xl border border-white/70 bg-white/80 backdrop-blur-xl px-4 md:px-6 py-2.5 shadow-soft; }
+  .nav-link { @apply text-[15px] text-body hover:text-ink transition; }
+  .nav-link.is-active { @apply text-ink font-medium; }
+
+  /* Tabs (dark active pill) */
+  .tabs { @apply inline-flex flex-wrap gap-1 rounded-2xl border border-line bg-white p-1.5; }
+  .tab { @apply rounded-xl px-4 py-2 text-[15px] text-ink transition hover:bg-gray-50; }
+  .tab.is-active { @apply bg-ink text-white hover:bg-ink; }
+  .mini-tabs { @apply inline-flex rounded-lg border border-line p-0.5; }
+  .mini-tab { @apply rounded-md px-2.5 py-1 text-[11px] text-ink cursor-pointer; }
+  .mini-tab.is-active { @apply bg-ink text-white; }
+
+  /* Module cards beside the hero mockup */
+  .module { @apply panel w-full text-left flex items-center gap-4 p-5 md:p-6 transition hover:shadow-soft; }
+  .module.is-active { @apply border-accent/60 shadow-soft ring-4 ring-accent-50; }
+
+  /* FAQ accordion */
+  .faq { @apply panel; }
+  .faq summary { @apply flex cursor-pointer list-none items-start justify-between gap-6 px-6 py-5 text-[17px] md:text-lg text-ink; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .plus { @apply mt-1 h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200; }
+  .faq[open] summary .plus { @apply rotate-45; }
+  .faq .answer { @apply px-6 pb-6 -mt-1 text-muted leading-relaxed; }
+
+  /* Reveal on scroll */
+  .reveal { @apply opacity-0 translate-y-3 transition duration-700 ease-out; }
+  .reveal.is-visible { @apply opacity-100 translate-y-0; }
+
+  /* Demo form */
+  .step-card { @apply panel-soft p-6 md:p-8; }
+  .step { @apply float-left w-full mb-6 p-0; }
   .step + * { clear: both; }
-  .step-num { @apply inline-flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-base; }
-  .field-label { @apply block text-sm font-medium text-gray-700 mb-1; }
-  .input { @apply block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none; }
-  .badge { @apply text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap; }
-  .badge-est { @apply bg-green-100 text-green-800; }
-  .badge-user { @apply bg-blue-100 text-blue-800; }
-  .alert-warn { @apply rounded-lg bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 text-sm; }
+  .step-num { @apply font-mono text-xs text-muted; }
+  .step-title { @apply block font-serif text-3xl md:text-[34px] tracking-display text-ink mt-1; }
+  .field-label { @apply block text-sm font-medium text-ink mb-1.5; }
+  .input { @apply block w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-ink shadow-sm placeholder:text-gray-400 focus:border-accent focus:ring-4 focus:ring-accent-50 focus:outline-none; }
+  .badge { @apply text-[11px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap; }
+  .badge-est { @apply bg-accent-50 text-accent-700; }
+  .badge-user { @apply bg-gray-100 text-ink; }
+  .alert-warn { @apply rounded-xl bg-amber-50 border border-amber-200 text-amber-900 px-4 py-3 text-sm; }
+  .q-row { @apply py-4 border-b border-line last:border-0; }
+  .q-text { @apply text-[15px] text-ink; }
+  .q-hint { @apply text-sm text-muted mt-0.5; }
 
-  .seg { @apply inline-flex self-start sm:self-auto rounded-lg border border-gray-300 overflow-hidden; }
+  .seg { @apply inline-flex self-start sm:self-auto rounded-xl border border-line bg-white p-1 gap-1; }
   .seg label { @apply cursor-pointer; }
-  .seg label + label { @apply border-l border-gray-300; }
   .seg input { @apply sr-only; }
-  .seg span { @apply block px-4 py-1.5 text-sm text-gray-700 select-none transition; }
+  .seg span { @apply block rounded-lg px-3.5 py-1.5 text-sm text-ink select-none transition; }
   .seg label:hover span { @apply bg-gray-50; }
-  .seg input:checked + span { @apply bg-green-600 text-white; }
-  .seg input:focus-visible + span { @apply ring-2 ring-inset ring-green-300; }
-  .is-missing { @apply ring-2 ring-amber-400 rounded-lg; }
+  .seg input:checked + span { @apply bg-ink text-white; }
+  .seg input:focus-visible + span { @apply ring-2 ring-accent; }
+  .is-missing { @apply ring-2 ring-amber-400 rounded-xl; }
 
-  .budget-card { @apply block cursor-pointer rounded-xl border-2 border-gray-200 p-4 transition hover:border-green-400; }
-  .budget-card:has(input:checked) { @apply border-green-600 bg-green-50; }
-  .budget-card:has(input:focus-visible) { @apply ring-2 ring-green-300; }
+  .budget-card { @apply block cursor-pointer rounded-2xl border border-line bg-white p-5 transition hover:border-gray-300; }
+  .budget-card:has(input:checked) { @apply border-ink ring-1 ring-ink; }
+  .budget-card:has(input:focus-visible) { @apply ring-2 ring-accent; }
 
-  .breed-choice { @apply w-full text-left rounded-lg border border-gray-200 px-3 py-2 hover:border-green-400 transition; }
-  .breed-choice.is-active { @apply border-green-600 bg-green-50; }
-  #dropzone.is-drag { @apply bg-green-100 border-green-600; }
+  .breed-choice { @apply w-full text-left rounded-xl border border-line bg-white px-4 py-3 transition hover:border-gray-300; }
+  .breed-choice.is-active { @apply border-accent ring-4 ring-accent-50; }
+  #dropzone.is-drag { @apply border-accent bg-accent-50; }
 
-  .buy-link { @apply inline-flex items-center gap-1 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-1.5 transition; }
+  .buy-link { @apply inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink hover:border-gray-300 transition; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { @apply opacity-100 translate-y-0 transition-none; }
+  html { scroll-behavior: auto; }
 }

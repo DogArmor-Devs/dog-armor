@@ -1,106 +1,106 @@
+{% from "_macros.html" import logo %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>{% block title %}DogArmor{% endblock %}</title>
-  <meta name="description" content="DogArmor recommends the right harness, collar and leash for your dog from a photo plus a few questions about behavior, environment and budget.">
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='dog-armor.png') }}">
+  <meta name="description" content="{% block description %}DogArmor picks the harness, collar and leash that fit your dog, from one photo and a few questions about how you walk.{% endblock %}">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
   <script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js" defer></script>
-  {% block styles %}{% endblock %}
+  {% block head %}{% endblock %}
 </head>
 {% set nav_links = [
-  ('main.index', 'Home'),
-  ('main.how_it_works', 'How it Works'),
-  ('main.demo', 'Demo'),
-  ('main.features', 'Features'),
-  ('main.why_us', 'Why Our Company Matters'),
-  ('main.about', 'About Us'),
-  ('main.team', 'Team'),
+  ('main.index', 'Product'),
+  ('main.how_it_works', 'How it works'),
+  ('main.company', 'Company'),
+  ('main.faq', 'FAQ'),
 ] %}
-<body class="{% block body_class %}flex flex-col min-h-screen text-gray-800 font-sans{% endblock %}">
+<body class="min-h-screen flex flex-col">
+  <a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 btn-dark">Skip to content</a>
 
-  <!-- Nav -->
-  <nav class="relative bg-white py-2 px-4 shadow-lg border-b border-gray-300 z-40">
-    <div class="flex justify-between items-center">
-      <a href="{{ url_for('main.index') }}" class="flex items-center gap-2 text-blue-600 font-bold text-xl">
-        <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Icon"
-             class="w-16 h-16 lg:w-[110px] lg:h-[110px] lg:ml-[-8px] mt-[3px] object-contain">
-        DogArmor
-      </a>
-      <div class="hidden lg:flex gap-6 text-gray-700 text-base font-medium">
+  <!-- Floating nav -->
+  <header class="fixed inset-x-0 top-0 z-40 px-3 pt-3 md:pt-[10px]">
+    <nav class="nav-pill mx-auto max-w-[1000px]" aria-label="Main">
+      <a href="{{ url_for('main.index') }}" aria-label="DogArmor home">{{ logo() }}</a>
+      <div class="hidden md:flex items-center gap-8">
         {% for endpoint, label in nav_links %}
-          <a href="{{ url_for(endpoint) }}"
-             class="{% if request.endpoint == endpoint %}text-blue-600 underline font-semibold{% else %}hover:text-blue-600{% endif %} transition duration-300">{{ label }}</a>
+          <a href="{{ url_for(endpoint) }}" class="nav-link {% if request.endpoint == endpoint %}is-active{% endif %}">{{ label }}</a>
         {% endfor %}
       </div>
-      <button id="nav-toggle" class="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-        <i data-lucide="menu" class="w-7 h-7"></i>
-      </button>
-    </div>
-    <div id="mobile-nav" class="hidden lg:hidden flex-col gap-1 pt-2 pb-3 text-gray-700 font-medium">
+      <div class="flex items-center gap-2">
+        <a href="{{ url_for('main.demo') }}" class="btn-accent !px-5 !py-2">Demo</a>
+        <button id="nav-toggle" class="md:hidden p-2 rounded-lg text-ink hover:bg-gray-100" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-nav" class="hidden md:hidden mx-auto max-w-[1000px] mt-2 panel-soft p-2">
       {% for endpoint, label in nav_links %}
-        <a href="{{ url_for(endpoint) }}"
-           class="block rounded-md px-3 py-2 {% if request.endpoint == endpoint %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-100{% endif %}">{{ label }}</a>
+        <a href="{{ url_for(endpoint) }}" class="block rounded-xl px-4 py-3 text-[15px] {% if request.endpoint == endpoint %}bg-gray-50 text-ink font-medium{% else %}text-body hover:bg-gray-50{% endif %}">{{ label }}</a>
       {% endfor %}
     </div>
-  </nav>
+  </header>
 
-  <!-- Page-specific content -->
-  <main class="flex-grow">
+  <main id="content" class="flex-grow pt-24 md:pt-28">
     {% block content %}{% endblock %}
   </main>
 
   <!-- Footer -->
-  <footer class="bg-pink-100 border-t border-gray-300 py-12 px-6 text-gray-700">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left items-start">
-
-      <!-- Logo & Brand -->
-      <div class="space-y-3">
-        <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="DogArmor Logo" class="w-16 h-16 mx-auto md:mx-0">
-        <h2 class="text-xl font-bold">DogArmor</h2>
-        <p class="text-sm">Smart, personalized harness, collar &amp; leash recommendations.</p>
+  <footer class="bg-night text-gray-400">
+    <div class="wrap pt-20 md:pt-24">
+      <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div class="max-w-sm">
+          {{ logo(size='lg') }}
+          <p class="mt-6 text-[17px] leading-relaxed text-gray-400">Gear that fits the dog you actually have. Picked from one photo and a few honest answers.</p>
+          <p class="mt-6 flex items-center gap-2 text-sm text-gray-300"><i data-lucide="shield-check" class="w-4 h-4"></i> Photos are analyzed in memory, never stored</p>
+          <div class="mt-8 flex gap-3">
+            <a href="mailto:dogarmorteam@gmail.com" aria-label="Email DogArmor" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-200 hover:bg-white/10"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></a>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs font-semibold tracking-[0.18em] text-gray-500">PAGES</p>
+          <ul class="mt-6 space-y-3 text-[17px]">
+            <li><a href="{{ url_for('main.index') }}" class="text-gray-200 hover:text-white">Home</a></li>
+            {% for endpoint, label in nav_links[1:] %}
+              <li><a href="{{ url_for(endpoint) }}" class="text-gray-200 hover:text-white">{{ label }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold tracking-[0.18em] text-gray-500">INFORMATION</p>
+          <ul class="mt-6 space-y-3 text-[17px]">
+            <li><a href="{{ url_for('main.demo') }}" class="text-gray-200 hover:text-white">Demo</a></li>
+            <li><a href="mailto:dogarmorteam@gmail.com" class="text-gray-200 hover:text-white">dogarmorteam@gmail.com</a></li>
+          </ul>
+        </div>
       </div>
-
-      <!-- Navigation -->
-      <div class="space-y-3">
-        <h3 class="text-lg font-semibold">Navigation</h3>
-        <ul class="space-y-1 text-sm">
-          {% for endpoint, label in nav_links[1:] %}
-            <li><a href="{{ url_for(endpoint) }}" class="hover:underline">{{ label }}</a></li>
-          {% endfor %}
-        </ul>
+      <p class="mt-20 md:mt-28 select-none font-sans font-semibold tracking-[-0.045em] leading-none text-[17vw] md:text-[132px] text-white/[0.13]" aria-hidden="true">walk confidently.</p>
+      <div class="mt-8 border-t border-white/10 py-8 text-sm text-gray-500">
+        © 2026 DogArmor. Product names belong to their brands. Prices are approximate.
       </div>
-
-      <!-- Contact -->
-      <div class="space-y-3">
-        <h3 class="text-lg font-semibold">Contact</h3>
-        <p class="text-sm">For all questions, concerns, and business inquiries, reach out at:</p>
-        <a href="mailto:dogarmorteam@gmail.com" class="text-sm text-pink-700 hover:underline">dogarmorteam@gmail.com</a>
-      </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="mt-12 text-center text-xs text-gray-500">
-      © 2025 DogArmor. All rights reserved. Product names belong to their respective brands; prices are approximate.
     </div>
   </footer>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
-      if (window.AOS) AOS.init({ duration: 600, offset: 40, easing: 'ease-in-out', once: true });
 
       const toggle = document.getElementById('nav-toggle');
       const menu = document.getElementById('mobile-nav');
       toggle.addEventListener('click', () => {
         const open = menu.classList.toggle('hidden') === false;
-        menu.classList.toggle('flex', open);
         toggle.setAttribute('aria-expanded', String(open));
       });
+
+      const io = new IntersectionObserver(entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     });
   </script>
   {% block scripts %}{% endblock %}

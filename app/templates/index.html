@@ -1,358 +1,349 @@
 {% extends "base.html" %}
+{% from "_macros.html" import cta_band, faq_list %}
 
-{% block title %}DogArmor | Smart Gear Recommender{% endblock %}
-
-{% block styles %}
-<!-- This is to make the Frequently Asked Questions text dance */ -->
-<style>
-  #faq-heading {
-    display: inline-block;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  #faq-heading.dancing {
-    background: linear-gradient(270deg, #cd4a45, #9b2342, #7b0e3c, #cd4a45);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientDance 6s ease-in-out infinite, danceRotate 1s ease-in-out infinite;
-  }
-
-  @keyframes gradientDance {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes danceRotate {
-    0%, 100% { transform: rotate(0deg); }
-    20% { transform: rotate(3deg); }
-    40% { transform: rotate(-3deg); }
-    60% { transform: rotate(2deg); }
-    80% { transform: rotate(-2deg); }
-  }
-
-  .bounce-in {
-    animation: bounceIn 0.8s ease-out forwards;
-  }
-
-  @keyframes bounceIn {
-    0% { opacity: 0; transform: translateY(-50px) scale(0.9); }
-    60% { opacity: 1; transform: translateY(20px) scale(1.05); }
-    80% { transform: translateY(-10px) scale(0.97); }
-    100% { transform: translateY(0) scale(1); }
-  }
-</style>
-{% endblock %}
-
+{% block title %}DogArmor: the right harness, collar and leash for your dog{% endblock %}
 
 {% block content %}
-<!-- 🐶 HERO SECTION (Section 1)-->
-<section class="section bg-blue-50 py-24 px-6">
-  <!-- Main Flex Container -->
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
-    <!-- Left: Heading -->
-    <div class="md:w-1/2" data-aos="fade-right">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-[var(--primary)] leading-tight"
-      data-aos="fade-right" data-aos-delay="100" data-aos-duration="1200" data-aos-easing="ease-in-out">
-        Find the Perfect Collar, Harness, and Leash
-      </h1>
-    </div>
-
-    <!-- Right: Subtext + CTA -->
-    <div class="md:w-1/2 flex flex-col justify-between h-full" data-aos="fade-left">
-      <!-- Subtext -->
-      <p class="text-gray-700 mb-6 text-lg max-w-md"
-      data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000" data-aos-easing="ease-in-out">
-        AI-tailored gear your dog actually needs - <br>
-        built with care, not guesswork.
-      </p>
-
-      <!-- CTA Button -->
-      <div>
-        <a href="{{ url_for('main.demo') }}" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-lg transition duration-300">
-          Take Action Now!
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Image Below -->
-  <div class="mt-20 flex justify-center" data-aos="zoom-in-up">
-    <img src="{{ url_for('static', filename='dog-gear1.png') }}" alt="Dog wearing gear"
-         class="w-4/5 md:w-3/4 lg:w-2/3 h-auto max-h-[900px] max-w-[750px] rounded-2xl shadow-2xl">
+<!-- Hero -->
+<section class="wrap pt-10 md:pt-16 text-center">
+  <h1 class="display text-[44px] sm:text-6xl md:text-[78px] max-w-4xl mx-auto reveal">Gear that fits the dog you <em>actually</em> have</h1>
+  <p class="lede mt-7 max-w-2xl mx-auto reveal">DogArmor reads one photo of your dog, asks how you walk together, and picks the harness, collar and leash that fit its body, habits and your budget.</p>
+  <div class="mt-9 flex flex-wrap justify-center gap-3 reveal">
+    <a href="{{ url_for('main.demo') }}" class="btn-accent">Try it on your dog</a>
+    <a href="{{ url_for('main.how_it_works') }}" class="btn-ghost">How it works</a>
   </div>
 </section>
 
+<!-- Interactive product preview -->
+<section class="wrap mt-16 md:mt-20">
+  <div class="grid gap-5 lg:grid-cols-[1fr_380px] items-start">
+    <div class="relative reveal">
+      <span class="absolute -top-4 left-6 z-10 chip shadow-soft !py-1.5"><span class="w-2 h-2 rounded-full bg-accent ring-4 ring-accent-100"></span><span class="text-ink font-medium">Interactive</span> click a tab or a module</span>
+      <div class="rounded-[26px] bg-[#1f2329] p-2 md:p-2.5 shadow-lift">
+        <div class="flex overflow-hidden rounded-[20px] bg-canvas text-left">
+          <aside class="hidden sm:flex w-12 shrink-0 flex-col items-center gap-3 border-r border-line bg-white py-5 text-gray-400">
+            <i data-lucide="camera" class="w-4 h-4"></i>
+            <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-accent text-white"><i data-lucide="ruler" class="w-4 h-4"></i></span>
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </aside>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between border-b border-line bg-white px-4 py-2.5 text-xs text-muted">
+              <span class="flex items-center gap-1.5"><i data-lucide="panel-left" class="w-3.5 h-3.5"></i> Results <span class="text-gray-300">›</span> <span class="text-ink">Luna</span></span>
+              <span class="flex items-center gap-3"><i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i><i data-lucide="share" class="w-3.5 h-3.5"></i></span>
+            </div>
+            <div class="p-4 md:p-6">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p class="text-lg font-semibold text-ink">Fit profile</p>
+                  <p class="text-xs text-muted mt-0.5">Labrador Retriever · pulls on walks · hikes on weekends</p>
+                </div>
+                <div class="flex gap-2">
+                  <span class="chip !text-[11px]">1 photo</span>
+                  <span class="chip-accent !text-[11px]">Mid-range budget</span>
+                </div>
+              </div>
+              <div class="mini-tabs mt-4" role="tablist">
+                {% for key, label in [('summary', 'Summary'), ('breed', 'Breed'), ('fit', 'Measurements'), ('gear', 'Gear')] %}
+                  <button type="button" class="mini-tab {% if loop.first %}is-active{% endif %}" data-hero-tab="{{ key }}" role="tab">{{ label }}</button>
+                {% endfor %}
+              </div>
 
- <!-- (Section 2) -->
- <section class="bg-yellow-50 py-20 px-6">
-  <div class="max-w-6xl mx-auto">
+              <!-- Summary -->
+              <div class="mt-4" data-hero-pane="summary">
+                <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2.5">
+                  {% for label, value, note in [
+                    ('Breed match', '91%', 'Labrador Retriever'),
+                    ('Weight', '66 lb', 'Typical 55 to 80'),
+                    ('Chest girth', '30 in', 'Harness size L'),
+                    ('Neck', '18.6 in', 'Collar size L'),
+                    ('Combo total', '$87', 'Within budget'),
+                  ] %}
+                  <div class="panel p-3 {% if loop.last %}col-span-2 sm:col-span-1{% endif %}">
+                    <p class="text-[11px] text-muted">{{ label }}</p>
+                    <p class="mt-1 text-xl font-semibold text-ink">{{ value }}</p>
+                    <p class="mt-1 text-[10px] text-muted text-right">{{ note }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="mt-2.5 grid gap-2.5 md:grid-cols-2">
+                  <div class="panel p-4">
+                    <p class="text-sm font-medium text-ink">Breed match</p>
+                    <p class="text-[11px] text-muted">Top three from the photo</p>
+                    <div class="mt-4 space-y-3">
+                      {% for name, pct, color in [('Labrador Retriever', 91, 'bg-emerald-500'), ('Golden Retriever', 3, 'bg-amber-400'), ('Australian Kelpie', 1, 'bg-accent')] %}
+                      <div class="grid grid-cols-[110px_1fr_28px] items-center gap-3 text-[11px]">
+                        <span class="text-body truncate">{{ name }}</span>
+                        <span class="h-2 rounded-full bg-gray-100"><span class="block h-2 rounded-full {{ color }}" style="width: {{ [pct, 3]|max }}%"></span></span>
+                        <span class="text-ink text-right font-medium">{{ pct }}</span>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="panel p-4">
+                    <p class="text-sm font-medium text-ink">Recommended combo</p>
+                    <p class="text-[11px] text-muted">Sized to Luna, under $125</p>
+                    <ul class="mt-3 divide-y divide-line text-[12px]">
+                      {% for kind, name, price in [('Harness', 'Ruffwear Front Range', 50), ('Collar', 'PetSafe Martingale', 12), ('Leash', 'Ruffwear Front Range', 25)] %}
+                      <li class="flex items-center justify-between py-2"><span><span class="text-muted">{{ kind }}</span> <span class="text-ink ml-1">{{ name }}</span></span><span class="font-mono text-ink">${{ price }}</span></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
-    <!-- Heading and subheading -->
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-yellow-800 mb-12">
-      Great gear starts with great anatomy.
-    </h2>
-    <p class="text-center text-gray-700 max-w-xl mx-auto mb-16">
-      We don’t stop at a size chart: we combine your dog’s photo, build and behavior.
-    </p>
+              <!-- Breed -->
+              <div class="mt-4 hidden" data-hero-pane="breed">
+                <div class="grid gap-3 md:grid-cols-[220px_1fr]">
+                  <img src="{{ url_for('static', filename='happy-dog.png') }}" alt="A yellow Labrador Retriever" class="h-48 md:h-full w-full rounded-xl object-cover" loading="lazy">
+                  <div class="panel p-4">
+                    <p class="text-sm font-medium text-ink">Recognized from one photo</p>
+                    <p class="text-[11px] text-muted">118 breeds · dog detected</p>
+                    <ol class="mt-3 space-y-2">
+                      {% for name, pct in [('Labrador Retriever', 91), ('Golden Retriever', 3), ('Australian Kelpie', 1)] %}
+                      <li class="flex items-center gap-3 rounded-lg border border-line px-3 py-2.5 text-[12px]">
+                        <span class="font-mono text-muted">0{{ loop.index }}</span>
+                        <span class="flex-1 text-ink">{{ name }}</span>
+                        <span class="font-semibold {{ 'text-emerald-600' if loop.first else 'text-muted' }}">{{ pct }}%</span>
+                      </li>
+                      {% endfor %}
+                    </ol>
+                    <p class="mt-3 text-[11px] text-muted">Build: standard · coat: short · not flat-faced</p>
+                  </div>
+                </div>
+              </div>
 
-    <!-- Feature Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+              <!-- Measurements -->
+              <div class="mt-4 hidden" data-hero-pane="fit">
+                <div class="panel p-4">
+                  <p class="text-sm font-medium text-ink">Measurements</p>
+                  <p class="text-[11px] text-muted">Estimated from breed and build. Edit any of them in the demo.</p>
+                  <div class="mt-3 divide-y divide-line">
+                    {% for label, value, low, high, use in [
+                      ('Weight', '66 lb', 55, 80, 'Leash width 1 in'),
+                      ('Neck', '18.6 in', 17.5, 19.8, 'Collar size L'),
+                      ('Chest girth', '30.0 in', 28.1, 31.9, 'Harness size L'),
+                      ('Belly', '24.6 in', 23.1, 26.1, 'Harness belly strap'),
+                      ('Back length', '22.7 in', 21.3, 24.1, 'Coat and vest length'),
+                    ] %}
+                    <div class="grid grid-cols-[90px_70px_1fr] sm:grid-cols-[110px_80px_1fr_140px] items-center gap-3 py-2.5 text-[12px]">
+                      <span class="text-body">{{ label }}</span>
+                      <span class="font-semibold text-ink">{{ value }}</span>
+                      <span class="relative h-2 rounded-full bg-gray-100"><span class="absolute inset-y-0 left-[22%] right-[22%] rounded-full bg-accent/40"></span><span class="absolute top-1/2 left-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-accent shadow"></span></span>
+                      <span class="hidden sm:block text-right text-muted">{{ use }}</span>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
 
-      <!-- Feature 1 -->
-      <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="100">
-        <i data-lucide="scan-face" class="w-12 h-12 text-yellow-700 mb-4 animate-pulse"></i>
-        <h3 class="font-bold text-lg text-gray-800">Anatomy Scanning</h3>
-        <p class="text-sm text-gray-600 mt-2">
-          We analyze your dog’s shape to find pressure-free, movement-safe fits.
-        </p>
+              <!-- Gear -->
+              <div class="mt-4 hidden" data-hero-pane="gear">
+                <div class="grid gap-2.5 md:grid-cols-3">
+                  {% for kind, name, price, why in [
+                    ('Harness', 'Ruffwear Front Range', 50, 'Front clip turns her sideways when she pulls.'),
+                    ('Collar', 'PetSafe Martingale', 12, 'Gentle feedback without choking.'),
+                    ('Leash', 'Ruffwear Front Range', 25, 'Padded handle for sudden pulls.'),
+                  ] %}
+                  <div class="panel p-4">
+                    <p class="text-[10px] font-semibold uppercase tracking-wider text-accent-700">{{ kind }}</p>
+                    <p class="mt-1 text-sm font-semibold text-ink">{{ name }}</p>
+                    <p class="font-mono text-[11px] text-muted">${{ price }}</p>
+                    <p class="mt-3 flex gap-1.5 text-[11px] text-body"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0"></i>{{ why }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- Feature 2 -->
-      <div class="flex flex-col items-center" data-aos="zoom-in" data-aos-delay="250">
-        <i data-lucide="bone" class="w-12 h-12 text-yellow-700 mb-4"></i>
-        <h3 class="font-bold text-lg text-gray-800">Joint-Aware Design</h3>
-        <p class="text-sm text-gray-600 mt-2">
-          Harnesses are matched to support joints and spine alignment naturally.
-        </p>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="flex flex-col items-center" data-aos="zoom-in" data-aos-delay="400">
-        <i data-lucide="cpu" class="w-12 h-12 text-yellow-700 mb-4"></i>
-        <h3 class="font-bold text-lg text-gray-800">AI-Powered Precision</h3>
-        <p class="text-sm text-gray-600 mt-2">
-          Our model maps every key measurement — for comfort that moves with them.
-        </p>
-      </div>
-
+      <p class="mt-4 text-center text-xs text-muted">Sample result for a 66 lb Labrador. Yours will be built from your own photo and answers.</p>
     </div>
-  </div>
-</section>
 
-
- <!-- (Section 3) -->
- <section class="bg-white py-24 px-6 max-w-7xl mx-auto md:min-h-[810px]">
-  <div class="flex flex-col md:flex-row gap-12">
-    <!-- Big Main Header top-left -->
-    <div class="md:w-1/3 md:-mt-[70px]">
-      <h2 class="text-5xl font-extrabold text-[var(--primary)] leading-tight" data-aos="slide-right" data-aos-duration="1000"
-      data-aos-easing="ease-out-cubic">
-        The perfect gear. All by filling out a quick form.
-      </h2>
-    </div>
-
-    <!-- Right side container for the images and text in diagonal -->
-    <div class="md:w-2/3 relative space-y-10 md:space-y-0">
-      <!-- We’ll use relative + absolute positioning to place images diagonally -->
-
-      <!-- Step 1: bottom right of header -->
-      <div class="flex items-center gap-6 md:absolute md:top-[90px] md:right-0 w-full max-w-xl" data-aos="slide-left" data-aos-easing="ease-out-cubic" data-aos-duration="1200">
-        <img src="{{ url_for('static', filename='happy-dog.png') }}" alt="Step 1"
-             class="rounded-xl shadow-lg w-1/3 object-cover transition-transform duration-500 hover:scale-105">
-        <div>
-          <h3 class="text-2xl font-semibold text-gray-800 mb-1">🐶 Step 1: Share Your Pup’s Story</h3>
-          <p class="text-gray-600">Tell us about your dog — breed, size, quirks, and vibe. The more we know, the better the match!
-            🐕 Breed, 🧠 behavior, 🎂 age — all in one quick step.</p>
-        </div>
-      </div>
-
-      <!-- Step 2: bottom left of first image -->
-      <div class="flex items-center gap-6 md:absolute md:top-[290px] md:left-0 w-full max-w-xl" data-aos="fade-right" data-aos-delay="200" data-aos-easing="ease-out-cubic" data-aos-duration="1200">
-        <img src="{{ url_for('static', filename='harness-scene.png') }}" alt="Step 2"
-             class="rounded-xl shadow-lg w-1/3 object-cover transition-transform duration-500 hover:scale-105">
-        <div>
-          <h3 class="text-2xl font-semibold text-gray-800 mb-1">🎯 Step 2: Pick What Matters Most</h3>
-          <p class="text-gray-600">Is it control? Comfort? Durability? Style? You choose what’s important — we’ll take care of the rest.
-            🛡️ Strong, ✨ stylish, or 🛋️ cozy — your call.</p>
-        </div>
-      </div>
-
-      <!-- Step 3: bottom right of second image, aligned under first image -->
-      <div class="flex items-center gap-6 md:absolute md:top-[490px] md:right-0 w-full max-w-xl" data-aos="fade-left" data-aos-delay="400" data-aos-easing="ease-out-cubic" data-aos-duration="1200">
-        <img src="{{ url_for('static', filename='run-forest.png') }}" alt="Step 3"
-             class="rounded-xl shadow-lg w-1/3 object-cover transition-transform duration-500 hover:scale-105">
-        <div>
-          <h3 class="text-2xl font-semibold text-gray-800 mb-1">🎁 Step 3: Get the Perfect Gear for Them</h3>
-          <p class="text-gray-600">No endless browsing. We’ll recommend the perfect collar, harness, or leash — personalized just for your pup.
-            🔍 Smarter picks, 🎯 tailored gear, 🐾 happier walks.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
- <!-- (Section 4) -->
-<section class="bg-yellow-50 py-24 px-6">
-  <div class="text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-extrabold text-yellow-800">
-      What Goes Into Every Match
-    </h2>
-  </div>
-
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-    {% for stat, title, text, delay in [
-      ('118', 'Breeds recognized', "Our image model identifies your dog's breed (or closest mix) from a single photo.", 100),
-      ('18', 'Fit & lifestyle factors', 'Measurements, behavior, activities, climate, maintenance and budget all shape the pick.', 250),
-      ('35+', 'Curated products', 'Harnesses, collars, leashes and extras from trusted brands, with links to Amazon and Chewy.', 400),
-    ] %}
-    <div class="bg-white rounded-2xl p-8 shadow-md" data-aos="fade-up" data-aos-delay="{{ delay }}" data-aos-duration="900">
-      <p class="text-5xl font-extrabold text-yellow-600 mb-2">{{ stat }}</p>
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ title }}</h3>
-      <p class="text-gray-600 text-sm">{{ text }}</p>
-    </div>
-    {% endfor %}
-  </div>
-</section>
-
-
- <!-- (Section 5) -->
-<section class="bg-yellow-600 py-24 px-6 text-center text-white relative overflow-hidden" data-aos="fade-up">
-  <!-- Decorative Paw SVG (Optional, top-left) -->
-  <svg class="absolute top-6 left-6 w-12 h-12 opacity-20" fill="white" viewBox="0 0 24 24">
-    <path d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm6.364 5.636a2.5 2.5 0 11-3.536 3.536 2.5 2.5 0 013.536-3.536zM5.636 5.636a2.5 2.5 0 113.536 3.536 2.5 2.5 0 01-3.536-3.536zM4 14a4 4 0 118 0 4 4 0 01-8 0zm12 0a4 4 0 118 0 4 4 0 01-8 0z"/>
-  </svg>
-
-  <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-      Your dog deserves gear that actually fits. <br class="hidden md:inline">Let’s find it — together.
-    </h2>
-    <p class="text-lg mb-10 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-      Start the form now and get tailored recommendations in under 2 minutes.
-    </p>
-    <a href="{{ url_for('main.demo') }}"
-       class="inline-block bg-white text-yellow-700 font-semibold text-lg px-10 py-4 rounded-full shadow-lg hover:bg-yellow-100 transition duration-300"
-       data-aos="zoom-in" data-aos-delay="300">
-      Find my match
-    </a>
-  </div>
-</section>
-
-
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js" defer></script>
-
- <!-- (Section 6) -->
-<section class="bg-white py-24 px-6">
-  <div class="max-w-4xl mx-auto" style="text-align: center;">
-    <h2 id="faq-heading" class="text-4xl md:text-5xl font-extrabold text-center text-[var(--primary)] mb-12 bounce-in" 
-    data-aos="zoom-in" data-aos-easing="ease-out-back" data-aos-duration="800">
-      Frequently Asked Questions
-    </h2>
-
-    <div class="space-y-6 text-left">
-      <!-- FAQ Item -->
-      <div x-data="{ open: false }" class="border-b pb-4">
-        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
-          <span>How accurate is the photo analysis?</span>
-          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
-        </button>
-        <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="mt-3 text-gray-600">
-        Our image model recognizes 118 breeds and gets the exact breed right about 4 times out of 5 on everyday photos (the right answer is in its top 3 over 95% of the time). From the breed and build it estimates weight, neck, chest, belly and back measurements. These are estimates, so if you can weigh or measure your dog, enter the real numbers for the most precise sizing.
-        </div>
-      </div>
-
-       <!-- FAQ Item -->
-       <div x-data="{ open: false }" class="border-b pb-4">
-        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
-          <span>What’s the point of this if there are adjustable harnesses?</span>
-          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
-        </button>
-        <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="mt-3 text-gray-600">
-        Not all adjustable harnesses are created equal—fit, comfort, and function vary widely depending on design, material, and features. Our recommendations highlight these differences to ensure each dog gets a harness tailored not just to size, but to body type, behavior, and activity level.
-        </div>
-      </div>
-
-      <!-- FAQ Item -->
-      <div x-data="{ open: false }" class="border-b pb-4">
-        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
-          <span>What happens after I get my recommendation? Do I buy from you?</span>
-          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
-        </button>
-        <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="mt-3 text-gray-600">
-           No. Instead, we show you trusted products with links to buy directly from top-rated retailers.
-        </div>
-      </div>
-
-      <!-- FAQ Item -->
-      <div x-data="{ open: false }" class="border-b pb-4">
-        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
-          <span>What if my dog grows later or changes its behavior?</span>
-          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
-        </button>
-        <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="mt-3 text-gray-600">
-        We account for growth and behavior changes, and if anything shifts significantly, you can always retake the test for updated gear recommendations.
-        </div>
-      </div>
-
-      <!-- FAQ Item -->
-      <div x-data="{ open: false }" class="border-b pb-4">
-        <button @click="open = !open" class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-800">
-          <span>How is this different from other pet fit calculators or breed-based suggestions online?          </span>
-          <i :class="open ? 'rotate-180' : ''" class="transition-transform" data-lucide="chevron-down"></i>
-        </button>
-        <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="mt-3 text-gray-600">
-        Most pet fit tools rely only on weight, breed, or basic size charts. We use a photo of your actual dog and behavioral data to generate personalized gear recommendations — not generic guesses.
-        </div>
-      </div>
-
-
+    <div class="space-y-3">
+      {% for key, title, text, icon, color in [
+        ('breed', 'Breed recognition', '118 breeds, named from one photo', 'scan-face', 'bg-orange-500'),
+        ('fit', 'Measurements', 'Neck, chest, belly and back, ready to edit', 'ruler', 'bg-emerald-500'),
+        ('summary', 'Behavior', 'Pulling, reactivity, energy and training', 'activity', 'bg-accent'),
+        ('gear', 'Gear match', 'A harness, collar and leash that fit your budget', 'shopping-bag', 'bg-violet-500'),
+      ] %}
+      <button type="button" class="module reveal" data-hero-module="{{ key }}">
+        <span class="icon-tile {{ color }}"><i data-lucide="{{ icon }}" class="w-5 h-5"></i></span>
+        <span>
+          <span class="block text-[17px] text-ink">{{ title }}</span>
+          <span class="block text-[15px] text-muted">{{ text }}</span>
+        </span>
+      </button>
+      {% endfor %}
     </div>
   </div>
 </section>
 
+<div class="mt-24 md:mt-32">{{ cta_band() }}</div>
 
+<!-- Feature showcase -->
+<section class="section">
+  <div class="wrap">
+    <h2 class="display text-4xl md:text-6xl max-w-3xl reveal">Everything that decides a fit<br><span class="text-muted">in one place</span></h2>
+    <p class="lede mt-8 max-w-2xl reveal">Most fit guides stop at a size chart. DogArmor looks at four things together: what your dog is, how it is built, how it behaves, and what you want to spend.</p>
+    <div class="tabs mt-10 reveal" role="tablist">
+      {% for key, label in [('breed', 'Breed'), ('fit', 'Fit'), ('behavior', 'Behavior'), ('budget', 'Budget')] %}
+        <button type="button" class="tab {% if loop.first %}is-active{% endif %}" data-feature-tab="{{ key }}" role="tab">{{ label }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="mt-8 panel dots p-6 md:p-9 bg-[#f6f8fb] reveal">
+      <!-- Breed -->
+      <div data-feature-pane="breed">
+        <p class="eyebrow"><span class="dot bg-orange-500"></span> Breed recognition</p>
+        <h3 class="mt-4 text-2xl md:text-[27px] font-medium tracking-tight max-w-sm">Named from a single photo</h3>
+        <div class="mx-auto mt-8 max-w-[680px] panel-soft p-5">
+          <div class="flex items-start justify-between">
+            <div><p class="text-sm font-medium text-ink">Breed match</p><p class="text-xs text-muted">Luna · photo checked for a dog first</p></div>
+            <span class="chip-accent !text-[11px]">Dog detected</span>
+          </div>
+          <div class="mt-4 space-y-2">
+            {% for name, note, pct, color in [('Labrador Retriever', 'Short coat · standard build', 91, 'bg-emerald-500'), ('Golden Retriever', 'Thick coat · standard build', 3, 'bg-amber-400'), ('Australian Kelpie', 'Short coat · standard build', 1, 'bg-accent')] %}
+            <div class="flex items-center gap-4 rounded-xl border border-line px-4 py-3.5">
+              <span class="font-mono text-xs text-muted">0{{ loop.index }}</span>
+              <div class="flex-1"><p class="text-sm text-ink">{{ name }}</p><p class="text-xs text-muted">{{ note }}</p></div>
+              <span class="w-10 text-right font-semibold {{ 'text-emerald-600' if loop.first else 'text-muted' }}">{{ pct }}%</span>
+              <span class="hidden sm:block h-1.5 w-24 rounded-full bg-gray-100"><span class="block h-1.5 rounded-full {{ color }}" style="width: {{ [pct, 4]|max }}%"></span></span>
+            </div>
+            {% endfor %}
+          </div>
+          <p class="mt-4 text-center text-xs text-muted">Mixed breeds get a blend of their closest matches</p>
+        </div>
+        <p class="mt-8 lede !text-[17px] max-w-4xl">The model recognizes 118 breeds and names the exact one about four times in five on everyday photos. The right answer is in its top three 97% of the time. If the photo has no dog in it, it says so instead of guessing.</p>
+      </div>
+
+      <!-- Fit -->
+      <div data-feature-pane="fit" class="hidden">
+        <p class="eyebrow"><span class="dot bg-emerald-500"></span> Measurements</p>
+        <h3 class="mt-4 text-2xl md:text-[27px] font-medium tracking-tight max-w-sm">Sized where it matters</h3>
+        <div class="mx-auto mt-8 max-w-[680px] panel-soft p-5">
+          <p class="text-sm font-medium text-ink">Luna's measurements</p>
+          <p class="text-xs text-muted">Estimated from breed and build, editable</p>
+          <div class="mt-4 divide-y divide-line">
+            {% for label, value, maps in [('Neck', '18.6 in', 'Collar size L'), ('Chest girth', '30.0 in', 'Harness size L'), ('Belly', '24.6 in', 'Belly strap range'), ('Back length', '22.7 in', 'Vest and coat length'), ('Weight', '66 lb', '1 in leash width')] %}
+            <div class="flex items-center justify-between py-3 text-sm">
+              <span class="text-body">{{ label }}</span>
+              <span class="flex items-center gap-4"><span class="font-semibold text-ink">{{ value }}</span><span class="chip !text-[11px] w-32 justify-center">{{ maps }}</span></span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <p class="mt-8 lede !text-[17px] max-w-4xl">Every measurement starts as an estimate from your dog's breed and build. A whippet gets a deep chest and narrow waist, a pug gets a thick neck. Grab a tape measure, type the real number in, and every size recalculates around it.</p>
+      </div>
+
+      <!-- Behavior -->
+      <div data-feature-pane="behavior" class="hidden">
+        <p class="eyebrow"><span class="dot bg-accent"></span> Behavior and lifestyle</p>
+        <h3 class="mt-4 text-2xl md:text-[27px] font-medium tracking-tight max-w-sm">Matched to how you walk</h3>
+        <div class="mx-auto mt-8 max-w-[680px] panel-soft p-5">
+          <p class="text-sm font-medium text-ink">What changes the pick</p>
+          <div class="mt-4 space-y-2">
+            {% for when, then in [
+              ('Pulls on the leash', 'Front clip harness'),
+              ('Reactive around other dogs', 'Double handle leash, martingale collar'),
+              ('Flat-faced breed', 'Harness only, no head halters'),
+              ('Swims or hikes', 'Waterproof or trail-ready gear'),
+              ('Still growing', 'Extra adjustment range'),
+            ] %}
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 rounded-xl border border-line px-4 py-3 text-sm">
+              <span class="text-ink">{{ when }}</span>
+              <span class="flex items-center gap-2 text-muted"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>{{ then }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <p class="mt-8 lede !text-[17px] max-w-4xl">Thirteen answers about behavior, activities and climate each nudge the score of every product. Breed safety rules sit on top, so a pug never gets a head halter and a whippet gets a collar it can't slip.</p>
+      </div>
+
+      <!-- Budget -->
+      <div data-feature-pane="budget" class="hidden">
+        <p class="eyebrow"><span class="dot bg-violet-500"></span> Budget</p>
+        <h3 class="mt-4 text-2xl md:text-[27px] font-medium tracking-tight max-w-sm">Good gear at every price</h3>
+        <div class="mx-auto mt-8 max-w-[680px] grid gap-3 sm:grid-cols-3">
+          {% for tier, range, combo, active in [('Budget', 'Under $65', 'From $28', False), ('Mid-range', '$65 to $125', 'Luna: $87', True), ('Premium', 'No limit', 'Best in class', False)] %}
+          <div class="panel-soft p-5 {{ 'ring-1 ring-ink border-ink' if active }}">
+            <p class="text-sm text-muted">{{ tier }}</p>
+            <p class="mt-1 text-xl font-semibold text-ink">{{ range }}</p>
+            <p class="mt-6 text-xs {{ 'text-accent-700 font-medium' if active else 'text-muted' }}">{{ combo }}</p>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="mt-8 lede !text-[17px] max-w-4xl">Pick a budget and every item is held to it. If nothing fits your dog at that price, DogArmor tells you and shows the most affordable option that does fit, rather than quietly going over.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Every pick has a why -->
+<section class="section pt-0">
+  <div class="wrap text-center">
+    <h2 class="display text-4xl md:text-6xl reveal">Every pick comes with a <em>why</em></h2>
+    <p class="lede mt-6 max-w-2xl mx-auto reveal">No black box. Each item shows the reasons it won, the size to order and where to buy it.</p>
+    <div class="mx-auto mt-12 max-w-3xl rounded-[28px] border border-accent/30 bg-gradient-to-br from-accent-50 via-white to-accent-50 p-4 md:p-6 text-left reveal">
+      <p class="flex items-center gap-2 text-[15px] text-ink"><span class="flex h-6 w-6 items-center justify-center rounded-md bg-accent text-white"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i></span> DogArmor</p>
+      <div class="mt-4 rounded-2xl border border-line bg-white p-5 md:p-6 shadow-soft">
+        <p class="ml-auto w-fit rounded-xl border border-accent/30 bg-accent-50 px-4 py-2 text-sm text-ink">Why the Front Range harness for Luna?</p>
+        <ul class="mt-5 space-y-3 text-[15px] md:text-base text-muted">
+          <li class="flex gap-3"><span class="mt-2.5 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0"></span><span><strong class="font-semibold text-ink">It has a front clip,</strong> which turns her sideways when she pulls. That is the most effective harness fix for pulling.</span></li>
+          <li class="flex gap-3"><span class="mt-2.5 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0"></span><span><strong class="font-semibold text-ink">It is built for trails,</strong> and you said you hike with her most weekends.</span></li>
+          <li class="flex gap-3"><span class="mt-2.5 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0"></span><span><strong class="font-semibold text-ink">Size L fits her 30 inch chest.</strong> Check it against Ruffwear's chart before you order.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-4 text-xs text-muted">Sample result. Your answers change the reasons.</p>
+
+    <div class="mt-16 grid gap-8 text-left md:grid-cols-3">
+      {% for icon, lead, rest in [
+        ('ruler', 'Sizes every item', 'to your dog\'s own measurements, not a guess from a dropdown.'),
+        ('shield-check', 'Flags breed safety issues,', 'like head halters on flat-faced dogs or slip-prone collars on sighthounds.'),
+        ('external-link', 'Links straight to Amazon and Chewy,', 'so you can check today\'s price and buy wherever you like.'),
+      ] %}
+      <div class="flex gap-4 reveal">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-700"><i data-lucide="{{ icon }}" class="w-4 h-4"></i></span>
+        <p class="text-[15px] text-muted leading-relaxed"><span class="text-ink font-medium">{{ lead }}</span> {{ rest }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-[#f2f4f7]">
+  <div class="wrap section grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+    <div class="reveal">
+      <h2 class="display text-5xl md:text-6xl">Will it <em>fit</em>?</h2>
+      <p class="lede mt-6 max-w-sm">Usually, yes. And when a photo can't tell us something, we say so.</p>
+      <a href="{{ url_for('main.faq') }}" class="link-arrow mt-8">More questions <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+    </div>
+    {{ faq_list(faq[:6]) }}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const el = document.getElementById('faq-heading');
-    if (!el) return;
+  window.addEventListener('DOMContentLoaded', () => {
+    const heroTabs = document.querySelectorAll('[data-hero-tab]');
+    const modules = document.querySelectorAll('[data-hero-module]');
+    const showHero = key => {
+      document.querySelectorAll('[data-hero-pane]').forEach(p => p.classList.toggle('hidden', p.dataset.heroPane !== key));
+      heroTabs.forEach(t => t.classList.toggle('is-active', t.dataset.heroTab === key));
+      modules.forEach(m => m.classList.toggle('is-active', m.dataset.heroModule === key));
+    };
+    heroTabs.forEach(t => t.addEventListener('click', () => showHero(t.dataset.heroTab)));
+    modules.forEach(m => m.addEventListener('click', () => showHero(m.dataset.heroModule)));
 
-    // Wait for bounce to finish, then start gradient + rotation
-    el.addEventListener('animationend', () => {
-      el.classList.remove('bounce-in');
-      el.classList.add('dancing');
-    }, { once: true });
+    const featureTabs = document.querySelectorAll('[data-feature-tab]');
+    featureTabs.forEach(t => t.addEventListener('click', () => {
+      featureTabs.forEach(x => x.classList.toggle('is-active', x === t));
+      document.querySelectorAll('[data-feature-pane]').forEach(p => p.classList.toggle('hidden', p.dataset.featurePane !== t.dataset.featureTab));
+    }));
   });
 </script>
 {% endblock %}

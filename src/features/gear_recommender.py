@@ -21,9 +21,9 @@ TRAINING_LEVELS = ("beginner", "intermediate", "advanced")
 CLIMATES = ("hot", "moderate", "cold")
 BUDGETS = {
     # per-item caps in USD
-    "low": {"label": "Budget (under ~$65 total)", "harness": 30, "collar": 15, "leash": 20, "extra": 30},
-    "medium": {"label": "Mid-range (~$65-$125 total)", "harness": 60, "collar": 30, "leash": 40, "extra": 60},
-    "high": {"label": "Premium (no limit)", "harness": None, "collar": None, "leash": None, "extra": None},
+    "low": {"label": "under $65", "harness": 30, "collar": 15, "leash": 20, "extra": 30},
+    "medium": {"label": "$65 to $125", "harness": 60, "collar": 30, "leash": 40, "extra": 60},
+    "high": {"label": "no limit", "harness": None, "collar": None, "leash": None, "extra": None},
 }
 YES_NO_FIELDS = ("pulling", "hiking", "hunting", "working", "water", "sports", "growing", "cleaning_experience", "heat_sensitive")
 
@@ -129,14 +129,14 @@ def build_preferences(p):
     want("harness", "adjustable", 0.5, "Multiple adjustment points for a precise fit.")
 
     if p["pulling"]:
-        want("harness", "front-clip", 4, "Front clip turns your dog sideways when it pulls, the most effective harness fix for pulling.")
+        want("harness", "front-clip", 4, "Front clip turns your dog sideways when it pulls. The most effective harness fix for pulling.")
         want("leash", "padded-handle", 1, "Padded handle protects your hands from sudden pulls.")
         want("leash", "bungee", 0.5, "Shock-absorbing section softens jolts.")
         want("leash", "hands-free", -2)
         if not p["brachycephalic"] and not toy:
             want("collar", "martingale", 1.5, "Limited-slip design gives gentle feedback without choking.")
             if p["weight_lbs"] >= 30 and p["training"] != "advanced":
-                want("collar", "head-halter", 2.5, "Head halter gives you power steering on a strong puller (introduce it gradually).")
+                want("collar", "head-halter", 2.5, "Head halter gives you steering on a strong puller. Introduce it slowly.")
 
     if p["aggression"] == "high":
         want("harness", "handle", 3, "Grab handle lets you hold your dog close in tense situations.")
@@ -237,7 +237,7 @@ def build_preferences(p):
         prefs.exclude("collar", "head-halter")
         want("collar", "martingale", -3)
     if p["build"] == "sighthound":
-        want("collar", "martingale", 3, "Sighthound heads are narrower than their necks; a martingale stops them slipping out.")
+        want("collar", "martingale", 3, "Sighthound heads are narrower than their necks. A martingale stops them slipping out.")
         want("harness", "escape-resistant", 1.5, "Escape-resistant fit for a deep-chested, narrow-waisted dog.")
 
     # Extras.
@@ -297,17 +297,17 @@ def size_label(value, chart):
 def sizing(product, p):
     category = product["category"]
     if category == "harness" or (category == "extra" and "chest" in product["fit"]):
-        return f"Typical size {size_label(p['chest'], HARNESS_SIZES)} for a {p['chest']:.0f}\" chest; confirm with the {product['brand']} size chart."
+        return f"Usually size {size_label(p['chest'], HARNESS_SIZES)} for a {p['chest']:.0f} inch chest. Confirm on the {product['brand']} size chart."
     if category == "collar":
-        return f"Typical size {size_label(p['neck'], COLLAR_SIZES)} for a {p['neck']:.0f}\" neck; you should fit two fingers underneath."
+        return f"Usually size {size_label(p['neck'], COLLAR_SIZES)} for a {p['neck']:.0f} inch neck. Two fingers should fit underneath."
     if category == "leash":
         if p["weight_lbs"] < 15:
-            width = '3/8"'
+            width = "3/8 inch"
         elif p["weight_lbs"] < 50:
-            width = '5/8"-3/4"'
+            width = "5/8 or 3/4 inch"
         else:
-            width = '1"'
-        return f"Choose the {width} width for a {p['weight_lbs']:.0f} lb dog."
+            width = "1 inch"
+        return f"Get the {width} width for a {p['weight_lbs']:.0f} lb dog."
     return None
 
 
@@ -370,12 +370,12 @@ def safety_notes(p):
     if p["weight_lbs"] < 12:
         notes.append("Small dogs are prone to tracheal collapse, so walk on the harness rather than the collar.")
     if p["build"] == "sighthound":
-        notes.append("Sighthounds can slip standard collars easily; a martingale or escape-resistant harness keeps them secure.")
+        notes.append("Sighthounds slip standard collars easily. A martingale or escape-resistant harness keeps them secure.")
     if p["growing"]:
-        notes.append("Puppies grow fast: re-measure every 2-3 weeks and loosen or size up as needed.")
+        notes.append("Puppies grow fast. Re-measure every two or three weeks and size up when the straps run out.")
     if p["pulling"] and p["training"] == "beginner":
         notes.append("Gear helps, but pair it with reward-based loose-leash training for lasting results.")
-    notes.append("Fit check: you should be able to slide two fingers under every strap, and the harness shouldn't shift into the armpits.")
+    notes.append("Fit check: two fingers should slide under every strap, and the harness shouldn't ride into the armpits.")
     return notes
 
 

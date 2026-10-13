@@ -1,0 +1,41 @@
+{% macro logo(size='md', tone='accent') -%}
+  {%- set box = 'w-7 h-7' if size == 'md' else 'w-9 h-9' -%}
+  {%- set text = 'text-[19px]' if size == 'md' else 'text-[26px]' -%}
+  <span class="inline-flex items-center gap-2 font-semibold tracking-tight {{ text }} {{ 'text-accent' if tone == 'accent' else 'text-white' }}">
+    <svg class="{{ box }}" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 1.8 20.4 5v6.3c0 5.2-3.6 9.5-8.4 10.9-4.8-1.4-8.4-5.7-8.4-10.9V5Z" fill="currentColor"/>
+      <g fill="#fff">
+        <ellipse cx="12" cy="13.6" rx="2.9" ry="2.4"/>
+        <circle cx="8.4" cy="10.4" r="1.25"/><circle cx="10.6" cy="8.4" r="1.25"/>
+        <circle cx="13.4" cy="8.4" r="1.25"/><circle cx="15.6" cy="10.4" r="1.25"/>
+      </g>
+    </svg>
+    DogArmor
+  </span>
+{%- endmacro %}
+
+{% macro cta_band(title='See it on <em>your</em> dog', text='Upload a photo, answer a few questions, and get a harness, collar and leash picked for your dog in about two minutes.') -%}
+<section class="bg-accent-50 border-y border-accent-100">
+  <div class="wrap py-16 md:py-24 grid gap-10 lg:grid-cols-2 lg:items-center">
+    <div class="reveal">
+      <h2 class="display text-4xl md:text-[46px]">{{ title|safe }}</h2>
+      <p class="lede mt-5 max-w-xl">{{ text }}</p>
+    </div>
+    <a href="{{ url_for('main.demo') }}" class="reveal group flex items-center justify-between gap-4 rounded-2xl border border-line bg-white p-2 pl-5 shadow-soft">
+      <span class="flex items-center gap-3 text-muted"><i data-lucide="image-up" class="w-5 h-5"></i> Upload a photo of your dog</span>
+      <span class="btn-accent">Open the demo</span>
+    </a>
+  </div>
+</section>
+{%- endmacro %}
+
+{% macro faq_list(items) -%}
+<div class="space-y-3">
+  {% for q, a in items %}
+  <details class="faq reveal">
+    <summary><span>{{ q }}</span><i data-lucide="plus" class="plus"></i></summary>
+    <p class="answer">{{ a }}</p>
+  </details>
+  {% endfor %}
+</div>
+{%- endmacro %}

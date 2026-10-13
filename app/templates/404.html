@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Page Not Found | DogArmor{% endblock %}
+{% block title %}Page not found | DogArmor{% endblock %}
 
 {% block content %}
-<section class="bg-blue-50 py-32 px-6 text-center">
-  <i data-lucide="dog" class="w-16 h-16 text-blue-600 mx-auto mb-6"></i>
-  <h1 class="text-4xl font-extrabold text-blue-700 mb-4">This trail goes nowhere</h1>
-  <p class="text-gray-600 mb-8">We couldn't find that page.</p>
-  <a href="{{ url_for('main.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow">Back home</a>
+<section class="wrap py-28 md:py-40 text-center">
+  <p class="font-mono text-sm text-muted">404</p>
+  <h1 class="display mt-4 text-5xl md:text-7xl">This trail goes <em>nowhere</em></h1>
+  <p class="lede mt-6">We couldn't find that page.</p>
+  <a href="{{ url_for('main.index') }}" class="btn-accent mt-10">Back home</a>
 </section>
 {% endblock %}

@@ -27,9 +27,21 @@ def rec(**overrides):
     return recommend(parse_profile({**BASE, **overrides}))
 
 
-@pytest.mark.parametrize("path", ["/", "/demo", "/features", "/how-it-works", "/why-us", "/about", "/team", "/healthz"])
+@pytest.mark.parametrize("path", ["/", "/demo", "/how-it-works", "/company", "/faq", "/healthz"])
 def test_pages_render(client, path):
     assert client.get(path).status_code == 200
+
+
+@pytest.mark.parametrize("old, new", [("/about", "/company"), ("/team", "/company"), ("/why-us", "/company"), ("/features", "/")])
+def test_old_pages_redirect(client, old, new):
+    res = client.get(old)
+    assert res.status_code == 301 and res.headers["Location"].endswith(new)
+
+
+def test_no_dashes_in_copy(client):
+    for path in ["/", "/demo", "/how-it-works", "/company", "/faq"]:
+        html = client.get(path).get_data(as_text=True)
+        assert "—" not in html and "–" not in html, path
 
 
 def test_unknown_page_404(client):

@@ -38,7 +38,7 @@
       if (edited.has(field) || values[field] == null) continue;
       const input = $(field);
       input.value = values[field];
-      input.title = ranges[field] ? `Typical range: ${ranges[field][0]}–${ranges[field][1]}` : '';
+      input.title = ranges[field] ? `Typical range: ${ranges[field][0]} to ${ranges[field][1]}` : '';
       setBadge(field, 'estimate');
     }
   }
@@ -48,7 +48,7 @@
     const hint = $('heat-hint');
     if (!traits || !(traits.brachycephalic || traits.coat === 'thick')) { show(hint, false); return; }
     const why = traits.brachycephalic ? 'flat-faced' : 'thick-coated';
-    hint.textContent = `Suggested "Yes": ${breed}s are ${why} and can overheat easily.`;
+    hint.textContent = `We picked "Yes" because ${breed}s are ${why} and overheat easily.`;
     show(hint);
     if (!form.querySelector('input[name="heat_sensitive"]:checked')) {
       form.querySelector('input[name="heat_sensitive"][value="yes"]').checked = true;
@@ -92,11 +92,13 @@
     list.innerHTML = breeds.map((b, i) => `
       <li>
         <button type="button" class="breed-choice ${i === 0 && isDog ? 'is-active' : ''}" data-breed="${esc(b.name)}">
-          <span class="flex justify-between text-sm font-semibold text-gray-800">
-            <span>${esc(b.name)}</span><span>${Math.round(b.confidence * 100)}%</span>
+          <span class="flex items-center gap-3 text-sm">
+            <span class="font-mono text-xs text-muted">0${i + 1}</span>
+            <span class="flex-1 text-ink">${esc(b.name)}</span>
+            <span class="font-semibold ${i === 0 && isDog ? 'text-emerald-600' : 'text-muted'}">${Math.round(b.confidence * 100)}%</span>
           </span>
-          <span class="block h-2 bg-green-100 rounded-full mt-1 overflow-hidden">
-            <span class="block h-2 bg-green-600 rounded-full" style="width:${Math.max(2, Math.round(b.confidence * 100))}%"></span>
+          <span class="block h-1.5 bg-gray-100 rounded-full mt-2 overflow-hidden">
+            <span class="block h-1.5 ${i === 0 && isDog ? 'bg-emerald-500' : 'bg-gray-300'} rounded-full" style="width:${Math.max(2, Math.round(b.confidence * 100))}%"></span>
           </span>
         </button>
       </li>`).join('');
@@ -121,7 +123,7 @@
       renderBreeds(data.breeds, data.is_dog);
       show($('analysis-result'));
       if (!data.is_dog) {
-        $('analysis-error').textContent = "Hmm, we couldn't clearly spot a dog in this photo. Try a clearer photo, or pick the breed and enter measurements yourself below.";
+        $('analysis-error').textContent = "We couldn't find a dog in this photo. Try a clearer one, or pick the breed and enter measurements below.";
         show($('analysis-error'));
         return;
       }
@@ -166,54 +168,55 @@
   }
 
   const CATEGORY_META = {
-    harness: { title: 'Harness', emoji: '🎽' },
-    collar: { title: 'Collar', emoji: '🦮' },
-    leash: { title: 'Leash', emoji: '🪢' },
-    extra: { title: 'Extra', emoji: '➕' },
+    harness: { title: 'Harness', color: 'bg-orange-500', icon: 'shield' },
+    collar: { title: 'Collar', color: 'bg-emerald-500', icon: 'circle-dashed' },
+    leash: { title: 'Leash', color: 'bg-accent', icon: 'link' },
+    extra: { title: 'Extra', color: 'bg-violet-500', icon: 'plus' },
   };
 
   const linkButtons = links => links.map(l => `
     <a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" class="buy-link">
-      ${esc(l.retailer)} <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+      ${esc(l.retailer)} <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
     </a>`).join('');
 
   function productCard(item, alternatives = []) {
     const meta = CATEGORY_META[item.category];
     const reasons = item.reasons.length ? `
-      <ul class="space-y-1.5 my-4">
-        ${item.reasons.map(r => `<li class="flex gap-2 text-sm text-gray-700"><i data-lucide="check" class="w-4 h-4 text-green-600 shrink-0 mt-0.5"></i><span>${esc(r)}</span></li>`).join('')}
+      <ul class="mt-5 space-y-2.5">
+        ${item.reasons.map(r => `<li class="flex gap-2.5 text-sm text-body"><i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i><span>${esc(r)}</span></li>`).join('')}
       </ul>` : '';
     const alts = alternatives.length ? `
-      <details class="mt-4 text-sm">
-        <summary class="cursor-pointer text-green-800 font-semibold">Other good options</summary>
-        <ul class="mt-2 space-y-2">
+      <details class="mt-5 border-t border-line pt-4 text-sm">
+        <summary class="cursor-pointer list-none flex items-center justify-between text-ink font-medium">Other good options <i data-lucide="plus" class="w-4 h-4 text-gray-400"></i></summary>
+        <ul class="mt-3 space-y-3">
           ${alternatives.map(a => `
             <li class="flex flex-wrap items-center justify-between gap-2">
-              <span>${esc(a.brand)} ${esc(a.name)} <span class="text-gray-500">~$${a.price}</span></span>
+              <span class="text-body">${esc(a.brand)} ${esc(a.name)} <span class="font-mono text-xs text-muted">$${a.price}</span></span>
               <span class="flex gap-2">${linkButtons(a.links)}</span>
             </li>`).join('')}
         </ul>
       </details>` : '';
     return `
-      <article class="bg-white rounded-xl border border-green-200 shadow-sm p-5 flex flex-col">
-        <p class="text-xs font-bold uppercase tracking-wide text-green-700">${meta.emoji} ${meta.title}</p>
-        <h3 class="text-lg font-bold text-gray-900 mt-1">${esc(item.brand)} ${esc(item.name)}</h3>
-        <p class="text-sm text-gray-500">~$${item.price} · ${esc(item.material)}</p>
-        <p class="text-sm text-gray-700 mt-3">${esc(item.summary)}</p>
+      <article class="panel-soft p-6 flex flex-col">
+        <div class="flex items-center justify-between">
+          <span class="flex items-center gap-2.5 text-sm font-medium text-ink"><span class="icon-tile !w-8 !h-8 !rounded-lg ${meta.color}"><i data-lucide="${meta.icon}" class="w-4 h-4"></i></span>${meta.title}</span>
+          <span class="font-mono text-sm text-ink">$${item.price}</span>
+        </div>
+        <h3 class="mt-5 text-xl font-semibold text-ink leading-snug">${esc(item.brand)} ${esc(item.name)}</h3>
+        <p class="mt-1 text-xs text-muted">${esc(item.material)}</p>
+        <p class="mt-3 text-[15px] text-muted leading-relaxed">${esc(item.summary)}</p>
         ${reasons}
-        ${item.sizing ? `<p class="text-sm bg-green-50 rounded-lg px-3 py-2 text-green-900 flex gap-2"><i data-lucide="ruler" class="w-4 h-4 shrink-0 mt-0.5"></i><span>${esc(item.sizing)}</span></p>` : ''}
-        <div class="flex flex-wrap gap-2 mt-4">${linkButtons(item.links)}</div>
+        ${item.sizing ? `<p class="mt-5 flex gap-2 rounded-xl bg-accent-50 px-3.5 py-2.5 text-sm text-ink"><i data-lucide="ruler" class="w-4 h-4 shrink-0 mt-0.5 text-accent-700"></i><span>${esc(item.sizing)}</span></p>` : ''}
+        <div class="mt-auto pt-5 flex flex-wrap gap-2">${linkButtons(item.links)}</div>
         ${alts}
       </article>`;
   }
 
   function renderResult(r, data) {
-    const breed = data.breed || 'your dog';
-    const parts = [`For ${esc(breed)} (${data.weight_lbs} lbs, ${data.chest}" chest, ${data.neck}" neck)`];
-    parts.push(`total ~$${r.total_price} · ${esc(r.budget.label)}`);
-    let summary = parts.join(': ');
+    $('result-dog').textContent = data.breed || 'your dog';
+    let summary = `${data.weight_lbs} lb, ${data.chest} inch chest, ${data.neck} inch neck. Total about $${r.total_price}. Budget: ${esc(r.budget.label)}.`;
     if (r.budget.over_budget.length) {
-      summary += `<br><span class="text-amber-700 text-sm">Nothing in the ${r.budget.over_budget.join(' / ')} category fits your dog within this budget, so we picked the most affordable option that fits.</span>`;
+      summary += `<br><span class="text-amber-700 text-sm">No ${r.budget.over_budget.join(' or ')} fits your dog at this budget, so we picked the most affordable one that does.</span>`;
     }
     $('result-summary').innerHTML = summary;
     $('combo').innerHTML = ['harness', 'collar', 'leash']
@@ -223,7 +226,7 @@
     $('extras').innerHTML = r.extras.map(e => productCard(e)).join('');
     show($('extras-wrap'), r.extras.length > 0);
     $('material-note').textContent = r.material_note;
-    $('notes').innerHTML = r.notes.map(n => `<li>${esc(n)}</li>`).join('');
+    $('notes').innerHTML = r.notes.map(n => `<li class="flex gap-2.5"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0"></span><span>${esc(n)}</span></li>`).join('');
     show($('result'));
     icons();
     $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -245,7 +248,7 @@
     show(errorBox, false);
     const button = $('submit-btn');
     button.disabled = true;
-    button.textContent = 'Finding the best gear…';
+    button.textContent = 'Finding the right gear…';
     try {
       const result = await api('/api/recommend', {
         method: 'POST',
@@ -258,7 +261,7 @@
       show(errorBox);
     } finally {
       button.disabled = false;
-      button.textContent = 'Get Recommendation';
+      button.textContent = 'Get my recommendation';
     }
   });
 

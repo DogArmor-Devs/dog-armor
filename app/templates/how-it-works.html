@@ -1,60 +1,52 @@
 {% extends "base.html" %}
+{% from "_macros.html" import cta_band %}
 
-{% block title %}How It Works | DogArmor{% endblock %}
+{% block title %}How it works | DogArmor{% endblock %}
 
 {% block content %}
-<!-- Page background -->
-<div class="bg-gradient-to-b from-[#f3eaff] to-[#7f5bd7] w-full flex justify-center py-8 px-4 min-h-screen">
-  <!-- Centered light purple box -->
-  <section class="w-full max-w-6xl bg-[#f9f4ff] rounded-2xl shadow-md px-6 py-4 mb-6 self-start">
-    <h1 class="text-4xl font-extrabold text-blue-700 text-center mb-6" data-aos="fade-up">How It Works</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<section class="wrap pt-10 md:pt-16 text-center">
+  <h1 class="display text-[44px] sm:text-6xl md:text-[78px] reveal">From one photo to a <em>perfect fit</em></h1>
+  <p class="lede mt-7 max-w-2xl mx-auto reveal">Four short steps, about two minutes, and nothing to sign up for.</p>
+</section>
 
-      <!-- Step 1 -->
-      <div class="bg-white p-6 rounded-xl shadow border border-gray-200" data-aos="fade-up" data-aos-delay="100">
-        <h2 class="text-2xl font-extrabold text-blue-700 mb-3 flex items-center">
-          <i data-lucide="scan-face" class="w-5 h-5 mr-2 text-blue-600"></i>
-          1. Upload a Picture of Your Dog
-        </h2>
-        <p class="text-gray-600">
-          Start by uploading a clear photo of your dog. This helps us understand breed and body structure for accurate recommendations for the best harness.
-        </p>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="bg-white p-6 rounded-xl shadow border border-gray-200" data-aos="fade-up" data-aos-delay="200">
-        <h2 class="text-2xl font-extrabold text-blue-700 mb-3 flex items-center">
-          <i data-lucide="dog" class="w-5 h-5 mr-2 text-blue-600"></i>
-          2. Tell Us About Their Behavior
-        </h2>
-        <p class="text-gray-600">
-          Share your dog’s breed, size, activity level, and temperament — and let us find the perfect gear that keeps them comfy, secure, and ready for every adventure!
-        </p>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="bg-white p-6 rounded-xl shadow border border-gray-200" data-aos="fade-up" data-aos-delay="300">
-        <h2 class="text-2xl font-extrabold text-blue-700 mb-3 flex items-center">
-          <i data-lucide="sparkles" class="w-5 h-5 mr-2 text-blue-600"></i>
-          3. Get Smart Recommendations
-        </h2>
-        <p class="text-gray-600">
-          Our AI picks the perfect collar, harness, and leash combo that’s safe, comfy, and fits your budget — made just for your dog!
-        </p>
-      </div>
-
-      <!-- Step 4 -->
-      <div class="bg-white p-6 rounded-xl shadow border border-gray-200" data-aos="fade-up" data-aos-delay="400">
-        <h2 class="text-2xl font-extrabold text-blue-700 mb-3 flex items-center">
-          <i data-lucide="shopping-bag" class="w-5 h-5 mr-2 text-blue-600"></i>
-          4. View Products &amp; Shop
-        </h2>
-        <p class="text-gray-600">
-          See product details, the size to buy for your dog's measurements, why each item was picked, and links to shop it at Amazon or Chewy.
-        </p>
-      </div>
-
+<section class="wrap mt-16 md:mt-20 grid gap-5 md:grid-cols-2">
+  {% for num, title, text, icon, color, demo in [
+    ('01', 'Upload a photo', 'One clear photo is enough. The model checks that there is a dog in it, then names the breed, or the closest mix of breeds.', 'camera', 'bg-orange-500', [('Labrador Retriever', '91%'), ('Golden Retriever', '3%')]),
+    ('02', 'Check the measurements', 'We estimate weight, neck, chest, belly and back length from the breed and its build. Replace any number with a real one and the rest adjust.', 'ruler', 'bg-emerald-500', [('Chest girth', '30.0 in'), ('Neck', '18.6 in')]),
+    ('03', 'Tell us how you walk', 'Thirteen quick questions about pulling, reactivity, training, activities, climate and how much upkeep you want, plus a budget.', 'activity', 'bg-accent', [('Pulls on the leash', 'Yes'), ('Budget', 'Mid-range')]),
+    ('04', 'Get your combo', 'A harness, collar and leash, each with the reasons it was picked, the size to order, two alternatives and links to Amazon and Chewy.', 'shopping-bag', 'bg-violet-500', [('Harness', 'Ruffwear Front Range'), ('Total', '$87')]),
+  ] %}
+  <article class="panel-soft p-7 md:p-9 flex flex-col reveal">
+    <div class="flex items-center justify-between">
+      <span class="icon-tile {{ color }}"><i data-lucide="{{ icon }}" class="w-5 h-5"></i></span>
+      <span class="font-mono text-sm text-muted">{{ num }}</span>
     </div>
-  </section>
-</div>
+    <h2 class="mt-6 font-serif text-3xl tracking-display">{{ title }}</h2>
+    <p class="mt-3 text-[16px] leading-relaxed text-muted">{{ text }}</p>
+    <div class="mt-auto pt-7">
+      <div class="rounded-xl border border-line bg-canvas divide-y divide-line">
+        {% for label, value in demo %}
+        <div class="flex items-center justify-between px-4 py-2.5 text-sm"><span class="text-body">{{ label }}</span><span class="font-medium text-ink">{{ value }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="section">
+  <div class="wrap grid gap-12 lg:grid-cols-2 lg:items-start">
+    <div class="reveal">
+      <h2 class="display text-4xl md:text-[46px]">What goes into <em>every</em> pick</h2>
+      <p class="lede mt-6 max-w-lg">Each answer adds or removes weight from specific product features. The best scoring item that fits your dog and your budget wins.</p>
+    </div>
+    <div class="flex flex-wrap gap-2.5 reveal">
+      {% for item in ['Breed', 'Build', 'Weight', 'Neck', 'Chest girth', 'Pulling', 'Reactivity', 'Training level', 'Energy', 'Working dog', 'Dog sports', 'Puppy growth', 'Climate', 'Heat sensitivity', 'Hiking', 'Hunting', 'Water', 'Gear upkeep', 'Budget'] %}
+        <span class="chip !text-sm !px-4 !py-2">{{ item }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{{ cta_band() }}
 {% endblock %}

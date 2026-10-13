@@ -2,26 +2,28 @@
 
 {% block title %}Demo | DogArmor{% endblock %}
 
-{% macro yes_no(field, label, tooltip) -%}
-  <div class="py-3 border-b border-gray-100 last:border-0">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-      <p class="text-sm font-medium text-gray-700">
-        {{ label }}
-        {% if tooltip %}<span title="{{ tooltip }}" class="text-gray-400 cursor-help ml-1" aria-label="{{ tooltip }}">❓</span>{% endif %}
-      </p>
+{% macro yes_no(field, label, hint) -%}
+  <div class="q-row">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <p class="q-text">{{ label }}</p>
+        {% if hint %}<p class="q-hint">{{ hint }}</p>{% endif %}
+      </div>
       <div class="seg shrink-0" role="radiogroup" aria-label="{{ label }}">
         <label><input type="radio" name="{{ field }}" value="yes" required><span>Yes</span></label>
         <label><input type="radio" name="{{ field }}" value="no"><span>No</span></label>
       </div>
     </div>
-    {% if tooltip %}<p class="text-xs text-gray-500 mt-1 sm:hidden">{{ tooltip }}</p>{% endif %}
   </div>
 {%- endmacro %}
 
-{% macro choice(field, label, options) -%}
-  <div class="py-3 border-b border-gray-100 last:border-0">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-      <p class="text-sm font-medium text-gray-700">{{ label }}</p>
+{% macro choice(field, label, options, hint=None) -%}
+  <div class="q-row">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <p class="q-text">{{ label }}</p>
+        {% if hint %}<p class="q-hint">{{ hint }}</p>{% endif %}
+      </div>
       <div class="seg shrink-0" role="radiogroup" aria-label="{{ label }}">
         {% for value, text in options %}
           <label><input type="radio" name="{{ field }}" value="{{ value }}" {% if loop.first %}required{% endif %}><span>{{ text }}</span></label>
@@ -32,155 +34,146 @@
 {%- endmacro %}
 
 {% block content %}
-<section class="bg-gradient-to-b from-green-100 to-green-400 min-h-screen">
-  <div class="py-12 md:py-16 px-4 max-w-6xl mx-auto">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-green-700 text-center mb-4 flex items-center justify-center gap-3" data-aos="zoom-in">
-      <i data-lucide="activity" class="w-10 h-10 text-green-700"></i>
-      Try the Recommendation Demo
-    </h1>
-    <p class="text-center text-green-900 max-w-2xl mx-auto mb-10">
-      Upload a photo, confirm your dog's measurements, answer a few questions, and get a harness, collar &amp; leash combo picked for your dog and budget.
-    </p>
+<section class="wrap pt-10 md:pt-16 text-center">
+  <h1 class="display text-[44px] sm:text-6xl md:text-[72px] reveal">Find gear that <em>fits</em></h1>
+  <p class="lede mt-6 max-w-2xl mx-auto reveal">Upload a photo, confirm the measurements, answer a few questions. About two minutes.</p>
+</section>
 
-    <form id="demo-form" class="space-y-6" novalidate>
+<section class="wrap mt-12 md:mt-16 pb-24">
+  <form id="demo-form" class="mx-auto max-w-[900px] space-y-5 scroll-mt-28" novalidate>
 
-      <!-- STEP 1: PHOTO -->
-      <fieldset class="card">
-        <legend class="step"><span class="step-num">1</span> Upload a photo of your dog</legend>
-        <p class="text-sm text-gray-600 mb-4">A clear, side-on or front-facing photo works best. Your photo is analyzed in memory and never stored.</p>
+    <!-- 1. Photo -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">01</span><span class="step-title">Upload a photo</span></legend>
+      <p class="text-[15px] text-muted mb-5">A clear photo of your whole dog works best. It is analyzed in memory and never stored.</p>
 
-        <label for="dog_image" id="dropzone" class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-green-400 rounded-xl p-8 text-center cursor-pointer bg-green-50 hover:bg-green-100 transition">
-          <i data-lucide="upload" class="w-8 h-8 text-green-700"></i>
-          <span class="font-semibold text-green-800">Click to choose a photo or drag it here</span>
-          <span class="text-xs text-gray-500">JPG, PNG or WebP, up to 12 MB</span>
-          <input type="file" name="image" id="dog_image" accept="image/*" class="sr-only">
-        </label>
+      <label for="dog_image" id="dropzone" class="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-gray-300 bg-canvas p-10 text-center cursor-pointer transition hover:border-accent hover:bg-accent-50">
+        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white border border-line text-ink"><i data-lucide="image-up" class="w-5 h-5"></i></span>
+        <span class="mt-1 font-medium text-ink">Choose a photo or drag it here</span>
+        <span class="text-xs text-muted">JPG, PNG or WebP, up to 12 MB</span>
+        <input type="file" name="image" id="dog_image" accept="image/*" class="sr-only">
+      </label>
 
-        <div id="analysis" class="hidden mt-6 grid gap-6 md:grid-cols-[200px_1fr] items-start">
-          <img id="image-preview" alt="Your dog" class="w-48 h-48 object-cover rounded-xl border-4 border-green-500 shadow-md mx-auto">
-          <div>
-            <div id="analysis-loading" class="hidden flex items-center gap-3 text-green-700 font-medium">
-              <i data-lucide="loader" class="w-6 h-6 animate-spin"></i> Analyzing your dog's photo…
-            </div>
-            <div id="analysis-error" class="hidden alert-warn"></div>
-            <div id="analysis-result" class="hidden">
-              <p class="text-sm text-gray-600 mb-2">We think your dog is a…</p>
-              <ul id="breed-list" class="space-y-2"></ul>
-              <p class="text-xs text-gray-500 mt-3">Click a breed to use it instead. Mixed breed? We blend the top matches when estimating size.</p>
-            </div>
+      <div id="analysis" class="hidden mt-6 grid gap-6 md:grid-cols-[180px_1fr] items-start">
+        <img id="image-preview" alt="Your dog" class="w-44 h-44 object-cover rounded-2xl border border-line mx-auto">
+        <div>
+          <div id="analysis-loading" class="hidden flex items-center gap-3 text-ink">
+            <i data-lucide="loader" class="w-5 h-5 animate-spin text-accent"></i> Looking at your dog…
+          </div>
+          <div id="analysis-error" class="hidden alert-warn"></div>
+          <div id="analysis-result" class="hidden">
+            <p class="text-sm text-muted mb-3">Closest breed matches</p>
+            <ul id="breed-list" class="space-y-2"></ul>
+            <p class="text-xs text-muted mt-3">Wrong breed? Pick another one. Mixed breeds blend the top matches.</p>
           </div>
         </div>
-      </fieldset>
+      </div>
+    </fieldset>
 
-      <!-- STEP 2: BODY -->
-      <fieldset class="card">
-        <legend class="step"><span class="step-num">2</span> Information derived from photo of dog</legend>
-        <p class="text-sm text-gray-600 mb-4">
-          Estimated from your photo (breed, build, and typical adult size). If you know your dog's weight or have a tape measure, enter the real numbers for the best fit.
-        </p>
+    <!-- 2. Measurements -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">02</span><span class="step-title">Check the measurements</span></legend>
+      <p class="text-[15px] text-muted mb-6">We estimate these from the breed and its build, not by measuring the photo. If you know a real number, type it in and the rest adjust.</p>
 
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="sm:col-span-2">
-            <label for="breed" class="field-label">Dog Breed</label>
-            <input type="text" name="breed" id="breed" list="breed-options" class="input" placeholder="e.g., Labrador Retriever" autocomplete="off">
-            <datalist id="breed-options">
-              {% for name in breeds %}<option value="{{ name }}">{% endfor %}
-            </datalist>
-          </div>
-
-          {% for field, label, unit, hint in [
-            ('weight_lbs', 'Weight [Estimated from photo unless provided by user input]', 'lbs', 'Your dog\'s current weight.'),
-            ('neck', 'Neck Circumference', 'in', 'Around the neck where a collar sits.'),
-            ('chest', 'Chest Girth', 'in', 'Around the widest part of the ribcage, just behind the front legs. The key harness measurement.'),
-            ('belly', 'Belly Circumference', 'in', 'Around the waist, in front of the hind legs.'),
-            ('back', 'Length of Back', 'in', 'From the base of the neck (withers) to the base of the tail.'),
-          ] %}
-          <div>
-            <label for="{{ field }}" class="field-label flex items-center justify-between gap-2">
-              <span>{{ label }}</span>
-              <span class="badge hidden" data-badge-for="{{ field }}"></span>
-            </label>
-            <div class="relative">
-              <input type="number" name="{{ field }}" id="{{ field }}" class="input pr-12 measure" step="0.5" min="1" inputmode="decimal" {% if field in ('weight_lbs', 'neck', 'chest') %}required{% endif %}>
-              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">{{ unit }}</span>
-            </div>
-            <p class="text-xs text-gray-500 mt-1">{{ hint }}</p>
-          </div>
-          {% endfor %}
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <label for="breed" class="field-label">Breed</label>
+          <input type="text" name="breed" id="breed" list="breed-options" class="input" placeholder="e.g. Labrador Retriever" autocomplete="off">
+          <datalist id="breed-options">
+            {% for name in breeds %}<option value="{{ name }}">{% endfor %}
+          </datalist>
         </div>
-      </fieldset>
 
-      <!-- STEP 3: BEHAVIOR -->
-      <fieldset class="card">
-        <legend class="step"><span class="step-num">3</span> Behavior</legend>
-        {{ yes_no('pulling', 'Do you have problems with your dog pulling on the leash and need a solution?', 'Select "Yes" if you\'re actively trying to reduce pulling.') }}
-        {{ choice('aggression', 'Aggression / reactivity level', [('low', 'Low'), ('moderate', 'Moderate'), ('high', 'High')]) }}
-        {{ choice('training', 'Training level', [('beginner', 'Beginner'), ('intermediate', 'Intermediate'), ('advanced', 'Advanced')]) }}
-        {{ choice('activity', 'Activity level', [('low', 'Low'), ('moderate', 'Moderate'), ('high', 'High')]) }}
-        {{ yes_no('working', 'Is your dog a working/service/protection dog?', 'Guide, police, military, security, emotional support, etc.') }}
-        {{ yes_no('sports', 'Is your dog regularly involved in dog sports?', 'Agility, flyball, bikejoring, etc.') }}
-        {{ yes_no('growing', 'Is your dog still growing (under 6 months old)?', 'Puppies have special fit and adjustability needs.') }}
-      </fieldset>
-
-      <!-- STEP 4: ENVIRONMENT -->
-      <fieldset class="card">
-        <legend class="step"><span class="step-num">4</span> Environment &amp; lifestyle</legend>
-        {{ choice('climate', 'Climate you usually walk in', [('hot', 'Hot'), ('moderate', 'Moderate'), ('cold', 'Cold')]) }}
-        {{ yes_no('heat_sensitive', 'Does your dog overheat easily or live in a hot climate?', 'Yes if your dog regularly lives above 80°F, is flat-faced (e.g. pug, bulldog) or has a thick coat (e.g. chow chow, husky). We\'ll recommend breathable gear.') }}
-        <p id="heat-hint" class="hidden text-xs text-amber-700 -mt-1 mb-2"></p>
-        {{ yes_no('hiking', 'Will you regularly take your dog hiking?', 'For example, on trails, hills, forests, etc.') }}
-        {{ yes_no('hunting', 'Will you regularly take your dog hunting?', 'E.g., upland game, waterfowl, tracking, etc.') }}
-        {{ yes_no('water', 'Does your dog regularly swim or do water activities with its gear on?', 'Swimming, dock diving, paddleboarding, etc.') }}
-        {{ yes_no('cleaning_experience', 'Are you comfortable cleaning and maintaining gear (e.g. conditioning leather)?', 'Some materials need regular maintenance.') }}
-      </fieldset>
-
-      <!-- STEP 5: BUDGET -->
-      <fieldset class="card">
-        <legend class="step"><span class="step-num">5</span> Budget for the full combo</legend>
-        <div class="grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Budget">
-          {% for value, title, desc in [('low', 'Budget', 'Under ~$65 total'), ('medium', 'Mid-range', '~$65–$125 total'), ('high', 'Premium', 'Best gear, no limit')] %}
-          <label class="budget-card">
-            <input type="radio" name="budget" value="{{ value }}" class="sr-only" {% if loop.first %}required{% endif %}>
-            <span class="block font-semibold text-gray-800">{{ title }}</span>
-            <span class="block text-sm text-gray-500">{{ desc }}</span>
+        {% for field, label, unit, hint in [
+          ('weight_lbs', 'Weight', 'lb', 'Current weight.'),
+          ('neck', 'Neck', 'in', 'Where the collar sits.'),
+          ('chest', 'Chest girth', 'in', 'Widest part of the ribcage, just behind the front legs.'),
+          ('belly', 'Belly', 'in', 'Around the waist, in front of the back legs.'),
+          ('back', 'Back length', 'in', 'From the base of the neck to the base of the tail.'),
+        ] %}
+        <div>
+          <label for="{{ field }}" class="field-label flex items-center justify-between gap-2">
+            <span>{{ label }}</span>
+            <span class="badge hidden" data-badge-for="{{ field }}"></span>
           </label>
-          {% endfor %}
+          <div class="relative">
+            <input type="number" name="{{ field }}" id="{{ field }}" class="input pr-12 measure" step="0.5" min="1" inputmode="decimal" {% if field in ('weight_lbs', 'neck', 'chest') %}required{% endif %}>
+            <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-muted">{{ unit }}</span>
+          </div>
+          <p class="text-xs text-muted mt-1.5">{{ hint }}</p>
         </div>
-      </fieldset>
-
-      <div id="form-error" class="hidden alert-warn"></div>
-
-      <button type="submit" id="submit-btn" class="w-full bg-green-600 hover:bg-green-700 text-white text-lg font-semibold py-3 px-4 rounded-xl shadow transition disabled:opacity-60">
-        Get Recommendation
-      </button>
-    </form>
-
-    <!-- RESULTS -->
-    <div id="result" class="hidden mt-10 bg-green-50 border border-green-300 rounded-2xl shadow-lg p-6 md:p-8" tabindex="-1">
-      <h2 class="text-3xl font-extrabold text-green-800 mb-2 flex items-center gap-2">
-        <i data-lucide="paw-print" class="w-8 h-8 text-green-700"></i>
-        Your Dog's Gear Recommendation
-      </h2>
-      <p id="result-summary" class="text-gray-700 mb-6"></p>
-      <div id="combo" class="grid gap-6 lg:grid-cols-3"></div>
-      <div id="extras-wrap" class="hidden mt-8">
-        <h3 class="text-xl font-bold text-green-800 mb-3">Worth adding</h3>
-        <div id="extras" class="grid gap-4 md:grid-cols-2"></div>
+        {% endfor %}
       </div>
-      <div class="mt-8 grid gap-6 md:grid-cols-2">
-        <div class="bg-white rounded-xl p-5 border border-green-200">
-          <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-green-700"></i> Material</h3>
-          <p id="material-note" class="text-gray-700 text-sm"></p>
-        </div>
-        <div class="bg-white rounded-xl p-5 border border-green-200">
-          <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-green-700"></i> Fit &amp; safety notes</h3>
-          <ul id="notes" class="list-disc list-inside text-gray-700 text-sm space-y-1"></ul>
-        </div>
+    </fieldset>
+
+    <!-- 3. Behavior -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">03</span><span class="step-title">Behavior</span></legend>
+      {{ yes_no('pulling', 'Does your dog pull on the leash?', 'Say yes if you want a fix for it.') }}
+      {{ choice('aggression', 'How reactive is your dog around people or dogs?', [('low', 'Low'), ('moderate', 'Some'), ('high', 'High')]) }}
+      {{ choice('training', 'Training level', [('beginner', 'Beginner'), ('intermediate', 'Some'), ('advanced', 'Advanced')]) }}
+      {{ choice('activity', 'Energy level', [('low', 'Low'), ('moderate', 'Medium'), ('high', 'High')]) }}
+      {{ yes_no('working', 'Is it a working, service or protection dog?', 'Guide, police, security or emotional support.') }}
+      {{ yes_no('sports', 'Does it do dog sports?', 'Agility, flyball, canicross and similar.') }}
+      {{ yes_no('growing', 'Is it a puppy that is still growing?', 'Roughly under 6 months.') }}
+    </fieldset>
+
+    <!-- 4. Environment -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">04</span><span class="step-title">Where you walk</span></legend>
+      {{ choice('climate', 'Usual weather', [('hot', 'Hot'), ('moderate', 'Mild'), ('cold', 'Cold')]) }}
+      {{ yes_no('heat_sensitive', 'Does your dog overheat easily?', 'Flat faces, thick coats and regular days above 80°F all count.') }}
+      <p id="heat-hint" class="hidden -mt-2 mb-3 text-xs text-amber-700"></p>
+      {{ yes_no('hiking', 'Do you hike together?', 'Trails, hills, forests.') }}
+      {{ yes_no('hunting', 'Do you hunt together?', 'Upland, waterfowl or tracking.') }}
+      {{ yes_no('water', 'Does your dog swim in its gear?', 'Lakes, docks, paddleboards.') }}
+      {{ yes_no('cleaning_experience', 'Happy to maintain gear?', 'Leather needs conditioning. Nylon just goes in the wash.') }}
+    </fieldset>
+
+    <!-- 5. Budget -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">05</span><span class="step-title">Budget for all three</span></legend>
+      <div class="grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Budget">
+        {% for value, title, desc in [('low', 'Budget', 'Under $65'), ('medium', 'Mid-range', '$65 to $125'), ('high', 'Premium', 'No limit')] %}
+        <label class="budget-card">
+          <input type="radio" name="budget" value="{{ value }}" class="sr-only" {% if loop.first %}required{% endif %}>
+          <span class="block text-sm text-muted">{{ title }}</span>
+          <span class="block mt-1 text-lg font-semibold text-ink">{{ desc }}</span>
+        </label>
+        {% endfor %}
       </div>
-      <p class="text-xs text-gray-500 mt-6">Prices are approximate and links open a search at the retailer. Always check the brand's size chart against your dog's measurements.</p>
-      <button type="button" id="restart" class="mt-6 inline-flex items-center gap-2 text-green-800 font-semibold hover:underline">
-        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Edit answers
-      </button>
+    </fieldset>
+
+    <div id="form-error" class="hidden alert-warn"></div>
+
+    <button type="submit" id="submit-btn" class="btn-accent w-full !py-3.5 !text-base disabled:opacity-60">Get my recommendation</button>
+  </form>
+
+  <!-- Results -->
+  <div id="result" class="hidden mx-auto mt-16 max-w-[1100px] scroll-mt-28" tabindex="-1">
+    <div class="text-center">
+      <p class="chip-accent mx-auto w-fit"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Your recommendation</p>
+      <h2 class="display mt-5 text-4xl md:text-[52px]">Gear picked for <em id="result-dog">your dog</em></h2>
+      <p id="result-summary" class="lede mt-4 max-w-2xl mx-auto"></p>
+    </div>
+    <div id="combo" class="mt-10 grid gap-5 lg:grid-cols-3"></div>
+    <div id="extras-wrap" class="hidden mt-10">
+      <h3 class="text-lg font-semibold text-ink mb-4">Worth adding</h3>
+      <div id="extras" class="grid gap-5 md:grid-cols-2"></div>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      <div class="panel-soft p-6">
+        <h3 class="flex items-center gap-2 font-semibold text-ink"><i data-lucide="layers" class="w-4 h-4 text-accent-700"></i> Material</h3>
+        <p id="material-note" class="mt-2 text-[15px] text-muted"></p>
+      </div>
+      <div class="panel-soft p-6">
+        <h3 class="flex items-center gap-2 font-semibold text-ink"><i data-lucide="shield-check" class="w-4 h-4 text-accent-700"></i> Fit and safety</h3>
+        <ul id="notes" class="mt-2 space-y-2 text-[15px] text-muted"></ul>
+      </div>
+    </div>
+    <p class="text-xs text-muted mt-8 text-center">Prices are approximate. Links open a search at the retailer. Check each brand's size chart against your measurements.</p>
+    <div class="mt-6 text-center">
+      <button type="button" id="restart" class="link-arrow"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Change answers</button>
     </div>
   </div>
 </section>

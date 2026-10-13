@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "_macros.html" import cta_band %}
+
+{% block title %}Company | DogArmor{% endblock %}
+
+{% block content %}
+<section class="wrap pt-10 md:pt-16">
+  <h1 class="display text-[44px] sm:text-6xl md:text-[78px] max-w-4xl reveal">Built for dogs, not <em>size charts</em></h1>
+  <p class="lede mt-7 max-w-2xl reveal">DogArmor started with one question: why is it so hard to find gear that fits? Our answer is a tool that looks at the actual dog before it recommends anything.</p>
+</section>
+
+<section class="section">
+  <div class="wrap grid gap-5 md:grid-cols-3">
+    {% for icon, color, title, text in [
+      ('heart', 'bg-rose-500', 'Comfort comes first', 'A harness that rubs or restricts breathing is worse than none. Fit and safety beat features every time.'),
+      ('eye', 'bg-accent', 'Honest about limits', 'We tell you what came from your photo, what is an estimate, and when a tape measure will do better.'),
+      ('sparkles', 'bg-violet-500', 'Simple to use', 'No account, no sales pitch. Upload a photo, answer a few questions, get a combo you can buy anywhere.'),
+    ] %}
+    <div class="panel-soft p-7 reveal">
+      <span class="icon-tile {{ color }}"><i data-lucide="{{ icon }}" class="w-5 h-5"></i></span>
+      <h2 class="mt-6 text-xl font-medium text-ink">{{ title }}</h2>
+      <p class="mt-2 text-[15px] leading-relaxed text-muted">{{ text }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="bg-[#f2f4f7]">
+  <div class="wrap section">
+    <h2 class="display text-4xl md:text-6xl reveal">The <em>team</em></h2>
+    <p class="lede mt-5 max-w-xl reveal">Two co-founders who split the work between what you see and what runs underneath.</p>
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {% for name, photo, role, bio, quote, email, linkedin in [
+        ('Vihaan Kesharwani', 'vihaan-museum.jpg', 'Co-founder · Design and frontend', 'Leads the visual design and frontend, and helps build the models.', 'Tech should comfort, not complicate.', 'kesharwanivihaan@gmail.com', 'https://linkedin.com/in/vihaan-k'),
+        ('Anto Francis', 'anto.jpg', 'Co-founder · Models and backend', 'Builds the models and the backend that turns a photo into a recommendation.', 'Creating cool products is useful for others and fun for me, so why not do it?', 'antojason25@gmail.com', 'https://linkedin.com/in/anto-francis-csmajor/'),
+      ] %}
+      <article class="panel-soft p-7 md:p-8 flex flex-col sm:flex-row gap-6 reveal">
+        <img src="{{ url_for('static', filename=photo) }}" alt="{{ name }}" class="h-28 w-28 rounded-2xl object-cover shrink-0" loading="lazy">
+        <div>
+          <h3 class="text-xl font-semibold text-ink">{{ name }}</h3>
+          <p class="text-sm text-accent-700">{{ role }}</p>
+          <p class="mt-3 text-[15px] leading-relaxed text-muted">{{ bio }}</p>
+          <p class="mt-4 font-serif text-xl italic text-ink">“{{ quote }}”</p>
+          <div class="mt-5 flex gap-2">
+            <a href="mailto:{{ email }}" class="buy-link"><i data-lucide="mail" class="w-3.5 h-3.5"></i> Email</a>
+            <a href="{{ linkedin }}" target="_blank" rel="noopener" class="buy-link"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i> LinkedIn</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{{ cta_band(title='Try it on <em>your</em> dog') }}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "_macros.html" import cta_band, faq_list %}
+
+{% block title %}FAQ | DogArmor{% endblock %}
+
+{% block content %}
+<section class="wrap pt-10 md:pt-16 pb-24 grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+  <div class="reveal lg:sticky lg:top-32 self-start">
+    <h1 class="display text-5xl md:text-[64px]">Can it do <em>that</em>?</h1>
+    <p class="lede mt-6 max-w-sm">Straight answers about how DogArmor works, what it knows and what it doesn't.</p>
+    <a href="mailto:dogarmorteam@gmail.com" class="link-arrow mt-8">Ask us anything else <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+  </div>
+  {{ faq_list(faq) }}
+</section>
+
+{{ cta_band() }}
+{% endblock %}

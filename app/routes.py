@@ -1,6 +1,6 @@
 import logging
 
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 from PIL import Image, UnidentifiedImageError
 
 from src.features.breed_predictor import PROFILES, PROFILES_BY_NAME, estimate_body, measurements_for_weight, predictor
@@ -16,11 +16,34 @@ def error(message, status=400):
     return jsonify({"status": "error", "message": message}), status
 
 
+FAQ = [
+    ("How accurate is the breed recognition?",
+     "On everyday photos it names the exact breed about four times in five, and the right breed is in its top three 97% of the time. "
+     "If it picks wrong, choose the right breed from the list and everything updates."),
+    ("Does it measure my dog from the photo?",
+     "Not directly. A single photo has no sense of scale, so a close-up Chihuahua and a distant Great Dane can look the same size. "
+     "We recognize the breed and build, then estimate measurements from typical adult sizes. "
+     "If you have a tape measure, enter the real numbers and every size recalculates."),
+    ("My dog is a mix. Will it still work?",
+     "Yes. When the photo looks like more than one breed, we blend the closest matches to estimate size. You can also type in the breed or measurements yourself."),
+    ("Do you sell the gear?",
+     "No. Each pick links to Amazon and Chewy so you can check the current price and buy wherever you like."),
+    ("What happens to my photo?",
+     "It is analyzed in memory and discarded as soon as the result comes back. We never store it."),
+    ("My puppy is still growing. What should I get?",
+     "Tell us in the questions and we favor gear with more adjustment. Re-measure every two or three weeks and size up when straps run out of room."),
+    ("Why did it pick a harness over a collar?",
+     "Harnesses spread pressure across the chest instead of the throat. For pullers, small dogs and flat-faced breeds we always attach the leash to the harness and treat the collar as an ID tag holder."),
+    ("Are the prices exact?",
+     "No, they are typical street prices and change often. Use the retailer links to see what it costs today."),
+]
+
+
 # -- PAGE ROUTES --
 
 @main.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", faq=FAQ)
 
 
 @main.route("/demo")
@@ -28,29 +51,32 @@ def demo():
     return render_template("demo.html", breeds=sorted(p["name"] for p in PROFILES.values()))
 
 
-@main.route("/features")
-def features():
-    return render_template("features.html")
-
-
 @main.route("/how-it-works")
 def how_it_works():
     return render_template("how-it-works.html")
 
 
-@main.route("/why-us")
-def why_us():
-    return render_template("why-us.html")
+@main.route("/company")
+def company():
+    return render_template("company.html")
 
 
+@main.route("/faq")
+def faq():
+    return render_template("faq.html", faq=FAQ)
+
+
+# Old URLs from the previous site.
 @main.route("/about")
-def about():
-    return render_template("about.html")
-
-
 @main.route("/team")
-def team():
-    return render_template("team.html")
+@main.route("/why-us")
+def old_company_pages():
+    return redirect(url_for("main.company"), 301)
+
+
+@main.route("/features")
+def old_features_page():
+    return redirect(url_for("main.index"), 301)
 
 
 @main.route("/healthz")
