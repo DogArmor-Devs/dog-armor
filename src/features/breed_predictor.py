@@ -9,12 +9,16 @@ tucked bellies, bulldog types have thick necks).
 """
 
 import csv
+import logging
 import math
 import os
 import threading
+import time
 
 import numpy as np
 from PIL import Image, ImageOps
+
+log = logging.getLogger(__name__)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODEL_PATH = os.path.join(ROOT, "models", "breed_classifier.onnx")
@@ -96,6 +100,25 @@ def estimate_body(breeds):
     }
 
 
+def cpu_limit():
+    """CPUs this process may actually use (container cgroup quota, else core count).
+
+    os.cpu_count() reports the host's cores inside a container; sizing the
+    ONNX Runtime thread pool from it oversubscribes a CPU-limited container.
+    """
+    try:
+        with open("/sys/fs/cgroup/cpu.max") as f:
+            quota, period = f.read().split()
+        if quota != "max":
+            return max(1, int(int(quota) / int(period)))
+    except (OSError, ValueError):
+        pass
+    try:
+        return len(os.sched_getaffinity(0))
+    except AttributeError:
+        return os.cpu_count() or 1
+
+
 def preprocess(image):
     """Resize shorter side to 384, center-crop, normalize -> NCHW float32."""
     image = ImageOps.exif_transpose(image).convert("RGB")
@@ -126,12 +149,22 @@ class BreedPredictor:
 
                     options = ort.SessionOptions()
                     options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+                    options.intra_op_num_threads = int(os.environ.get("ORT_THREADS") or min(cpu_limit(), 8))
+                    options.inter_op_num_threads = 1
                     self._session = ort.InferenceSession(self.model_path, options, providers=["CPUExecutionProvider"])
+                    log.info("ONNX Runtime: %d intra-op threads (cpu_count=%s, cpu_limit=%d)",
+                             options.intra_op_num_threads, os.cpu_count(), cpu_limit())
         return self._session
 
     def analyze(self, image, top_k=3):
         """Return breed guesses, a dog-presence score and a body estimate."""
-        probs = self.session.run(None, {"image": preprocess(image)})[0][0]
+        session = self.session
+        start = time.perf_counter()
+        batch = preprocess(image)
+        prepped = time.perf_counter()
+        probs = session.run(None, {"image": batch})[0][0]
+        log.info("analyze timing: preprocess %.0f ms, inference %.0f ms",
+                 (prepped - start) * 1000, (time.perf_counter() - prepped) * 1000)
         dog_score = float(probs[CANID_RANGE.start:CANID_RANGE.stop].sum())
 
         breed_probs = {idx: float(probs[idx]) for idx in PROFILES}
