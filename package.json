@@ -1,0 +1,12 @@
+{
+  "name": "dog-armor",
+  "private": true,
+  "description": "Builds the Tailwind stylesheet for the Flask templates.",
+  "scripts": {
+    "build:css": "tailwindcss -i app/static/css/input.css -o app/static/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i app/static/css/input.css -o app/static/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

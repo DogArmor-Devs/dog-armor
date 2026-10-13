@@ -1,0 +1,45 @@
+/* Source for app/static/css/tailwind.css. Rebuild with: npm run build:css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2563eb;
+}
+
+[x-cloak] { display: none !important; }
+
+/* AOS slide-in animations start off-screen; don't let them cause sideways scrolling. */
+html, body { overflow-x: clip; }
+
+@layer components {
+  .card { @apply bg-white p-6 md:p-8 rounded-2xl border border-gray-200 shadow-md; }
+  .step { @apply flex items-center gap-3 text-xl font-bold text-green-800 mb-4 px-1; }
+  .step-num { @apply inline-flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-base; }
+  .field-label { @apply block text-sm font-medium text-gray-700 mb-1; }
+  .input { @apply block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none; }
+  .badge { @apply text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap; }
+  .badge-est { @apply bg-green-100 text-green-800; }
+  .badge-user { @apply bg-blue-100 text-blue-800; }
+  .alert-warn { @apply rounded-lg bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 text-sm; }
+
+  .seg { @apply inline-flex rounded-lg border border-gray-300 overflow-hidden; }
+  .seg label { @apply cursor-pointer; }
+  .seg label + label { @apply border-l border-gray-300; }
+  .seg input { @apply sr-only; }
+  .seg span { @apply block px-4 py-1.5 text-sm text-gray-700 select-none transition; }
+  .seg label:hover span { @apply bg-gray-50; }
+  .seg input:checked + span { @apply bg-green-600 text-white; }
+  .seg input:focus-visible + span { @apply ring-2 ring-inset ring-green-300; }
+  .is-missing { @apply ring-2 ring-amber-400 rounded-lg; }
+
+  .budget-card { @apply block cursor-pointer rounded-xl border-2 border-gray-200 p-4 transition hover:border-green-400; }
+  .budget-card:has(input:checked) { @apply border-green-600 bg-green-50; }
+  .budget-card:has(input:focus-visible) { @apply ring-2 ring-green-300; }
+
+  .breed-choice { @apply w-full text-left rounded-lg border border-gray-200 px-3 py-2 hover:border-green-400 transition; }
+  .breed-choice.is-active { @apply border-green-600 bg-green-50; }
+  #dropzone.is-drag { @apply bg-green-100 border-green-600; }
+
+  .buy-link { @apply inline-flex items-center gap-1 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-1.5 transition; }
+}

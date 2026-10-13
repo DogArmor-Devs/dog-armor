@@ -1,14 +1,11 @@
 __pycache__/
 *.pyc
 .env
+.venv/
+venv/
+.pytest_cache/
+node_modules/
+.DS_Store
 
-# Ignore Stanford Dogs dataset images and folders
-data/
-
-
-# Ignore
-..bfg-report/
-
-
-# Ignore models
-model/
+# Raw training images (Stanford Dogs dataset) if downloaded locally
+data/stanford-dogs/

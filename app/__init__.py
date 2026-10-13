@@ -1,51 +1,42 @@
-import os
 import logging
-import pandas as pd
-from flask import Flask
-from torchvision.models import resnet50
-from src.features.breed_predictor import BREED_LABELS
+import os
+
+from flask import Flask, jsonify, render_template, request
+
+MAX_UPLOAD_MB = 12
+
 
 def create_app():
-    app = Flask(__name__, static_folder='static', template_folder='templates')
+    app = Flask(__name__, static_folder="static", template_folder="templates")
+    app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_MB * 1024 * 1024
+    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 60 * 60 * 24 * 7
+    app.json.sort_keys = False
 
-    # Upload folder setup
-    UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
-    # Logging
-    logging.basicConfig(filename='gear_requests.log', level=logging.INFO)
+    from app.routes import main
+    app.register_blueprint(main)
 
-    # Load gear CSV
-    app.gear_data = pd.read_csv('gear_data.csv')
+    @app.errorhandler(413)
+    def too_large(_):
+        return jsonify({"status": "error", "message": f"Image is too large (max {MAX_UPLOAD_MB} MB)."}), 413
 
-    # Load trained model
-    MODEL_PATH = 'models/retrained_models/breed_classifier.pth'
-    app.model = None
-    app.device = None
-    app.breed_labels = BREED_LABELS
+    @app.errorhandler(404)
+    def not_found(_):
+        if request.path.startswith("/api/"):
+            return jsonify({"status": "error", "message": "Not found"}), 404
+        return render_template("404.html"), 404
 
-    try:
-        import torch
-        from torchvision import models
-        if os.path.exists(MODEL_PATH):
-            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            model = models.resnet50(pretrained=False)
-            model.fc = torch.nn.Linear(model.fc.in_features, len(BREED_LABELS))
-            model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
-            model.to(device)
-            model.eval()
-            app.device = device
-            app.model = model
-            app.logger.info("Model loaded successfully!")
-        else:
-            app.logger.warning(f"Model not found at {MODEL_PATH}")
-    except Exception as e:
-        app.logger.error(f"Error loading model: {e}")
+    # Load the ONNX model at startup so the first visitor doesn't wait for it.
+    if os.environ.get("WARM_MODEL", "1") == "1":
+        from src.features.breed_predictor import predictor
+        try:
+            predictor.session
+            app.logger.info("Breed model loaded")
+        except Exception:
+            app.logger.exception("Could not load breed model; /api/analyze will be unavailable")
 
-    from app.routes import main as main_blueprint
-    app.register_blueprint(main_blueprint)
     return app
 
-app = create_app()
 
+app = create_app()
