@@ -1,0 +1,119 @@
+class_index,name,min_lbs,max_lbs,build,coat,brachycephalic
+151,Chihuahua,3,6,standard,short,no
+152,Japanese Chin,4,11,standard,medium,yes
+153,Maltese,4,7,standard,medium,no
+154,Pekingese,7,14,stocky,thick,yes
+155,Shih Tzu,9,16,standard,thick,yes
+156,Cavalier King Charles Spaniel,13,18,standard,medium,no
+157,Papillon,5,10,standard,medium,no
+158,English Toy Terrier,6,9,standard,short,no
+159,Rhodesian Ridgeback,70,85,standard,short,no
+160,Afghan Hound,50,60,sighthound,thick,no
+161,Basset Hound,40,65,long,short,no
+162,Beagle,20,30,standard,short,no
+163,Bloodhound,80,110,standard,short,no
+164,Bluetick Coonhound,45,80,standard,short,no
+165,Black-and-Tan Coonhound,65,100,standard,short,no
+166,Treeing Walker Coonhound,50,70,standard,short,no
+167,English Foxhound,60,75,standard,short,no
+168,Redbone Coonhound,45,70,standard,short,no
+169,Borzoi,60,105,sighthound,thick,no
+170,Irish Wolfhound,105,180,sighthound,medium,no
+171,Italian Greyhound,7,14,sighthound,thin,no
+172,Whippet,25,40,sighthound,thin,no
+173,Ibizan Hound,45,50,sighthound,short,no
+174,Norwegian Elkhound,48,55,standard,thick,no
+175,Otterhound,80,115,standard,thick,no
+176,Saluki,40,65,sighthound,short,no
+177,Scottish Deerhound,75,110,sighthound,medium,no
+178,Weimaraner,55,90,standard,short,no
+179,Staffordshire Bull Terrier,24,38,stocky,short,no
+180,American Staffordshire Terrier,40,70,stocky,short,no
+181,Bedlington Terrier,17,23,sighthound,medium,no
+182,Border Terrier,11,16,standard,medium,no
+183,Kerry Blue Terrier,33,40,standard,medium,no
+184,Irish Terrier,25,27,standard,medium,no
+185,Norfolk Terrier,11,12,standard,medium,no
+186,Norwich Terrier,11,12,standard,medium,no
+187,Yorkshire Terrier,4,7,standard,medium,no
+188,Wire Fox Terrier,15,19,standard,medium,no
+189,Lakeland Terrier,15,17,standard,medium,no
+190,Sealyham Terrier,20,24,long,medium,no
+191,Airedale Terrier,50,70,standard,medium,no
+192,Cairn Terrier,13,14,standard,medium,no
+193,Australian Terrier,12,14,standard,medium,no
+194,Dandie Dinmont Terrier,18,24,long,medium,no
+195,Boston Terrier,12,25,stocky,short,yes
+196,Miniature Schnauzer,11,20,standard,medium,no
+197,Giant Schnauzer,55,85,standard,medium,no
+198,Standard Schnauzer,30,50,standard,medium,no
+199,Scottish Terrier,18,22,stocky,medium,no
+200,Tibetan Terrier,18,30,standard,thick,no
+201,Silky Terrier,8,10,standard,medium,no
+202,Soft Coated Wheaten Terrier,30,40,standard,medium,no
+203,West Highland White Terrier,15,20,standard,medium,no
+204,Lhasa Apso,12,18,standard,thick,no
+205,Flat-Coated Retriever,60,70,standard,medium,no
+206,Curly-Coated Retriever,60,95,standard,medium,no
+207,Golden Retriever,55,75,standard,thick,no
+208,Labrador Retriever,55,80,standard,short,no
+209,Chesapeake Bay Retriever,55,80,standard,medium,no
+210,German Shorthaired Pointer,45,70,standard,short,no
+211,Vizsla,44,60,standard,short,no
+212,English Setter,45,80,standard,medium,no
+213,Irish Setter,60,70,standard,medium,no
+214,Gordon Setter,45,80,standard,medium,no
+215,Brittany,30,40,standard,medium,no
+216,Clumber Spaniel,55,85,long,medium,no
+217,English Springer Spaniel,40,50,standard,medium,no
+218,Welsh Springer Spaniel,35,55,standard,medium,no
+219,Cocker Spaniel,20,30,standard,medium,no
+220,Sussex Spaniel,35,45,long,medium,no
+221,Irish Water Spaniel,45,68,standard,medium,no
+222,Kuvasz,70,115,standard,thick,no
+223,Schipperke,10,16,standard,thick,no
+224,Belgian Sheepdog,45,75,standard,thick,no
+225,Belgian Malinois,40,80,standard,short,no
+226,Briard,55,100,standard,thick,no
+227,Australian Kelpie,25,45,standard,short,no
+228,Komondor,80,100,standard,thick,no
+229,Old English Sheepdog,60,100,standard,thick,no
+230,Shetland Sheepdog,15,25,standard,thick,no
+231,Collie,50,75,standard,thick,no
+232,Border Collie,30,55,standard,medium,no
+233,Bouvier des Flandres,70,110,standard,thick,no
+234,Rottweiler,80,135,stocky,short,no
+235,German Shepherd,50,90,standard,thick,no
+236,Doberman Pinscher,60,100,standard,short,no
+237,Miniature Pinscher,8,10,standard,short,no
+238,Greater Swiss Mountain Dog,85,140,stocky,short,no
+239,Bernese Mountain Dog,70,115,standard,thick,no
+240,Appenzeller Sennenhund,48,70,standard,short,no
+241,Entlebucher Mountain Dog,40,65,standard,short,no
+242,Boxer,50,80,standard,short,yes
+243,Bullmastiff,100,130,stocky,short,yes
+244,Tibetan Mastiff,70,150,stocky,thick,no
+245,French Bulldog,16,28,stocky,short,yes
+246,Great Dane,110,175,standard,short,no
+247,Saint Bernard,120,180,stocky,thick,no
+248,Eskimo Dog,40,90,standard,thick,no
+249,Alaskan Malamute,75,85,standard,thick,no
+250,Siberian Husky,35,60,standard,thick,no
+251,Dalmatian,45,70,standard,short,no
+252,Affenpinscher,7,10,standard,medium,yes
+253,Basenji,22,24,standard,short,no
+254,Pug,14,18,stocky,short,yes
+255,Leonberger,90,170,standard,thick,no
+256,Newfoundland,100,150,stocky,thick,no
+257,Great Pyrenees,85,160,standard,thick,no
+258,Samoyed,35,65,standard,thick,no
+259,Pomeranian,3,7,standard,thick,no
+260,Chow Chow,45,70,stocky,thick,yes
+261,Keeshond,35,45,standard,thick,no
+262,Brussels Griffon,8,10,standard,medium,yes
+263,Pembroke Welsh Corgi,24,30,long,thick,no
+264,Cardigan Welsh Corgi,25,38,long,thick,no
+265,Toy Poodle,4,6,standard,medium,no
+266,Miniature Poodle,10,15,standard,medium,no
+267,Standard Poodle,40,70,standard,medium,no
+268,Xoloitzcuintli,10,50,standard,hairless,no

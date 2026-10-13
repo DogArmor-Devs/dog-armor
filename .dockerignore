@@ -1,0 +1,17 @@
+.git
+.github
+.vscode
+**/__pycache__
+**/*.pyc
+.pytest_cache
+node_modules
+tests
+*.md
+!README.md
+package.json
+package-lock.json
+tailwind.config.js
+app/static/css/input.css
+src/features/export_onnx.py
+.env
+.DS_Store

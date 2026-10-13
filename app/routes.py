@@ -1,196 +1,123 @@
-import os
 import logging
-from flask import Blueprint, request, jsonify, render_template, current_app
-from werkzeug.utils import secure_filename
-from datetime import datetime
-from torchvision import transforms
-from src.features.breed_predictor import predict_breed
+
+from flask import Blueprint, jsonify, render_template, request
+from PIL import Image, UnidentifiedImageError
+
+from src.features.breed_predictor import PROFILES, PROFILES_BY_NAME, estimate_body, measurements_for_weight, predictor
+from src.features.gear_recommender import ProfileError, parse_profile, recommend
+
+Image.MAX_IMAGE_PIXELS = 40_000_000  # reject decompression bombs
 
 main = Blueprint("main", __name__)
+log = logging.getLogger(__name__)
 
-transform = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-])
+
+def error(message, status=400):
+    return jsonify({"status": "error", "message": message}), status
+
 
 # -- PAGE ROUTES --
 
-@main.route('/')
+@main.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@main.route('/demo')
+
+@main.route("/demo")
 def demo():
-    return render_template('demo.html')
+    return render_template("demo.html", breeds=sorted(p["name"] for p in PROFILES.values()))
 
-@main.route('/features')
+
+@main.route("/features")
 def features():
-    return render_template('features.html')
+    return render_template("features.html")
 
-@main.route('/how-it-works')
+
+@main.route("/how-it-works")
 def how_it_works():
-    return render_template('how-it-works.html')
+    return render_template("how-it-works.html")
 
-@main.route('/why-us')
+
+@main.route("/why-us")
 def why_us():
-    return render_template('why-us.html')
+    return render_template("why-us.html")
 
-@main.route('/about')
+
+@main.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template("about.html")
 
-@main.route('/team')
+
+@main.route("/team")
 def team():
-    return render_template('team.html')
+    return render_template("team.html")
 
-# -- IMAGE UPLOAD --
 
-# -- IMAGE UPLOAD --
+@main.route("/healthz")
+def healthz():
+    return {"status": "ok"}
 
-@main.route('/upload', methods=['POST'])
-def upload_image():
-    # demo.html and /full_recommendation use the form field name "image"
-    if 'image' not in request.files:
-        return jsonify({"status": "error", "message": "No file provided"}), 400
 
-    file = request.files['image']
-    if file.filename == '':
-        return jsonify({"status": "error", "message": "No selected file"}), 400
+# -- API --
 
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
-
+@main.route("/api/analyze", methods=["POST"])
+def analyze():
+    """Photo -> breed guesses, dog-presence check and body measurement estimate."""
+    file = request.files.get("image")
+    if not file or not file.filename:
+        return error("Please choose a photo of your dog.")
     try:
-        # breed_predictor.predict_breed expects just (image_path) in your current code
-        breed_predictions = predict_breed(filepath)
-        # adjust to whatever predict_breed returns — here we assume list of dicts or at least a breed str
-        # if predict_breed returns a single class string, you can change the following accordingly
-        top_breed = breed_predictions[0]["breed"] if isinstance(breed_predictions, (list, tuple)) and breed_predictions else (breed_predictions if isinstance(breed_predictions, str) else "Unknown")
-        logging.info(f"[{datetime.now()}] Uploaded {filename} - Top breed: {top_breed}")
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+        image = Image.open(file.stream)
+        image.draft("RGB", (768, 768))  # fast JPEG downscale on decode
+        result = predictor.analyze(image)
+    except (UnidentifiedImageError, Image.DecompressionBombError, OSError):
+        return error("That file doesn't look like a supported image (try JPG, PNG or WebP).")
+    except Exception:
+        log.exception("Breed analysis failed")
+        return error("We couldn't analyze that photo. Please try another one.", 500)
 
-    return jsonify({
-        "status": "success",
-        "message": "Image uploaded",
-        "file_path": filepath,
-        "breed": top_breed,
-        "breed_predictions": breed_predictions
-    })
+    log.info("analyze: top=%s dog_score=%.2f", result["breeds"][0]["name"], result["dog_score"])
+    return jsonify({"status": "success", **result})
 
-# -- FORM & BEHAVIOR ROUTES --
 
-@main.route('/recommend', methods=['POST'])
-def recommend_gear():
-    data = request.get_json()
-    gear_data = current_app.gear_data
-
-    breed = data.get("breed", "").lower()
-    weight = data.get("weight", "").lower()
-    neck = data.get("neck_circumference", "").lower()
-    pull = data.get("pull", "").lower()
-    budget = data.get("budget", "").lower()
-
-    filtered = gear_data[
-        (gear_data["breed"].str.lower().str.contains(breed, na=False)) |
-        (gear_data["weight"].str.lower().str.contains(weight, na=False)) |
-        (gear_data["neck_circumference"].str.lower().str.contains(neck, na=False)) |
-        (gear_data["pull"].str.lower().str.contains(pull, na=False)) |
-        (gear_data["budget"].str.lower().str.contains(budget, na=False))
-    ]
-
-    if filtered.empty:
-        recommendation = gear_data.sample(1).to_dict(orient="records")[0]
+@main.route("/api/estimate")
+def estimate():
+    """Body estimate for a chosen breed, or for a known weight (+ optional breed build)."""
+    profile = PROFILES_BY_NAME.get(request.args.get("breed", "").strip().lower())
+    weight = request.args.get("weight", type=float)
+    if weight is not None:
+        if not 1 <= weight <= 250:
+            return error("Weight must be between 1 and 250 lbs.")
+        build = profile["build"] if profile else "standard"
+        result = {"weight_lbs": weight, "build": build, "measurements": measurements_for_weight(weight, build)}
+    elif profile:
+        result = estimate_body([(profile, 1.0)])
     else:
-        recommendation = filtered.sample(1).to_dict(orient="records")[0]
+        return error("Unknown breed. Pick one from the list or enter your dog's weight.")
+    traits = {k: profile[k] for k in ("brachycephalic", "coat", "build")} if profile else None
+    return jsonify({"status": "success", "estimate": result, "traits": traits})
 
-    logging.info(f"[{datetime.now()}] /recommend requested with data: {data}")
 
-    return jsonify({"recommendations": recommendation, "input": data})
+@main.route("/api/recommend", methods=["POST"])
+def recommend_gear():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return error("Expected a JSON body.")
 
-@main.route('/behavior-gear', methods=['POST'])
-def recommend_behavior_gear():
-    data = request.get_json()
-    activity = data.get("activity_level", "").lower()
-    aggression = data.get("aggression_level", "").lower()
-    climate = data.get("climate", "").lower()
-
-    if not activity or not aggression or not climate:
-        return jsonify({"status": "error", "message": "Missing behavior inputs"}), 400
-
-    gear = behavior_based_recommendation(activity, aggression, climate)
-
-    return jsonify({"status": "success", "recommendations": gear, "input": data})
-
-@main.route('/full_recommendation', methods=['POST'])
-def full_recommendation():
-    image_file = request.files.get('image')
-    if not image_file:
-        return jsonify({'status': 'error', 'message': 'No image provided'}), 400
-
-    filename = secure_filename(image_file.filename)
-    image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-    image_file.save(image_path)
-
+    # Breed traits come from our profile table, not the client, when we know the breed.
+    known = PROFILES_BY_NAME.get(str(data.get("breed", "")).strip().lower())
+    if known:
+        data = {**data, "brachycephalic": known["brachycephalic"], "build": known["build"]}
     try:
-        breed_predictions = predict_breed(image_path)
-    except Exception as e:
-        return jsonify({'status': 'error', 'message': f'Breed prediction failed: {str(e)}'}), 500
+        profile = parse_profile(data)
+    except ProfileError as exc:
+        return error(str(exc))
 
-    activity = request.form.get('activity_level', '').lower()
-    aggression = request.form.get('aggression_level', '').lower()
-    climate = request.form.get('climate', '').lower()
-    water_activities = request.form.get('water_activities_yn', '').lower()
-    heat_sensitive = request.form.get('heat_sensitive_yn', '').lower()
+    result = recommend(profile)
+    log.info("recommend: breed=%s budget=%s total=%s", profile["breed"], profile["budget"], result["total_price"])
+    return jsonify({"status": "success", **result})
 
-    material_note = get_material_note(activity, water_activities, heat_sensitive)
-    gear = behavior_based_recommendation(activity, aggression, climate)
-    gear['material_note'] = material_note
 
-    return jsonify({
-        'status': 'success',
-        'top_breeds': breed_predictions,
-        'gear_recommendation': gear
-    })
-
-# -- SUPPORT FUNCTIONS --
-
-def get_material_note(activity, water, heat_sensitive):
-    if heat_sensitive == "yes":
-        return "Mesh: Lightweight and breathable, ideal for hot weather or dogs prone to overheating."
-    if water == 'yes':
-        return "Neoprene: Cushioned and sweet for sensitive skin and water activities."
-    if activity == 'high':
-        return "Nylon: Durable, lightweight, and great for active dogs."
-    return "Nylon: Durable and affordable."
-
-def behavior_based_recommendation(activity, aggression, climate):
-    collar = "standard padded collar"
-    harness = "basic walking harness"
-    leash = "standard leash"
-
-    if aggression == "high":
-        collar = "martingale collar"
-        leash = "double-handle leash"
-    elif activity == "moderate":
-        leash = "reinforced leash"
-
-    if activity == "high":
-        harness = "Y-front harness with chest padding"
-        leash = "shock-absorbing bungee leash"
-    elif activity == "low":
-        harness = "relaxed-fit harness"
-
-    if climate == "hot":
-        harness = "breathable mesh harness"
-    elif climate == "cold":
-        harness = "padded insulated harness"
-
-    return {"collar": collar, "harness": harness, "leash": leash}
-
-# -- ERROR HANDLER --
-
-@main.errorhandler(404)
-def page_not_found(e):
-    return "Page not found", 404
+@main.route("/api/breeds")
+def breeds():
+    return jsonify(sorted(p["name"] for p in PROFILES.values()))
