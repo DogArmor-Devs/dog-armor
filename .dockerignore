@@ -15,3 +15,4 @@ app/static/css/input.css
 src/features/export_onnx.py
 .env
 .DS_Store
+.railway

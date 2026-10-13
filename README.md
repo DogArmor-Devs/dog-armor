@@ -108,7 +108,9 @@ To regenerate the model file (needs `torch torchvision onnx onnxscript`): `pytho
 
 ### Deploying to Railway
 
-The repo ships with a `Dockerfile` and `railway.json` (health check on `/healthz`). In Railway: **New Project → Deploy from GitHub repo → DogArmor-Devs/dog-armor**, then **Settings → Networking → Generate Domain**. Every push to `main` redeploys.
+Production runs on Railway from the `Dockerfile` (gunicorn, health check on `/healthz`). Service settings live in code in `.railway/railway.ts` (Railway Infrastructure as Code): preview changes with `railway config plan` and apply them with `railway config apply`. The `PORT=8080` variable is set in the Railway dashboard.
+
+To deploy the current code manually: `railway up --service web`. Pushes to `main` redeploy automatically once the Railway GitHub App is installed on the DogArmor-Devs organization.
 
 ### Project layout
 
