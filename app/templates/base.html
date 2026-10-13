@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>{% block title %}DogArmor{% endblock %}</title>
   <meta name="description" content="{% block description %}DogArmor picks the harness, collar and leash that fit your dog, from one photo and a few questions about how you walk.{% endblock %}">
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32.png') }}">
+  <link rel="icon" type="image/png" sizes="384x384" href="{{ url_for('static', filename='dog-armor.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
@@ -55,7 +57,7 @@
     <div class="wrap pt-20 md:pt-24">
       <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div class="max-w-sm">
-          {{ logo(size='lg') }}
+          {{ logo(size='lg', tone='light') }}
           <p class="mt-6 text-[17px] leading-relaxed text-gray-400">Gear that fits the dog you actually have. Picked from one photo and a few honest answers.</p>
           <p class="mt-6 flex items-center gap-2 text-sm text-gray-300"><i data-lucide="shield-check" class="w-4 h-4"></i> Photos are analyzed in memory, never stored</p>
           <div class="mt-8 flex gap-3">

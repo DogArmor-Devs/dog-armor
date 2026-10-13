@@ -1,15 +1,8 @@
-{% macro logo(size='md', tone='accent') -%}
-  {%- set box = 'w-7 h-7' if size == 'md' else 'w-9 h-9' -%}
+{% macro logo(size='md', tone='dark') -%}
+  {%- set box = 'w-9 h-9' if size == 'md' else 'w-12 h-12' -%}
   {%- set text = 'text-[19px]' if size == 'md' else 'text-[26px]' -%}
-  <span class="inline-flex items-center gap-2 font-semibold tracking-tight {{ text }} {{ 'text-accent' if tone == 'accent' else 'text-white' }}">
-    <svg class="{{ box }}" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 1.8 20.4 5v6.3c0 5.2-3.6 9.5-8.4 10.9-4.8-1.4-8.4-5.7-8.4-10.9V5Z" fill="currentColor"/>
-      <g fill="#fff">
-        <ellipse cx="12" cy="13.6" rx="2.9" ry="2.4"/>
-        <circle cx="8.4" cy="10.4" r="1.25"/><circle cx="10.6" cy="8.4" r="1.25"/>
-        <circle cx="13.4" cy="8.4" r="1.25"/><circle cx="15.6" cy="10.4" r="1.25"/>
-      </g>
-    </svg>
+  <span class="inline-flex items-center gap-2 font-semibold tracking-tight {{ text }} {{ 'text-ink' if tone == 'dark' else 'text-white' }}">
+    <img src="{{ url_for('static', filename='dog-armor.png') }}" alt="" class="{{ box }} object-contain" width="48" height="48">
     DogArmor
   </span>
 {%- endmacro %}
