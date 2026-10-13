@@ -7,6 +7,8 @@
   const MEASURES = ['weight_lbs', 'neck', 'chest', 'belly', 'back'];
   const YES_NO = ['pulling', 'working', 'sports', 'growing', 'heat_sensitive', 'hiking', 'hunting', 'water', 'cleaning_experience'];
   const CHOICES = ['aggression', 'training', 'activity', 'climate', 'budget'];
+  const GEAR = ['harness', 'collar', 'leash'];
+  const budgetCaps = JSON.parse(document.querySelector('[data-caps]').dataset.caps);
   const edited = new Set();   // measurement fields the user typed themselves
   let traits = null;
 
@@ -86,6 +88,24 @@
   }
   breedInput.addEventListener('change', refreshFromBreed);
 
+  // ---------- gear choice and budget ----------
+  const selectedGear = () => GEAR.filter(g => form.querySelector(`input[name="gear"][value="${g}"]`).checked);
+  const joinGear = list => list.length < 3 ? list.join(' and ') : `${list.slice(0, -1).join(', ')}, and ${list[list.length - 1]}`;
+
+  function updateBudget() {
+    const gear = selectedGear();
+    const counted = gear.length ? gear : GEAR;
+    const total = tier => counted.reduce((sum, g) => sum + budgetCaps[tier][g], 0);
+    $('budget-title').textContent = gear.length ? `Budget for ${joinGear(gear)}` : 'Budget';
+    $('budget-hint').textContent = gear.length === 0
+      ? 'Pick your gear in step 1 to see ranges for it.'
+      : gear.length === 1 ? `Price range for the ${gear[0]}.` : `Price range for the ${joinGear(gear)} together.`;
+    document.querySelector('[data-tier-label="low"]').textContent = `Under $${total('low')}`;
+    document.querySelector('[data-tier-label="medium"]').textContent = `$${total('low')} to $${total('medium')}`;
+  }
+  form.querySelectorAll('input[name="gear"]').forEach(input => input.addEventListener('change', updateBudget));
+  updateBudget();
+
   // ---------- photo analysis ----------
   function renderBreeds(breeds, isDog) {
     const list = $('breed-list');
@@ -152,8 +172,9 @@
 
   // ---------- submit ----------
   function collect() {
-    const data = { breed: breedInput.value.trim() };
+    const data = { breed: breedInput.value.trim(), gear: selectedGear() };
     const missing = [];   // elements to highlight
+    if (!data.gear.length) missing.push($('gear-group'));
     for (const field of MEASURES) {
       const value = $(field).value;
       if (value !== '') data[field] = parseFloat(value);

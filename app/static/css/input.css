@@ -97,6 +97,12 @@
   .budget-card:has(input:checked) { @apply border-ink ring-1 ring-ink; }
   .budget-card:has(input:focus-visible) { @apply ring-2 ring-accent; }
 
+  .gear-card { @apply block cursor-pointer rounded-2xl border border-line bg-white p-5 transition hover:border-gray-300; }
+  .gear-card:has(input:checked) { @apply border-ink ring-1 ring-ink; }
+  .gear-card:has(input:focus-visible) { @apply ring-2 ring-accent; }
+  .gear-check { @apply flex h-6 w-6 items-center justify-center rounded-full border border-line text-transparent transition; }
+  .gear-card:has(input:checked) .gear-check { @apply border-ink bg-ink text-white; }
+
   .breed-choice { @apply w-full text-left rounded-xl border border-line bg-white px-4 py-3 transition hover:border-gray-300; }
   .breed-choice.is-active { @apply border-accent ring-4 ring-accent-50; }
   #dropzone.is-drag { @apply border-accent bg-accent-50; }

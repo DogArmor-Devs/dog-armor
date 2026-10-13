@@ -11,10 +11,10 @@
 
 <section class="wrap mt-16 md:mt-20 grid gap-5 md:grid-cols-2">
   {% for num, title, text, icon, color, demo in [
-    ('01', 'Upload a photo', 'One clear photo is enough. The model checks that there is a dog in it, then names the breed, or the closest mix of breeds.', 'camera', 'bg-orange-500', [('Labrador Retriever', '91%'), ('Golden Retriever', '3%')]),
+    ('01', 'Pick your gear, add a photo', 'Choose a harness, collar, leash or any mix. Then one clear photo: the model checks there is a dog in it and names the breed, or the closest mix.', 'camera', 'bg-orange-500', [('Gear', 'Harness, collar, leash'), ('Breed', 'Labrador Retriever 91%')]),
     ('02', 'Check the measurements', 'We estimate weight, neck, chest, belly and back length from the breed and its build. Replace any number with a real one and the rest adjust.', 'ruler', 'bg-emerald-500', [('Chest girth', '30.0 in'), ('Neck', '18.6 in')]),
-    ('03', 'Tell us how you walk', 'Thirteen quick questions about pulling, reactivity, training, activities, climate and how much upkeep you want, plus a budget.', 'activity', 'bg-accent', [('Pulls on the leash', 'Yes'), ('Budget', 'Mid-range')]),
-    ('04', 'Get your combo', 'A harness, collar and leash, each with the reasons it was picked, the size to order, two alternatives and links to Amazon and Chewy.', 'shopping-bag', 'bg-violet-500', [('Harness', 'Ruffwear Front Range'), ('Total', '$87')]),
+    ('03', 'Tell us how you walk', 'Thirteen quick questions about pulling, reactivity, training, activities, climate and how much upkeep you want, plus a budget for the gear you picked.', 'activity', 'bg-accent', [('Pulls on the leash', 'Yes'), ('Budget', 'Mid-range')]),
+    ('04', 'Get your picks', 'Only the gear you asked for, each with the reasons it was picked, the size to order, two alternatives and links to Amazon and Chewy.', 'shopping-bag', 'bg-violet-500', [('Harness', 'Ruffwear Front Range'), ('Total', '$87')]),
   ] %}
   <article class="panel-soft p-7 md:p-9 flex flex-col reveal">
     <div class="flex items-center justify-between">
@@ -41,7 +41,7 @@
       <p class="lede mt-6 max-w-lg">Each answer adds or removes weight from specific product features. The best scoring item that fits your dog and your budget wins.</p>
     </div>
     <div class="flex flex-wrap gap-2.5 reveal">
-      {% for item in ['Breed', 'Build', 'Weight', 'Neck', 'Chest girth', 'Pulling', 'Reactivity', 'Training level', 'Energy', 'Working dog', 'Dog sports', 'Puppy growth', 'Climate', 'Heat sensitivity', 'Hiking', 'Hunting', 'Water', 'Gear upkeep', 'Budget'] %}
+      {% for item in ['Gear choice', 'Breed', 'Build', 'Weight', 'Neck', 'Chest girth', 'Pulling', 'Reactivity', 'Training level', 'Energy', 'Working dog', 'Dog sports', 'Puppy growth', 'Climate', 'Heat sensitivity', 'Hiking', 'Hunting', 'Water', 'Gear upkeep', 'Budget'] %}
         <span class="chip !text-sm !px-4 !py-2">{{ item }}</span>
       {% endfor %}
     </div>

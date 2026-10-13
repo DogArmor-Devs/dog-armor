@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, redirect, render_template, request, url_fo
 from PIL import Image, UnidentifiedImageError
 
 from src.features.breed_predictor import PROFILES, PROFILES_BY_NAME, estimate_body, measurements_for_weight, predictor
-from src.features.gear_recommender import ProfileError, parse_profile, recommend
+from src.features.gear_recommender import BUDGETS, CATEGORIES, ProfileError, parse_profile, recommend
 
 Image.MAX_IMAGE_PIXELS = 40_000_000  # reject decompression bombs
 
@@ -26,6 +26,8 @@ FAQ = [
      "If you have a tape measure, enter the real numbers and every size recalculates."),
     ("My dog is a mix. Will it still work?",
      "Yes. When the photo looks like more than one breed, we blend the closest matches to estimate size. You can also type in the breed or measurements yourself."),
+    ("Can I get just a harness, or just a leash?",
+     "Yes. Pick the gear you want in the first step of the demo. The budget ranges and the recommendation only cover what you chose."),
     ("Do you sell the gear?",
      "No. Each pick links to Amazon and Chewy so you can check the current price and buy wherever you like."),
     ("What happens to my photo?",
@@ -48,7 +50,8 @@ def index():
 
 @main.route("/demo")
 def demo():
-    return render_template("demo.html", breeds=sorted(p["name"] for p in PROFILES.values()))
+    caps = {tier: {c: BUDGETS[tier][c] for c in CATEGORIES} for tier in ("low", "medium")}
+    return render_template("demo.html", breeds=sorted(p["name"] for p in PROFILES.values()), budget_caps=caps)
 
 
 @main.route("/how-it-works")

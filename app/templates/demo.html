@@ -36,15 +36,38 @@
 {% block content %}
 <section class="wrap pt-10 md:pt-16 text-center">
   <h1 class="display text-[44px] sm:text-6xl md:text-[72px] reveal">Find gear that <em>fits</em></h1>
-  <p class="lede mt-6 max-w-2xl mx-auto reveal">Upload a photo, confirm the measurements, answer a few questions. About two minutes.</p>
+  <p class="lede mt-6 max-w-2xl mx-auto reveal">Choose your gear, upload a photo, answer a few questions. About two minutes.</p>
 </section>
 
 <section class="wrap mt-12 md:mt-16 pb-24">
   <form id="demo-form" class="mx-auto max-w-[900px] space-y-5 scroll-mt-28" novalidate>
 
-    <!-- 1. Photo -->
+    <!-- 1. Gear -->
     <fieldset class="step-card">
-      <legend class="step"><span class="step-num">01</span><span class="step-title">Upload a photo</span></legend>
+      <legend class="step"><span class="step-num">01</span><span class="step-title">What gear are you looking for?</span></legend>
+      <p class="text-[15px] text-muted mb-5">Pick one or more. We only recommend, and budget for, what you choose.</p>
+      <div id="gear-group" class="grid gap-3 sm:grid-cols-3" role="group" aria-label="Gear">
+        {% for value, title, text, icon, color in [
+          ('harness', 'Harness', 'Clips around the chest. The best way to steer and stop pulling.', 'shield', 'bg-orange-500'),
+          ('collar', 'Collar', 'Holds ID tags. Some double as gentle training tools.', 'circle-dashed', 'bg-emerald-500'),
+          ('leash', 'Leash', 'Length, grip and stretch matched to how you walk.', 'link', 'bg-accent'),
+        ] %}
+        <label class="gear-card">
+          <input type="checkbox" name="gear" value="{{ value }}" class="sr-only">
+          <span class="flex items-center justify-between">
+            <span class="icon-tile !w-9 !h-9 !rounded-lg {{ color }}"><i data-lucide="{{ icon }}" class="w-4 h-4"></i></span>
+            <span class="gear-check"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
+          </span>
+          <span class="mt-4 block text-lg font-semibold text-ink">{{ title }}</span>
+          <span class="mt-1 block text-sm text-muted">{{ text }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <!-- 2. Photo -->
+    <fieldset class="step-card">
+      <legend class="step"><span class="step-num">02</span><span class="step-title">Upload a photo</span></legend>
       <p class="text-[15px] text-muted mb-5">A clear photo of your whole dog works best. It is analyzed in memory and never stored.</p>
 
       <label for="dog_image" id="dropzone" class="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-gray-300 bg-canvas p-10 text-center cursor-pointer transition hover:border-accent hover:bg-accent-50">
@@ -72,7 +95,7 @@
 
     <!-- 2. Measurements -->
     <fieldset class="step-card">
-      <legend class="step"><span class="step-num">02</span><span class="step-title">Check the measurements</span></legend>
+      <legend class="step"><span class="step-num">03</span><span class="step-title">Check the measurements</span></legend>
       <p class="text-[15px] text-muted mb-6">We estimate these from the breed and its build, not by measuring the photo. If you know a real number, type it in and the rest adjust.</p>
 
       <div class="grid gap-5 sm:grid-cols-2">
@@ -108,7 +131,7 @@
 
     <!-- 3. Behavior -->
     <fieldset class="step-card">
-      <legend class="step"><span class="step-num">03</span><span class="step-title">Behavior</span></legend>
+      <legend class="step"><span class="step-num">04</span><span class="step-title">Behavior</span></legend>
       {{ yes_no('pulling', 'Does your dog pull on the leash?', 'Say yes if you want a fix for it.') }}
       {{ choice('aggression', 'How reactive is your dog around people or dogs?', [('low', 'Low'), ('moderate', 'Some'), ('high', 'High')]) }}
       {{ choice('training', 'Training level', [('beginner', 'Beginner'), ('intermediate', 'Some'), ('advanced', 'Advanced')]) }}
@@ -120,7 +143,7 @@
 
     <!-- 4. Environment -->
     <fieldset class="step-card">
-      <legend class="step"><span class="step-num">04</span><span class="step-title">Where you walk</span></legend>
+      <legend class="step"><span class="step-num">05</span><span class="step-title">Where you walk</span></legend>
       {{ choice('climate', 'Usual weather', [('hot', 'Hot'), ('moderate', 'Mild'), ('cold', 'Cold')]) }}
       {{ yes_no('heat_sensitive', 'Does your dog overheat easily?', 'Flat faces, thick coats and regular days above 80°F all count.') }}
       <p id="heat-hint" class="hidden -mt-2 mb-3 text-xs text-amber-700"></p>
@@ -132,13 +155,14 @@
 
     <!-- 5. Budget -->
     <fieldset class="step-card">
-      <legend class="step"><span class="step-num">05</span><span class="step-title">Budget for all three</span></legend>
-      <div class="grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Budget">
-        {% for value, title, desc in [('low', 'Budget', 'Under $65'), ('medium', 'Mid-range', '$65 to $125'), ('high', 'Premium', 'No limit')] %}
+      <legend class="step"><span class="step-num">06</span><span class="step-title" id="budget-title">Budget</span></legend>
+      <p id="budget-hint" class="text-[15px] text-muted mb-5">Ranges cover everything you picked in step 1.</p>
+      <div class="grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Budget" data-caps='{{ budget_caps|tojson }}'>
+        {% for value, title, desc in [('low', 'Budget', 'Under $65'), ('medium', 'Mid-range', '$65 to $130'), ('high', 'Premium', 'No limit')] %}
         <label class="budget-card">
           <input type="radio" name="budget" value="{{ value }}" class="sr-only" {% if loop.first %}required{% endif %}>
           <span class="block text-sm text-muted">{{ title }}</span>
-          <span class="block mt-1 text-lg font-semibold text-ink">{{ desc }}</span>
+          <span class="block mt-1 text-lg font-semibold text-ink" data-tier-label="{{ value }}">{{ desc }}</span>
         </label>
         {% endfor %}
       </div>

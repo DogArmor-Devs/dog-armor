@@ -140,3 +140,28 @@ def test_links_point_to_retailers():
     for item in rec()["combo"].values():
         assert item["links"]
         assert all(link["url"].startswith(("https://www.amazon.com/", "https://www.chewy.com/")) for link in item["links"])
+
+
+def test_only_chosen_gear_is_recommended():
+    result = rec(gear=["harness"])
+    assert list(result["combo"]) == ["harness"] and list(result["alternatives"]) == ["harness"]
+    assert result["total_price"] == result["combo"]["harness"]["price"]
+    assert list(rec(gear=["leash", "harness"])["combo"]) == ["harness", "leash"]
+
+
+def test_budget_label_matches_chosen_gear():
+    assert rec(gear=["harness"], budget="low")["budget"]["label"] == "under $30"
+    assert rec(gear=["harness", "collar"], budget="medium")["budget"]["label"] == "$45 to $90"
+    assert rec(budget="medium")["budget"]["label"] == "$65 to $130"
+
+
+@pytest.mark.parametrize("gear", [[], ["saddle"], "nope"])
+def test_invalid_gear_rejected(client, gear):
+    res = client.post("/api/recommend", json={**BASE, "gear": gear})
+    assert res.status_code == 400 and "gear" in res.get_json()["message"]
+
+
+def test_demo_page_exposes_budget_caps(client):
+    html = client.get("/demo").get_data(as_text=True)
+    assert 'name="gear" value="harness"' in html and "data-caps=" in html
+    assert sum(BUDGETS["low"][c] for c in ("harness", "collar", "leash")) == 65

@@ -20,10 +20,10 @@ LEVELS = ("low", "moderate", "high")
 TRAINING_LEVELS = ("beginner", "intermediate", "advanced")
 CLIMATES = ("hot", "moderate", "cold")
 BUDGETS = {
-    # per-item caps in USD
-    "low": {"label": "under $65", "harness": 30, "collar": 15, "leash": 20, "extra": 30},
-    "medium": {"label": "$65 to $125", "harness": 60, "collar": 30, "leash": 40, "extra": 60},
-    "high": {"label": "no limit", "harness": None, "collar": None, "leash": None, "extra": None},
+    # per-item caps in USD; the tier's total range is the sum over the chosen gear
+    "low": {"harness": 30, "collar": 15, "leash": 20, "extra": 30},
+    "medium": {"harness": 60, "collar": 30, "leash": 40, "extra": 60},
+    "high": {"harness": None, "collar": None, "leash": None, "extra": None},
 }
 YES_NO_FIELDS = ("pulling", "hiking", "hunting", "working", "water", "sports", "growing", "cleaning_experience", "heat_sensitive")
 
@@ -34,6 +34,16 @@ RETAILER_SEARCH = {
 
 HARNESS_SIZES = [("XXS", 9, 13), ("XS", 13, 17), ("S", 17, 22), ("M", 22, 27), ("L", 27, 32), ("XL", 32, 46)]
 COLLAR_SIZES = [("XS", 8, 11), ("S", 11, 14), ("M", 14, 18), ("L", 18, 22), ("XL", 22, 30)]
+
+
+def budget_label(tier, gear):
+    """Human-readable total range for a budget tier over the chosen gear."""
+    low = sum(BUDGETS["low"][c] for c in gear)
+    if tier == "low":
+        return f"under ${low}"
+    if tier == "medium":
+        return f"${low} to ${sum(BUDGETS['medium'][c] for c in gear)}"
+    return "no limit"
 
 
 def load_catalog(path=CATALOG_PATH):
@@ -70,6 +80,17 @@ def parse_profile(data):
             raise ProfileError(f"'{key}' must be one of: {', '.join(options)}")
         return value
 
+    def gear_list():
+        value = data.get("gear", list(CATEGORIES))
+        if isinstance(value, str):
+            value = value.split(",")
+        if not isinstance(value, (list, tuple)):
+            raise ProfileError("'gear' must be a list")
+        chosen = {str(v).strip().lower() for v in value}
+        if not chosen or not chosen <= set(CATEGORIES):
+            raise ProfileError(f"'gear' must include at least one of: {', '.join(CATEGORIES)}")
+        return [c for c in CATEGORIES if c in chosen]
+
     def yes_no(key):
         value = data.get(key)
         if isinstance(value, bool):
@@ -91,6 +112,7 @@ def parse_profile(data):
         "training": choice("training", TRAINING_LEVELS),
         "climate": choice("climate", CLIMATES),
         "budget": choice("budget", tuple(BUDGETS)),
+        "gear": gear_list(),
         "brachycephalic": bool(data.get("brachycephalic")),
         "build": data.get("build") if data.get("build") in ("standard", "sighthound", "stocky", "long") else "standard",
     }
@@ -384,7 +406,7 @@ def recommend(profile, catalog=None):
     catalog = catalog or CATALOG
     prefs = build_preferences(profile)
     picks, alternatives, over_budget = {}, {}, []
-    for category in CATEGORIES:
+    for category in profile["gear"]:
         ranked, within_budget = rank(category, prefs, profile, catalog)
         if not ranked:
             continue
@@ -404,7 +426,8 @@ def recommend(profile, catalog=None):
         "alternatives": alternatives,
         "extras": extras,
         "total_price": total,
-        "budget": {"tier": profile["budget"], "label": BUDGETS[profile["budget"]]["label"], "over_budget": over_budget},
+        "budget": {"tier": profile["budget"], "label": budget_label(profile["budget"], profile["gear"]), "over_budget": over_budget},
+        "gear": profile["gear"],
         "material_note": material_note(profile),
         "notes": safety_notes(profile),
         "measurements": {k: profile[k] for k in ("weight_lbs", "neck", "chest", "belly", "back") if profile.get(k) is not None},
